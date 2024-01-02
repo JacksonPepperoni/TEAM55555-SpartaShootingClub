@@ -1,78 +1,63 @@
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public class JEH_Aim : MonoBehaviour
 {
 
+    [SerializeField] private GameObject TestPrefab;
+    [SerializeField] private GameObject TestPrefab22;
 
-    public GameObject TestPrefab;
-    public GameObject TestPrefab22;
+    [SerializeField] private GameObject rigTest;
 
+    private int _layerMask;
+
+
+    private void Awake()
+    {
+        _layerMask = 1 << LayerMask.NameToLayer("Water"); // Water 레이어만 잡힘
+    }
 
     void Update()
     {
-
         if (Input.GetMouseButtonDown(0))
         {
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-             int layerMask = 1 << LayerMask.NameToLayer("Water"); 
-
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)) 
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, _layerMask))
             {
-                Debug.Log(hit.collider.name);
-                Debug.DrawRay(ray.origin, ray.direction * 500, Color.red, 1);
+                //  Debug.DrawRay(ray.origin, ray.direction * 500, Color.red, 1);
 
                 GameObject wallPiece = Instantiate(TestPrefab);
-                wallPiece.transform.position = hit.point; // 충돌위치
-                wallPiece.transform.forward = hit.normal; // 노멀방향
+                wallPiece.transform.position = hit.point;
+                wallPiece.transform.forward = hit.normal;
 
                 GameObject dddd = Instantiate(TestPrefab22);
-                dddd.transform.position = hit.point; 
+                dddd.transform.position = hit.point;
                 dddd.transform.forward = hit.normal;
 
 
+                if (hit.collider.CompareTag("Ground"))
+                {
+                    Debug.Log("바닥");
+                }
+                else if (hit.collider.CompareTag("Wall"))
+                {
+                    Debug.Log("벽");
+                }
 
-
-
-            }
-            else
-            {
-               // Debug.Log("충돌체가 없거나 원하는 충돌체가 아닙니다.");
             }
         }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+            GameObject rig = Instantiate(rigTest);
+            rig.transform.position = gameObject.transform.position;
+            rig.transform.forward = ray.direction;
+
+        }
 
     }
-
 }
-
-
-/*
- * 
- * 
- * 
- *       // 만일 레이에 부딪힌 대상의 레이어가 "Enemy"라면 데미지 함수를 실행한다.
-                if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Enemy"))
- * 
- * 
- * 
-                 int layerMask = 1 << LayerMask.NameToLayer("Water"); 
-   if (Physics.Raycast(ray, out hit, layerMask)) // 충돌체의 레이어가 Water일때만 true됨. 해당 레이어가 아니면 뒤로 통과해버림
-
-Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out RaycastHit hit))  // Max Distance 안정하면 화면 끝까지 쏴지는듯. 충돌체 있으면 true
-            {
-                Debug.DrawRay(ray.origin, ray.direction * 200, Color.red);
-
-                Debug.Log(hit.collider.name);
-            }
-            else
-            {
-                Debug.Log("바깥이다!!");
-            }
-
-
- */
