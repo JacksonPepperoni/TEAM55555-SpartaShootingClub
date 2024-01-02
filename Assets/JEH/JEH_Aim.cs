@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 
 public class JEH_Aim : MonoBehaviour
 {
@@ -17,7 +16,7 @@ public class JEH_Aim : MonoBehaviour
         _layerMask = 1 << LayerMask.NameToLayer("Water"); // Water 레이어만 잡힘
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
