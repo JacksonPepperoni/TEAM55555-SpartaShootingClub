@@ -544,7 +544,7 @@ GameObject:
   - component: {fileID: 1336347766}
   - component: {fileID: 1336347765}
   m_Layer: 0
-  m_Name: "\uD50C\uB808\uC774\uC5B4\uC5D0\uC784"
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -562,6 +562,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 163d90df404d3d74ba6c4d885486c878, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TestPrefab: {fileID: 4870205358408231974, guid: 00c2ded7d25727b439dd201f5dbf3df6, type: 3}
+  TestPrefab22: {fileID: 7771070175085698280, guid: 0c42cedabecd8fa45ac2896009728172, type: 3}
 --- !u!4 &1336347766
 Transform:
   m_ObjectHideFlags: 0
@@ -570,7 +572,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1336347764}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.3, y: 0, z: -31.1}
+  m_LocalPosition: {x: -28.1, y: 0, z: -31.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

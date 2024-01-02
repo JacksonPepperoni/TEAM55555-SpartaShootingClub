@@ -5,6 +5,7 @@ public class JEH_Aim : MonoBehaviour
 
 
     public GameObject TestPrefab;
+    public GameObject TestPrefab22;
 
 
     void Update()
@@ -21,18 +22,24 @@ public class JEH_Aim : MonoBehaviour
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask)) 
             {
                 Debug.Log(hit.collider.name);
-                Debug.DrawRay(ray.origin, ray.direction * 200, Color.red, 1);
+                Debug.DrawRay(ray.origin, ray.direction * 500, Color.red, 1);
+
+                GameObject wallPiece = Instantiate(TestPrefab);
+                wallPiece.transform.position = hit.point; // ì¶©ëŒìœ„ì¹˜
+                wallPiece.transform.forward = hit.normal; // ë…¸ë©€ë°©í–¥
+
+                GameObject dddd = Instantiate(TestPrefab22);
+                dddd.transform.position = hit.point; 
+                dddd.transform.forward = hit.normal;
 
 
-                GameObject bullet = Instantiate(TestPrefab);
-                bullet.transform.position = hit.point; //Ãæµ¹À§Ä¡
-                bullet.transform.forward = hit.normal; // Ãæµ¹ ³ë¸Ö¹æÇâ
+
 
 
             }
             else
             {
-                Debug.Log("Ãæµ¹Ã¼°¡ ¾ø°Å³ª ¿øÇÏ´Â Ãæµ¹Ã¼°¡ ¾Æ´Õ´Ï´Ù.");
+               // Debug.Log("ì¶©ëŒì²´ê°€ ì—†ê±°ë‚˜ ì›í•˜ëŠ” ì¶©ëŒì²´ê°€ ì•„ë‹™ë‹ˆë‹¤.");
             }
         }
 
@@ -46,17 +53,17 @@ public class JEH_Aim : MonoBehaviour
  * 
  * 
  * 
- *       // ¸¸ÀÏ ·¹ÀÌ¿¡ ºÎµúÈù ´ë»óÀÇ ·¹ÀÌ¾î°¡ "Enemy"¶ó¸é µ¥¹ÌÁö ÇÔ¼ö¸¦ ½ÇÇàÇÑ´Ù.
+ *       // ë§Œì¼ ë ˆì´ì— ë¶€ë”ªíŒ ëŒ€ìƒì˜ ë ˆì´ì–´ê°€ "Enemy"ë¼ë©´ ë°ë¯¸ì§€ í•¨ìˆ˜ë¥¼ ì‹¤í–‰í•œë‹¤.
                 if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Enemy"))
  * 
  * 
  * 
                  int layerMask = 1 << LayerMask.NameToLayer("Water"); 
-   if (Physics.Raycast(ray, out hit, layerMask)) // Ãæµ¹Ã¼ÀÇ ·¹ÀÌ¾î°¡ WaterÀÏ¶§¸¸ trueµÊ. ÇØ´ç ·¹ÀÌ¾î°¡ ¾Æ´Ï¸é µÚ·Î Åë°úÇØ¹ö¸²
+   if (Physics.Raycast(ray, out hit, layerMask)) // ì¶©ëŒì²´ì˜ ë ˆì´ì–´ê°€ Waterì¼ë•Œë§Œ trueë¨. í•´ë‹¹ ë ˆì´ì–´ê°€ ì•„ë‹ˆë©´ ë’¤ë¡œ í†µê³¼í•´ë²„ë¦¼
 
 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out RaycastHit hit))  // Max Distance ¾ÈÁ¤ÇÏ¸é È­¸é ³¡±îÁö ½÷Áö´Âµí. Ãæµ¹Ã¼ ÀÖÀ¸¸é true
+            if (Physics.Raycast(ray, out RaycastHit hit))  // Max Distance ì•ˆì •í•˜ë©´ í™”ë©´ ëê¹Œì§€ ì´ì§€ëŠ”ë“¯. ì¶©ëŒì²´ ìˆìœ¼ë©´ true
             {
                 Debug.DrawRay(ray.origin, ray.direction * 200, Color.red);
 
@@ -64,7 +71,7 @@ Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             }
             else
             {
-                Debug.Log("¹Ù±ùÀÌ´Ù!!");
+                Debug.Log("ë°”ê¹¥ì´ë‹¤!!");
             }
 
 
