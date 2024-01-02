@@ -27,13 +27,9 @@ public class ResourceManager : Singleton<ResourceManager>
         string[] preloadKeys = new string[]
         {
             // 게임 시작 전 캐싱할 Object의 Resources 주소 입력
-            @"Test/TestPrefab",
-            @"Test/TestPrefab (1)",
-            @"Test/TestPrefab (2)",
-            @"Test/TestPrefab (3)",
-            @"Test/TestPrefab (4)",
-            @"Test/TestPrefab (5)",
-            @"Test/TestPrefab (6)",
+            @"Prefabs/Ground",
+            @"Prefabs/PlayerCharacter",
+            @"PlayerInputActions",
         };
 
         int loadCount = 0;
