@@ -5,12 +5,17 @@ public class PlayerController : MonoBehaviour
     // TODO: Data에서 받아올 것
     [SerializeField] float playerSpeed = 2f;
     [SerializeField] float jumpHeight = 1f;
+    [SerializeField] float sitHeight = 0.5f;
     [SerializeField] float gravity = Physics.gravity.y;
+    [SerializeField] Transform cinemachineContainer;
 
     private CharacterController _controller;
     private Vector3 _velocity;
     private InputManager _input;
     private Transform _cameraTransform;
+    private Animator _weaponAnimator;
+
+    private int AnimatorHash_ADSTrigger = Animator.StringToHash("ADSTrigger");
 
     public bool IsGround => _controller.isGrounded;
 
@@ -19,23 +24,36 @@ public class PlayerController : MonoBehaviour
         _controller = GetComponent<CharacterController>();
         _input = InputManager.Instance;
         _cameraTransform = Camera.main.transform;
+        _weaponAnimator = _cameraTransform.GetComponentInChildren<Animator>();
     }
 
     public void Move()
     {
-
         if (IsGround && _velocity.y < 0)
             _velocity.y = 0f;
 
         Vector3 movement = _input.PlayerMovement;
         movement = new Vector3(movement.x, 0f, movement.y);
-        movement = transform.forward * movement.z + transform.right * movement.x;
+        movement = _cameraTransform.forward * movement.z + _cameraTransform.right * movement.x;
         movement.y = 0f;
         _controller.Move(playerSpeed * Time.deltaTime * movement);
     }
 
-    public void LookForward(Vector3 forward)
+    public void Sit()
     {
-        transform.forward = forward;
+        cinemachineContainer.localPosition -= Vector3.down * 0.5f;
+    }
+
+    public void Stand()
+    {
+        cinemachineContainer.localPosition -= Vector3.up * 0.5f;
+    }
+
+    public void ChangeADS()
+    {
+        if (_weaponAnimator == null)
+            _weaponAnimator = _cameraTransform.GetComponentInChildren<Animator>();
+
+        _weaponAnimator.SetTrigger(AnimatorHash_ADSTrigger);
     }
 }

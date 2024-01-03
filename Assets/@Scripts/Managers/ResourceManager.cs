@@ -26,16 +26,17 @@ public class ResourceManager : Singleton<ResourceManager>
     {
         string[] preloadKeys = new string[]
         {
-            // °ÔÀÓ ½ÃÀÛ Àü Ä³½ÌÇÒ ObjectÀÇ Resources ÁÖ¼Ò ÀÔ·Â
+            // ê²Œì„ ì‹œì‘ ì „ ìºì‹±í•  Objectì˜ Resources ì£¼ì†Œ ì…ë ¥
             @"Prefabs/Ground",
             @"Prefabs/PlayerCharacter",
             @"PlayerInputActions",
+            @"Prefabs/Weapon",
         };
 
         int loadCount = 0;
         int totalCount = preloadKeys.Length;
 
-        // preloadKeys ¹è¿­ÀÇ ÁÖ¼ÒµéÀ» ·Îµå
+        // preloadKeys ë°°ì—´ì˜ ì£¼ì†Œë“¤ì„ ë¡œë“œ
         foreach (var key in preloadKeys)
         {
             LoadAsync<T>(key, obj =>

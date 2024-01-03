@@ -7,19 +7,21 @@ public class WJY_TestSceneManager : Singleton<WJY_TestSceneManager>
     {
         base.Start();
 
-        // 1. ¸®¼Ò½º ·Îµå
+        // 1. ë¦¬ì†ŒìŠ¤ ë¡œë“œ
         ResourceLoad((key, count, total) =>
         {
             Debug.Log($"{key}, {count}, {total}");
             if (count == total)
             {
-                // 2. °´Ã¼ »ı¼º, ÃÊ±âÈ­
-                Debug.Log("¸®¼Ò½º ·Îµå ¿Ï·á. °´Ã¼ »ı¼º, ÃÊ±âÈ­ ½ÃÀÛ");
+                // 2. ê°ì²´ ìƒì„±, ì´ˆê¸°í™”
+                Debug.Log("ë¦¬ì†ŒìŠ¤ ë¡œë“œ ì™„ë£Œ. ê°ì²´ ìƒì„±, ì´ˆê¸°í™” ì‹œì‘");
 
                 var ground = ResourceManager.Instance.GetCache<GameObject>("Ground");
                 Instantiate(ground);
                 var player = ResourceManager.Instance.GetCache<GameObject>("PlayerCharacter");
                 Instantiate(player);
+                var weapon = ResourceManager.Instance.GetCache<GameObject>("Weapon");
+                Instantiate(weapon, Camera.main.transform.GetChild(0));
 
                 InputManager.Instance.Initialize();
             }
@@ -28,10 +30,10 @@ public class WJY_TestSceneManager : Singleton<WJY_TestSceneManager>
 
     private void ResourceLoad(Action<string, int, int> callback = null)
     {
-        // Resource.LoadAllAsync°¡ ¾ø¾î¼­
-        // LoadAsync()¸¦ ¿©·¯¹ø ¹İº¹ÇØ¼­ ÇÊ¿äÇÑ ¸®¼Ò½º¸¦ Ä³½ÌÇØ¾ßÇÒ °Í °°½À´Ï´Ù.
-        // µû¶ó¼­, LoadAllAsync ¸Ş¼­µå ³»ºÎ¿¡ Ä³½ÌÀÌ ÇÊ¿äÇÑ ¿ÀºêÁ§Æ®ÀÇ ÁÖ¼Ò¸¦ µî·ÏÇÏ°í,
-        // ±× ÁÖ¼ÒµéÀ» ¹İº¹¹®À» µ¹¸ç LoadAsnyc·Î ·ÎµåÇÏµµ·Ï Çß½À´Ï´Ù.
+        // Resource.LoadAllAsyncê°€ ì—†ì–´ì„œ
+        // LoadAsync()ë¥¼ ì—¬ëŸ¬ë²ˆ ë°˜ë³µí•´ì„œ í•„ìš”í•œ ë¦¬ì†ŒìŠ¤ë¥¼ ìºì‹±í•´ì•¼í•  ê²ƒ ê°™ìŠµë‹ˆë‹¤.
+        // ë”°ë¼ì„œ, LoadAllAsync ë©”ì„œë“œ ë‚´ë¶€ì— ìºì‹±ì´ í•„ìš”í•œ ì˜¤ë¸Œì íŠ¸ì˜ ì£¼ì†Œë¥¼ ë“±ë¡í•˜ê³ ,
+        // ê·¸ ì£¼ì†Œë“¤ì„ ë°˜ë³µë¬¸ì„ ëŒë©° LoadAsnycë¡œ ë¡œë“œí•˜ë„ë¡ í–ˆìŠµë‹ˆë‹¤.
 
         ResourceManager.Instance.LoadAllAsync<UnityEngine.Object>(callback);
     }
