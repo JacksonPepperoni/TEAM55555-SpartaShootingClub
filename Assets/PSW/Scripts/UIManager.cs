@@ -6,7 +6,7 @@ public class UIManager : MonoBehaviour
 {
     #region Fields
 
-    // ÀÓ½Ã »ı¼º
+    // ì„ì‹œ ìƒì„±
     [SerializeField] private GameObject testScene;
 
     private int order = 10;
@@ -34,18 +34,18 @@ public class UIManager : MonoBehaviour
     #endregion
 
     /// <summary>
-    /// Scene, Popup »ı¼º => Äµ¹ö½º ÃÊ±âÈ­
+    /// Scene, Popup ìƒì„± => ìº”ë²„ìŠ¤ ì´ˆê¸°í™”
     /// </summary>
-    /// <param name="uiObject">ÇØ´ç UI ¿ÀºêÁ§Æ®</param>
+    /// <param name="uiObject">í•´ë‹¹ UI ì˜¤ë¸Œì íŠ¸</param>
     public void SetCanvas(GameObject uiObject)
     {
-        // Canvas ÄÄÆ÷³ÍÆ® ¼¼ÆÃ
+        // Canvas ì»´í¬ë„ŒíŠ¸ ì„¸íŒ…
         var canvas = Util.GetOrAddComponent<Canvas>(uiObject);
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.overrideSorting = true;
         canvas.sortingOrder = order++;
 
-        // Canvas Scaler ¼¼ÆÃ
+        // Canvas Scaler ì„¸íŒ…
         var canvasScaler = Util.GetOrAddComponent<CanvasScaler>(uiObject);
         canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         canvasScaler.referenceResolution = new Vector2(1920, 1080);
@@ -53,7 +53,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        // ÀÓ½Ã ¾À Å×½ºÆ® »ı¼º => ¸®·Î½º ¸Å´ÏÀú·Î °ü¸® ¿¹Á¤
+        // ì„ì‹œ ì”¬ í…ŒìŠ¤íŠ¸ ìƒì„± => ë¦¬ë¡œìŠ¤ ë§¤ë‹ˆì €ë¡œ ê´€ë¦¬ ì˜ˆì •
         ShowScene<UIScene>(testScene);
     }
 
@@ -61,8 +61,8 @@ public class UIManager : MonoBehaviour
 
     public T ShowScene<T>(GameObject sceneObject) where T : UIScene
     {
-        GameObject obj = Instantiate(sceneObject, UIRoot.transform);
-        T sceneUI = Util.GetOrAddComponent<T>(obj);
+        GameObject scene = Instantiate(sceneObject, UIRoot.transform);
+        T sceneUI = Util.GetOrAddComponent<T>(scene);
         this.sceneUI = sceneUI; 
         return sceneUI;
     }
@@ -108,6 +108,17 @@ public class UIManager : MonoBehaviour
         {
             ClosePopup();
         }
+    }
+
+    #endregion
+
+    #region Element
+
+    public T ShowElement<T>(GameObject uiElement, Transform uiParent) where T : UIElement
+    {
+        GameObject element = Instantiate(uiElement, uiParent);
+        T elementUI = Util.GetOrAddComponent<T>(element);
+        return elementUI;
     }
 
     #endregion
