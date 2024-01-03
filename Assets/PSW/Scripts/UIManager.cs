@@ -61,8 +61,8 @@ public class UIManager : MonoBehaviour
 
     public T ShowScene<T>(GameObject sceneObject) where T : UIScene
     {
-        GameObject obj = Instantiate(sceneObject, UIRoot.transform);
-        T sceneUI = Util.GetOrAddComponent<T>(obj);
+        GameObject scene = Instantiate(sceneObject, UIRoot.transform);
+        T sceneUI = Util.GetOrAddComponent<T>(scene);
         this.sceneUI = sceneUI; 
         return sceneUI;
     }
@@ -108,6 +108,17 @@ public class UIManager : MonoBehaviour
         {
             ClosePopup();
         }
+    }
+
+    #endregion
+
+    #region Element
+
+    public T ShowElement<T>(GameObject uiElement, Transform uiParent) where T : UIElement
+    {
+        GameObject element = Instantiate(uiElement, uiParent);
+        T elementUI = Util.GetOrAddComponent<T>(element);
+        return elementUI;
     }
 
     #endregion
