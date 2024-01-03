@@ -26,7 +26,6 @@ public class Projectile : MonoBehaviour
             Destroy(this.gameObject, _particleSystem.duration);
         else
             Destroy(this.gameObject, 3f);
-
     }
 
 }
