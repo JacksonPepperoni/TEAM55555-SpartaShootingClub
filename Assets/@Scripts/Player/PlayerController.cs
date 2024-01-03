@@ -8,12 +8,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float sitHeight = 0.5f;
     [SerializeField] float gravity = Physics.gravity.y;
     [SerializeField] Transform cinemachineContainer;
-    [SerializeField] Transform weaponContainer;
 
     private CharacterController _controller;
     private Vector3 _velocity;
     private InputManager _input;
     private Transform _cameraTransform;
+    private Animator _weaponAnimator;
+
+    private int AnimatorHash_ADSTrigger = Animator.StringToHash("ADSTrigger");
 
     public bool IsGround => _controller.isGrounded;
 
@@ -22,8 +24,7 @@ public class PlayerController : MonoBehaviour
         _controller = GetComponent<CharacterController>();
         _input = InputManager.Instance;
         _cameraTransform = Camera.main.transform;
-        var weapon = transform.Find("Weapon");
-        weapon.parent = _cameraTransform.GetChild(0);
+        _weaponAnimator = _cameraTransform.GetComponentInChildren<Animator>();
     }
 
     public void Move()
@@ -46,5 +47,13 @@ public class PlayerController : MonoBehaviour
     public void Stand()
     {
         cinemachineContainer.localPosition -= Vector3.up * 0.5f;
+    }
+
+    public void ChangeADS()
+    {
+        if (_weaponAnimator == null)
+            _weaponAnimator = _cameraTransform.GetComponentInChildren<Animator>();
+
+        _weaponAnimator.SetTrigger(AnimatorHash_ADSTrigger);
     }
 }

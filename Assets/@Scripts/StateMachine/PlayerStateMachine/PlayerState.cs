@@ -35,6 +35,8 @@ public class PlayerGroundState : PlayerStateBase
     public override void OnStateStay()
     {
         _controller.Move();
+        if (_input.ADSTrigger)
+            _controller.ChangeADS();
     }
 }
 

@@ -20,6 +20,8 @@ public class WJY_TestSceneManager : Singleton<WJY_TestSceneManager>
                 Instantiate(ground);
                 var player = ResourceManager.Instance.GetCache<GameObject>("PlayerCharacter");
                 Instantiate(player);
+                var weapon = ResourceManager.Instance.GetCache<GameObject>("Weapon");
+                Instantiate(weapon, Camera.main.transform.GetChild(0));
 
                 InputManager.Instance.Initialize();
             }
