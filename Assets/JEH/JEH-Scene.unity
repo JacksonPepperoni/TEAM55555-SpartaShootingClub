@@ -138,11 +138,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -6636390742394913070, guid: 51f4a154bf5ec444d92043ba69a8bf4b, type: 3}
       propertyPath: _cartridge
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -6636390742394913070, guid: 51f4a154bf5ec444d92043ba69a8bf4b, type: 3}
       propertyPath: _autoReloading
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6636390742394913070, guid: 51f4a154bf5ec444d92043ba69a8bf4b, type: 3}
+      propertyPath: _delayBetweenShots
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: -6636390742394913070, guid: 51f4a154bf5ec444d92043ba69a8bf4b, type: 3}
       propertyPath: _isContinuousShooting

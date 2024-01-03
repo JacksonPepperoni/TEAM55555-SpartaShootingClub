@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Reflection;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Gun : Weapon
@@ -10,17 +8,12 @@ public class Gun : Weapon
     private Coroutine _shotCoroutine;
     private Coroutine _reloadCoroutine;
 
-
+    [Space(15)]
     [SerializeField] private GameObject TestPrefab;
     [SerializeField] private GameObject TestPrefab22;
 
     private int _layerMask;
 
-
-    bool isReloading = false;
-
-
-    bool isLeftPress = false;
 
     private void OnEnable()
     {
@@ -39,8 +32,6 @@ public class Gun : Weapon
     private void Update()
     {
 
-
-
         if (Input.GetMouseButtonDown(0))
         {
             isLeftPress = true;
@@ -51,8 +42,6 @@ public class Gun : Weapon
         else if (Input.GetMouseButtonUp(0))
         {
             isLeftPress = false;
-
-            //   ShotStop();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -65,14 +54,14 @@ public class Gun : Weapon
     }
 
 
-    #region 발사 관련
+    #region 발사
 
     private void ShotStart()
     {
-        if (isReloading) return;
+        if (isReloading)
+            return;
 
-        if (_shotCoroutine == null)
-            _shotCoroutine = StartCoroutine(ShotCoroutine());
+        _shotCoroutine ??= StartCoroutine(ShotCoroutine());
 
     }
 
@@ -108,8 +97,6 @@ public class Gun : Weapon
                     yield break;
                 }
             }
-
-
         }
     }
 
@@ -120,10 +107,9 @@ public class Gun : Weapon
             StopCoroutine(_shotCoroutine);
             _shotCoroutine = null;
         }
-
     }
 
-    private void Shot() // 레이로 발사
+    private void Shot() // 레이로 발사, 즉발
     {
         _currentCartridge--;
         _currentShotDelay = _delayBetweenShots;
@@ -143,14 +129,13 @@ public class Gun : Weapon
             dddd.transform.position = hit.point;
             dddd.transform.forward = hit.normal;
 
-
             if (hit.collider.CompareTag("Ground"))
             {
-                Debug.Log("바닥");
+               // Debug.Log("바닥");
             }
             else if (hit.collider.CompareTag("Wall"))
             {
-                Debug.Log("벽");
+              //  Debug.Log("벽");
             }
         }
     }
@@ -158,34 +143,21 @@ public class Gun : Weapon
 
     #endregion
 
-    #region 탄약 리로드
-
-
-    /// <summary>
-    ///
-    /// 움직이면서 리로드가능
-    /// 리로딩 완료전에 무기 바꾸면 취소됨. 
-    /// </summary>
-
+    #region 재장전
 
     private void CartridgeEmpty()
     {
-        Debug.Log("총알부족");
+        Debug.Log("총알이 부족해요");
     }
 
-    private void ReloadStart()
+    private void ReloadStart() //BOOL로 만들어서 재장전 성공, 취소 판단할것
     {
-        if (isReloading || (_currentCartridge == _cartridge))
+        if (isReloading || _currentCartridge == _cartridge) // 총알꽉찬상태에선 리로드 불가
             return;
 
-
         isReloading = true;
+        _reloadCoroutine ??= StartCoroutine(ReloadCoroutine());
 
-
-        if (_reloadCoroutine == null)
-        {
-            _reloadCoroutine = StartCoroutine(ReloadCoroutine());
-        }
     }
 
     private IEnumerator ReloadCoroutine()
@@ -205,7 +177,7 @@ public class Gun : Weapon
         _reloadCoroutine = null;
     }
 
-    private void ReloadStop()
+    private void ReloadStop() // 장전중에 무기바꾸면 취소되야함
     {
         if (_reloadCoroutine != null)
         {
