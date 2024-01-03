@@ -7,13 +7,15 @@ public class PlayerStateMachine : StateMachine<PlayerStateBase>
     public InputManager Input { get; private set; }
     public Transform CameraTransform { get; private set; }
 
-    private enum PlayerState
+    public enum PlayerState
     {
         Stand,
         Sit,
     }
 
-    Dictionary<PlayerState, PlayerStateBase> _stateDict;
+    private Dictionary<PlayerState, PlayerStateBase> _stateDict;
+
+    public Dictionary<PlayerState, PlayerStateBase> StateDictionary => _stateDict;
 
     private void Awake()
     {
