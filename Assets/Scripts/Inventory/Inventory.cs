@@ -7,7 +7,6 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory Instance;
     private List<Item> _inventoryList;
-    private List<Item> _equipList;
     public event Action OnListChanged;
 
     private void Awake()
@@ -15,40 +14,46 @@ public class Inventory : MonoBehaviour
         Init();
     }
 
-    public void RemoveInventoryItem(int index)
+    public void AddItem(ItemData itemData)
     {
-        if(index < 0)
+        if(itemData is WeaponData)
         {
-            Debug.Log("인벤토리 인덱스 오류");
-            return;
+            Weapon item = new Weapon(itemData);
+            _inventoryList.Add(item);
         }
+        else
+        {
+            Item item = new Item(itemData);
+            _inventoryList.Add(item);
+        }
+        OnListChanged?.Invoke();
+    }
 
+    public void RemoveItem(int index)
+    {
         _inventoryList.RemoveAt(index);
         OnListChanged?.Invoke();
     }
 
-    public Item GetInventoryItem(int index)
+    public ItemData GetItemData(int index)
     {
-        if(index < 0)
-        {
-            Debug.Log("인벤토리 인덱스 오류");
-            return null;
-        }
-
-        return null;
+        return _inventoryList[index].ItemData;
     }
-
-    // TODO => EquipList 처리 필요
-    // public void EquipItem(int index)
-    // {
-    //     _equipList.Add(_inventoryList[index]);
-    //     RemoveItem(index);
-    //     OnListChanged?.Invoke();
-    // }
 
     public int GetInventoryCount()
     {
         return _inventoryList.Count;
+    }
+
+    public bool EquipItem(int index)
+    {
+        if(_inventoryList[index] is Weapon
+        && EquipManager.Instance.AddWeapon(_inventoryList[index].ItemData as WeaponData))
+        {
+            RemoveItem(index);
+            return true;
+        }
+        return false;
     }
 
     private void Init()
