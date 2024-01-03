@@ -46,9 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectilePrefab: {fileID: 0}
   _delayBetweenShots: 0.1
-  _cartridge: 10
+  _cartridge: 5
   _isContinuousShooting: 1
   _autoReloading: 1
   TestPrefab: {fileID: 4870205358408231974, guid: 00c2ded7d25727b439dd201f5dbf3df6, type: 3}
   TestPrefab22: {fileID: 7771070175085698280, guid: 0c42cedabecd8fa45ac2896009728172, type: 3}
-  _layerMask: 0

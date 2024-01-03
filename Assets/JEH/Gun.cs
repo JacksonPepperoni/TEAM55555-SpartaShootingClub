@@ -1,14 +1,15 @@
 using System.Collections;
-using UnityEditorInternal;
+using System.Reflection;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Gun : Weapon
 {
-
-
     private float _rangeOfHits = Mathf.Infinity; // 피격거리. 레이 길이, 데미지 입히는 거리
 
     private Coroutine _shotCoroutine;
+    private Coroutine _reloadCoroutine;
+
 
     [SerializeField] private GameObject TestPrefab;
     [SerializeField] private GameObject TestPrefab22;
@@ -16,11 +17,15 @@ public class Gun : Weapon
     private int _layerMask;
 
 
+    bool isReloading = false;
+
+
+    bool isLeftPress = false;
+
     private void OnEnable()
     {
         Initialize();
     }
-
 
     protected override void Initialize()
     {
@@ -28,30 +33,32 @@ public class Gun : Weapon
 
         _layerMask = 1 << LayerMask.NameToLayer("Water"); // Water 레이어만 잡힘
         _shotCoroutine = null;
+        _reloadCoroutine = null;
     }
 
     private void Update()
     {
 
-        if (weaponState != WeaponState.Reload)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (_currentShotDelay <= 0)
-                    ShotStart();
-            }
-            else if (Input.GetMouseButtonUp(0))
-            {
-                ShotStop();
-            }
-        }
 
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            isLeftPress = true;
+
+            if (_currentShotDelay <= 0)
+                ShotStart();
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            isLeftPress = false;
+
+            //   ShotStop();
+        }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Reloading();
+            ReloadStart();
         }
-
 
         _currentShotDelay -= Time.deltaTime;
 
@@ -62,6 +69,7 @@ public class Gun : Weapon
 
     private void ShotStart()
     {
+        if (isReloading) return;
 
         if (_shotCoroutine == null)
             _shotCoroutine = StartCoroutine(ShotCoroutine());
@@ -74,26 +82,34 @@ public class Gun : Weapon
         {
             if (_currentCartridge <= 0)
             {
-                if (_autoReloading)
-                {
-                    yield return StartCoroutine(ReloadingCoroutine());
-                }
-                else
-                {
-                    CartridgeEmpty();
-                    yield break;
-                }
+                CartridgeEmpty();
+                yield break;
             }
 
             Shot();
+
+            if (_currentCartridge <= 0 && _autoReloading)
+            {
+                yield return StartCoroutine(ReloadCoroutine());
+            }
+
+            yield return new WaitForSeconds(_delayBetweenShots);
 
             if (!_isContinuousShooting)
             {
                 ShotStop();
                 yield break;
             }
+            else
+            {
+                if (!isLeftPress)
+                {
+                    ShotStop();
+                    yield break;
+                }
+            }
 
-            yield return new WaitForSeconds(_delayBetweenShots);
+
         }
     }
 
@@ -105,13 +121,10 @@ public class Gun : Weapon
             _shotCoroutine = null;
         }
 
-        weaponState = WeaponState.Idle;
     }
 
     private void Shot() // 레이로 발사
     {
-        weaponState = WeaponState.Attack;
-
         _currentCartridge--;
         _currentShotDelay = _delayBetweenShots;
 
@@ -160,21 +173,24 @@ public class Gun : Weapon
         Debug.Log("총알부족");
     }
 
-    private void Reloading()
+    private void ReloadStart()
     {
-        if (weaponState == WeaponState.Reload) return;
+        if (isReloading || (_currentCartridge == _cartridge))
+            return;
 
-        ShotStop();
-        StartCoroutine(ReloadingCoroutine());
 
-        // TODO 이 총의 탄창이 남아있으면 재장전가능 없으면 FALSE 아니면 true
+        isReloading = true;
+
+
+        if (_reloadCoroutine == null)
+        {
+            _reloadCoroutine = StartCoroutine(ReloadCoroutine());
+        }
     }
 
-    private IEnumerator ReloadingCoroutine()
+    private IEnumerator ReloadCoroutine()
     {
-        if (weaponState == WeaponState.Reload) yield break;
-
-        weaponState = WeaponState.Reload;
+        isReloading = true;
 
         Debug.Log("리로딩");
         yield return new WaitForSeconds(_ReloadDelay);
@@ -185,8 +201,23 @@ public class Gun : Weapon
 
         Debug.Log("리로드 완료");
 
-        weaponState = WeaponState.Idle;
+        isReloading = false;
+        _reloadCoroutine = null;
     }
+
+    private void ReloadStop()
+    {
+        if (_reloadCoroutine != null)
+        {
+            StopCoroutine(_reloadCoroutine);
+            _reloadCoroutine = null;
+        }
+
+        isReloading = false;
+
+
+    }
+
 
     #endregion
 

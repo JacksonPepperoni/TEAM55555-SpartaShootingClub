@@ -136,6 +136,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1336347766}
     m_Modifications:
+    - target: {fileID: -6636390742394913070, guid: 51f4a154bf5ec444d92043ba69a8bf4b, type: 3}
+      propertyPath: _cartridge
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -6636390742394913070, guid: 51f4a154bf5ec444d92043ba69a8bf4b, type: 3}
+      propertyPath: _autoReloading
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6636390742394913070, guid: 51f4a154bf5ec444d92043ba69a8bf4b, type: 3}
+      propertyPath: _isContinuousShooting
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5401912649005393552, guid: 51f4a154bf5ec444d92043ba69a8bf4b, type: 3}
       propertyPath: m_Name
       value: Gun

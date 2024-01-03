@@ -24,13 +24,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected bool _autoReloading = false; // 총알 다썼을때 자동으로 리로드 할건지
 
 
-    protected enum WeaponState
-    {
-        Idle,
-        Attack,
-        Reload
-    }
-    protected WeaponState weaponState = WeaponState.Idle;
     protected virtual void Initialize()
     {
         transform.localPosition = Vector3.zero;
