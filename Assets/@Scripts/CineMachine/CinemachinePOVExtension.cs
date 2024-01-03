@@ -4,15 +4,17 @@ using UnityEngine;
 public class CinemachinePOVExtension : CinemachineExtension
 {
     private InputManager _input;
+    private PlayerController _controller;
     private Vector3 _startingRotation;
 
-    // TODO: ¸¶¿ì½º °¨µµ ¼³Á¤°ª¿¡¼­ ¹Ş¾Æ¿Ã °Í
+    // TODO: ë§ˆìš°ìŠ¤ ê°ë„ ì„¤ì •ê°’ì—ì„œ ë°›ì•„ì˜¬ ê²ƒ
     [SerializeField] private float mouseSensitivity = 10f;
     [SerializeField] private float clampAngle = 70f;
 
     protected override void Awake()
     {
         _input = InputManager.Instance;
+        _controller = GetComponentInParent<PlayerController>();
 
         base.Awake();
     }
@@ -33,6 +35,7 @@ public class CinemachinePOVExtension : CinemachineExtension
             _startingRotation.y = Mathf.Clamp(_startingRotation.y, -clampAngle, clampAngle);
 
             state.RawOrientation = Quaternion.Euler(-_startingRotation.y, _startingRotation.x, 0f);
+            _controller.LookForward(state.RawOrientation * Vector3.forward);
         }
     }
 }

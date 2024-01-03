@@ -2,16 +2,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // TODO: Data¿¡¼­ ¹Þ¾Æ¿Ã °Í
+    // TODO: Dataì—ì„œ ë°›ì•„ì˜¬ ê²ƒ
     [SerializeField] float playerSpeed = 2f;
     [SerializeField] float jumpHeight = 1f;
     [SerializeField] float gravity = Physics.gravity.y;
 
     private CharacterController _controller;
     private Vector3 _velocity;
-    private bool _isGround => _controller.isGrounded;
     private InputManager _input;
     private Transform _cameraTransform;
+
+    public bool IsGround => _controller.isGrounded;
 
     private void Awake()
     {
@@ -20,20 +21,21 @@ public class PlayerController : MonoBehaviour
         _cameraTransform = Camera.main.transform;
     }
 
-    private void Update()
+    public void Move()
     {
-        if (_isGround && _velocity.y < 0)
+
+        if (IsGround && _velocity.y < 0)
             _velocity.y = 0f;
 
         Vector3 movement = _input.PlayerMovement;
         movement = new Vector3(movement.x, 0f, movement.y);
-        movement = _cameraTransform.forward * movement.z + _cameraTransform.right * movement.x;
+        movement = transform.forward * movement.z + transform.right * movement.x;
         movement.y = 0f;
-        _controller.Move(playerSpeed * Time.deltaTime * movement.normalized);
+        _controller.Move(playerSpeed * Time.deltaTime * movement);
     }
 
-    private void LateUpdate()
+    public void LookForward(Vector3 forward)
     {
-        transform.forward = _cameraTransform.forward;
+        transform.forward = forward;
     }
 }
