@@ -7,7 +7,7 @@ using UnityEngine.PlayerLoop;
 public class EquipManager : MonoBehaviour
 {
     public static EquipManager Instance;
-    private List<Weapon> _equipList;
+    private List<WeaponItem> _equipList;
     public event Action OnListChanged;
     private const int MaxEquipCount = 3;
 
@@ -24,7 +24,7 @@ public class EquipManager : MonoBehaviour
         }
         else
         {
-            Weapon weapon = new Weapon(weaponData);
+            WeaponItem weapon = new WeaponItem(weaponData);
             _equipList.Add(weapon);
             OnListChanged?.Invoke();
             return true;
@@ -58,6 +58,6 @@ public class EquipManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        _equipList = new List<Weapon>();
+        _equipList = new List<WeaponItem>();
     }
 }

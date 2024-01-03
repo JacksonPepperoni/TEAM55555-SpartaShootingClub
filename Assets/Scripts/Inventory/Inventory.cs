@@ -18,7 +18,7 @@ public class Inventory : MonoBehaviour
     {
         if(itemData is WeaponData)
         {
-            Weapon item = new Weapon(itemData);
+            WeaponItem item = new WeaponItem(itemData);
             _inventoryList.Add(item);
         }
         else
@@ -47,7 +47,7 @@ public class Inventory : MonoBehaviour
 
     public bool EquipItem(int index)
     {
-        if(_inventoryList[index] is Weapon
+        if(_inventoryList[index] is WeaponItem
         && EquipManager.Instance.AddWeapon(_inventoryList[index].ItemData as WeaponData))
         {
             RemoveItem(index);
