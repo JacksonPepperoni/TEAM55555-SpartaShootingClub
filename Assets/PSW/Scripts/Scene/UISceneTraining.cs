@@ -2,19 +2,26 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UISceneTraning : UIScene
+public class UISceneTraining : UIScene
 {
-    [SerializeField] private GameObject options;
-    [SerializeField] private GameObject gunManage;
+    #region Fields
+
+    private GameObject options;
+    private GameObject gunManage;
 
     private Button optionsBtn;
     private Button gunManageBtn;
+
+    #endregion
 
     #region Initialize
 
     protected override void Init()
     {
         base.Init();
+
+        options = ResourceManager.Instance.GetCache<GameObject>("UI_Popup_Options");
+        gunManage = ResourceManager.Instance.GetCache<GameObject>("UI_Popup_GunManage");
 
         SetButtons();
         SetEvents();
