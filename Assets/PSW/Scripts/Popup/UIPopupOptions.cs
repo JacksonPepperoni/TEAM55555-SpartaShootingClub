@@ -6,9 +6,9 @@ public class UIPopupOptions : UIPopup
 {
     #region Fields
 
-    [SerializeField] private GameObject graphicPanel;
-    [SerializeField] private GameObject audioPanel;
-    [SerializeField] private GameObject controlPanel;
+    private GameObject graphicPanel;
+    private GameObject audioPanel;
+    private GameObject controlPanel;
 
     private UIElement currentActivePanel;
     private Transform mainPanel;
@@ -25,6 +25,11 @@ public class UIPopupOptions : UIPopup
     protected override void Init()
     {
         base.Init();
+
+        graphicPanel = ResourceManager.Instance.GetCache<GameObject>("UI_Panel_Graphic");
+        audioPanel = ResourceManager.Instance.GetCache<GameObject>("UI_Panel_Audio");
+        controlPanel = ResourceManager.Instance.GetCache<GameObject>("UI_Panel_Control");
+
         SetObject();
         SetButtons();
         SetEvents();
