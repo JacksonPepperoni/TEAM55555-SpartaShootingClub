@@ -10,7 +10,7 @@ public class Weapon : MonoBehaviour
 
     protected float _damage;
 
-    [Header("다음 발사까지 걸리는 시간, 후딜")]
+    [Header("다음 발사까지 걸리는 시간")]
     [SerializeField] protected float _delayBetweenShots; 
     protected float _currentShotDelay;
 
