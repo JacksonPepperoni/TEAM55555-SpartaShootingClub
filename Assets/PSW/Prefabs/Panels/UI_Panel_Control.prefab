@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 728098817904747731}
   - component: {fileID: 7016672040890237744}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Slider_Sensitivity_Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,6 @@ RectTransform:
   - {fileID: 2236417742518592355}
   - {fileID: 7449495386988905204}
   - {fileID: 1956026896790964354}
-  - {fileID: 617068069016559180}
   m_Father: {fileID: 3564013581945411800}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -164,7 +163,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -256,7 +255,7 @@ GameObject:
   - component: {fileID: 5623397347608042316}
   - component: {fileID: 3263521756583864159}
   m_Layer: 5
-  m_Name: Value Text
+  m_Name: Text_Sensitivity_Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -274,12 +273,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3481877240058786949}
+  m_Father: {fileID: 6590563545998451172}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
+  m_AnchoredPosition: {x: 880, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5623397347608042316
@@ -310,7 +309,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 50
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1e94a9989f1a18d41bbed35f5d463a39, type: 2}
   m_sharedMaterial: {fileID: -6733553543988574399, guid: 1e94a9989f1a18d41bbed35f5d463a39, type: 2}
@@ -466,7 +465,7 @@ GameObject:
   - component: {fileID: 3481877240058786949}
   - component: {fileID: 7330268957689119766}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Slider_Sensitivity_Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -487,7 +486,6 @@ RectTransform:
   - {fileID: 3547930616962561339}
   - {fileID: 5249128485962228122}
   - {fileID: 4176769346632331598}
-  - {fileID: 6433999570506324893}
   m_Father: {fileID: 6590563545998451172}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -543,7 +541,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -903,7 +901,7 @@ GameObject:
   - component: {fileID: 715438718800346575}
   - component: {fileID: 4349646781005299053}
   m_Layer: 5
-  m_Name: Value Text
+  m_Name: Text_Sensitivity_Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -921,12 +919,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 728098817904747731}
+  m_Father: {fileID: 3564013581945411800}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
+  m_AnchoredPosition: {x: 880, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &715438718800346575
@@ -957,7 +955,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 50
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1e94a9989f1a18d41bbed35f5d463a39, type: 2}
   m_sharedMaterial: {fileID: -6733553543988574399, guid: 1e94a9989f1a18d41bbed35f5d463a39, type: 2}
@@ -1374,7 +1372,7 @@ GameObject:
   - component: {fileID: 3129816026288217127}
   - component: {fileID: 5904659009467414825}
   m_Layer: 5
-  m_Name: Field_Slider_NormalSensitivity
+  m_Name: Normal Sensitivity Field
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1394,6 +1392,7 @@ RectTransform:
   m_Children:
   - {fileID: 2246304355028095666}
   - {fileID: 3481877240058786949}
+  - {fileID: 6433999570506324893}
   m_Father: {fileID: 6987788460830247585}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1682,7 +1681,7 @@ GameObject:
   - component: {fileID: 4173197982614226348}
   - component: {fileID: 3452110317845912657}
   m_Layer: 5
-  m_Name: Field_Slider_AimSensitivity
+  m_Name: Aim Sensitivity Field
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1702,6 +1701,7 @@ RectTransform:
   m_Children:
   - {fileID: 8632712749650121114}
   - {fileID: 728098817904747731}
+  - {fileID: 617068069016559180}
   m_Father: {fileID: 6987788460830247585}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
