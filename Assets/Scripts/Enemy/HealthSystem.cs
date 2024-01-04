@@ -1,43 +1,57 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
-    private EnemyStatsHandler _statsHandler;
+    //private EnemyStatsHandler _statsHandler;
 
     public int maxHealth = 100;
     public float currentHealth { get; private set; }
-    //public float maxHealth => _statsHandler.CurrentStats.maxHealth;
+
+    public event Action OnDeath;
+
+    //[SerializeField] Animator _anim;
+
     private void Awake()
     {
         //_statsHandler = GetComponent<EnemyStatsHandler>();
+        //_anim = GetComponent<Animator>();
     }
 
     private void Start()
     {
         //currentHealth = _statsHandler.CurrentStats.maxHealth;
+        InitHealthSystem();
+    }
+
+    public void InitHealthSystem()
+    {
         currentHealth = maxHealth;
     }
 
     public void OnDamage(float damage)
     {
-        Debug.Log("¸Â±â Àü µ¥¹ÌÁö"+ currentHealth);
+        Debug.Log("ë§ê¸° ì „ ë°ë¯¸ì§€"+ currentHealth);
         currentHealth -= damage;
-        Debug.Log("¸ÂÀº ÈÄ µ¥¹ÌÁö" + currentHealth);
+        Debug.Log("ë§ì€ í›„ ë°ë¯¸ì§€" + currentHealth);
         currentHealth = currentHealth < 0 ? 0 : currentHealth;
 
         if (currentHealth <= 0f)
         {
-            OnDeath();
+            CallDeath();
         }
     }
 
-    private void OnDeath()
+    private void CallDeath()
     {
-        Debug.Log("Á×¾úÀ½");
-        Destroy(gameObject);
-
+        Debug.Log("ì£½ì—ˆìŒ");
+        //_anim.SetBool("IsDie", true);
+        //_anim.SetBool("IsActive", false);
+        //gameObject.GetComponent<BoxCollider>().enabled = false;
+        OnDeath?.Invoke();
+        GetComponent<EnemyController>().Die();
     }
-
 }

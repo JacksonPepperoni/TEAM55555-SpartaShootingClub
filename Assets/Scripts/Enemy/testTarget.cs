@@ -20,32 +20,8 @@ public class testTarget : MonoBehaviour
     {
         maxHealth = 1;
         curHealth = maxHealth;
+        Debug.Log("ì—¬ê¸´ ì˜¤ìë‚˜");
     }
-    private void Update()
-    {
-        if (curHealth <= 0)
-        {
-            OnDie();
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag =="Bullet")
-        {
-            Debug.Log(curHealth);
-            curHealth--;
-            
-        }    
-    }
-    private void OnDie()
-    {
-        Invoke("Respawn", 2f);
-        gameObject.SetActive(false);
-    }
-    private void Respawn()
-    {
-        Debug.Log("¸®½ºÆù");
-        Destroy(gameObject);
-        Instantiate(prefabs,transform.position, Quaternion.identity);
-    }
+    
+
 }
