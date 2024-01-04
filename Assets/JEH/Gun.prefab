@@ -44,10 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947ec4f47e458bb4eb9b7b775cadee4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 0}
-  _delayBetweenShots: 0.1
-  _cartridge: 5
+  _delayBetweenShots: 0.3
+  _cartridge: 10
+  _ReloadDelay: 2
   _isContinuousShooting: 1
   _autoReloading: 1
   TestPrefab: {fileID: 4870205358408231974, guid: 00c2ded7d25727b439dd201f5dbf3df6, type: 3}
   TestPrefab22: {fileID: 7771070175085698280, guid: 0c42cedabecd8fa45ac2896009728172, type: 3}
+  _shotsAtOnce: 5
+  _spread: 0.1
