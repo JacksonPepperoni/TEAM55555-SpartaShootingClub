@@ -34,7 +34,7 @@ public class HealthSystem : MonoBehaviour
 
     public void OnDamage(float damage)
     {
-        Debug.Log("맞기 전 데미지"+ currentHealth);
+        Debug.Log("맞기 전 데미지" + currentHealth);
         currentHealth -= damage;
         Debug.Log("맞은 후 데미지" + currentHealth);
         currentHealth = currentHealth < 0 ? 0 : currentHealth;
