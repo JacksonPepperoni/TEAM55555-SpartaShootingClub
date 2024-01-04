@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6656022199691380695
 MonoBehaviour:
@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b631e76bdea513342bdf2d0f895fa5cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 739145378529594197, guid: e316f3573fd1d9b4e9fe05f5dfc0e7ff, type: 3}
+  _projectilePrefab: {fileID: 5551801837373248604, guid: a864ff30401cb1a46989a8408d3ddab8, type: 3}
   _delayBetweenShots: 2
   _cartridge: 50
+  _ReloadDelay: 2
   _isContinuousShooting: 0
   _autoReloading: 0

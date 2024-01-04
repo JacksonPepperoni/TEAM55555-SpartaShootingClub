@@ -6,7 +6,7 @@ public class Weapon : MonoBehaviour
     protected Sprite _WeapoNIcon;
     protected Sprite _crosshairSprite;
 
-    protected GameObject _projectilePrefab;
+    [SerializeField] protected GameObject _projectilePrefab;
 
     protected float _damage;
 

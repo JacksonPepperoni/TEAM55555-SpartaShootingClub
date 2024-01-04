@@ -6,21 +6,19 @@ public class Gun : Weapon
     [Header("피격거리")]
     [SerializeField] private float _rangeOfHits = 100;
 
-    private Coroutine _shotCoroutine;
-    private Coroutine _reloadCoroutine;
-
-    [Space(15)]
-    [SerializeField] private GameObject TestPrefab;
-    [SerializeField] private GameObject TestPrefab22;
-
-    private int _layerMask;
-
-
     [Header("한번에 발사되는 총알수")] // 최소 1이상 설정 ,총알소모는 변수 관계없이 항상 1 
     [SerializeField] private int _shotsAtOnce;
 
     [Header("총알이 얼마나 퍼질지")]
     [SerializeField] private float _spread;
+
+    private Coroutine _shotCoroutine;
+    private Coroutine _reloadCoroutine;
+
+    private int _layerMask;
+
+    [SerializeField] private GameObject TestPrefab;
+    [SerializeField] private GameObject TestPrefab22;
 
 
     private void OnEnable()
@@ -122,17 +120,15 @@ public class Gun : Weapon
         _currentCartridge--;
         _currentShotDelay = _delayBetweenShots;
 
-        int count = 0;
-
-        while (count < _shotsAtOnce)
+        for (int i = 0; i < _shotsAtOnce; i++)
         {
-            float x = Random.Range(-_spread, _spread);
-            float y = Random.Range(-_spread, _spread);
-
-            Vector3 dir = new Vector3(x, y, 0);
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
+
+
+            float x = Random.Range(-_spread, _spread);
+            float y = Random.Range(-_spread, _spread);
+            Vector3 dir = new Vector3(x, y, 0);
 
             if (Physics.Raycast(ray.origin, (ray.direction + dir).normalized, out hit, _rangeOfHits, _layerMask))
             {
@@ -156,9 +152,8 @@ public class Gun : Weapon
 
             Debug.DrawRay(ray.origin, (ray.direction + dir).normalized * _rangeOfHits, Color.red, 1);
 
-            count++;
-
         }
+
     }
 
 
