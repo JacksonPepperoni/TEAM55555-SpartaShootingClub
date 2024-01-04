@@ -12,7 +12,7 @@ public abstract class UIBase : MonoBehaviour
 
     private void Start()
     {
-        UI = FindObjectOfType<UIManager>();
+        UI = UIManager.Instance;
 
         Init();
     }

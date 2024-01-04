@@ -362,7 +362,6 @@ MonoBehaviour:
   sitHeight: 0.5
   gravity: -9.81
   cinemachineContainer: {fileID: 7439492164653592113}
-  weaponContainer: {fileID: 0}
 --- !u!143 &8001195661026136467
 CharacterController:
   m_ObjectHideFlags: 0

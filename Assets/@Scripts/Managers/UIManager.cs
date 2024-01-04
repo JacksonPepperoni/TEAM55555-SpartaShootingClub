@@ -2,36 +2,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
     #region Fields
 
-    // 임시 생성
-    [SerializeField] private GameObject testScene;
-
     private int order = 10;
     private Stack<UIPopup> popupStack = new();
-    private UIScene sceneUI;
 
     #endregion
 
     #region Properties
 
-    private GameObject uiroot;
-    private GameObject UIRoot
-    {
-        get
-        {
-            if (uiroot == null)
-            {
-                uiroot = GameObject.Find("@UIRoot") ?? new GameObject("@UIRoot");
-            }
-
-            return uiroot;
-        }
-    }
+    public GameObject UIRoot { get; private set; }
+    public UIScene SceneUI { get; private set; }
 
     #endregion
+
+    #region Init
+
+    public override bool Initialize()
+    {
+        if (!base.Initialize()) return false;
+
+        UIRoot = GameObject.Find("@UIRoot") ?? new("@UIRoot");
+
+        //ShowScene<UIScene>(testScene);
+
+        return true;
+    }
 
     /// <summary>
     /// Scene, Popup 생성 => 캔버스 초기화
@@ -51,11 +49,7 @@ public class UIManager : MonoBehaviour
         canvasScaler.referenceResolution = new Vector2(1920, 1080);
     }
 
-    private void Start()
-    {
-        // 임시 씬 테스트 생성 => 리로스 매니저로 관리 예정
-        ShowScene<UIScene>(testScene);
-    }
+    #endregion
 
     #region Scene
 
@@ -63,7 +57,6 @@ public class UIManager : MonoBehaviour
     {
         GameObject scene = Instantiate(sceneObject, UIRoot.transform);
         T sceneUI = Util.GetOrAddComponent<T>(scene);
-        this.sceneUI = sceneUI; 
         return sceneUI;
     }
 

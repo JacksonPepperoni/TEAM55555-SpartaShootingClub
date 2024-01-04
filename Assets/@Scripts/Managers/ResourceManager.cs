@@ -31,6 +31,7 @@ public class ResourceManager : Singleton<ResourceManager>
             @"Prefabs/PlayerCharacter",
             @"PlayerInputActions",
             @"Prefabs/Weapon",
+            @"Prefabs/UI/UI_Traning_Scene",
         };
 
         int loadCount = 0;
