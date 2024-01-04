@@ -15,6 +15,11 @@ public class Gun : Weapon
     private int _layerMask;
 
 
+
+    public float spread;
+
+
+
     private void OnEnable()
     {
         Initialize();
@@ -111,15 +116,24 @@ public class Gun : Weapon
 
     private void Shot() // 레이로 발사, 즉발
     {
+
+
+        float x = Random.Range(-spread, spread);
+        float y = Random.Range(-spread, spread);
+
+        Vector3 direction =  new Vector3(x, y, 0);
+
+
+
         _currentCartridge--;
         _currentShotDelay = _delayBetweenShots;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, _rangeOfHits, _layerMask))
+        if (Physics.Raycast(ray.origin, (ray.direction + direction), out hit, _rangeOfHits, _layerMask))
         {
-            Debug.DrawRay(ray.origin, ray.direction * _rangeOfHits, Color.red, 1);
+            Debug.DrawRay(ray.origin, (ray.direction + direction) * _rangeOfHits, Color.red, 1);
 
             GameObject wallPiece = Instantiate(TestPrefab);
             wallPiece.transform.position = hit.point;
