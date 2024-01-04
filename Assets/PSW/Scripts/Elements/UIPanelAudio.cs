@@ -1,8 +1,11 @@
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
 public class UIPanelAudio : UIElement
 {
+    #region Fields
+
     private Slider masterSlider;
     private Slider sfxSlider;
     private Slider uiSlider;
@@ -11,11 +14,16 @@ public class UIPanelAudio : UIElement
     private TextMeshProUGUI sfxVolumeText;
     private TextMeshProUGUI uiVolumeText;
 
+    #endregion
+
+    #region Init
+
     protected override void Init()
     {
         base.Init();
         SetSlider();
         SetText();
+        SetEvents();
     }
 
     private void SetSlider()
@@ -34,9 +42,36 @@ public class UIPanelAudio : UIElement
         uiVolumeText = GetUI<TextMeshProUGUI>("Text_Volume_UI");
     }
 
+    private void SetEvents()
+    {
+        masterSlider.gameObject.SetEvent(UIEventType.Click, ChangedMasterVolume);
+        masterSlider.gameObject.SetEvent(UIEventType.Drag, ChangedMasterVolume);
+
+        sfxSlider.gameObject.SetEvent(UIEventType.Click, ChangedSFXVolume);
+        sfxSlider.gameObject.SetEvent(UIEventType.Drag, ChangedSFXVolume);
+
+        uiSlider.gameObject.SetEvent(UIEventType.Click, ChangedUIVolume);
+        uiSlider.gameObject.SetEvent(UIEventType.Drag, ChangedUIVolume);
+    }
+
+    #endregion
+
     #region Slider Events
 
+    private void ChangedMasterVolume(PointerEventData eventData)
+    {
+        Util.ValueStepChanged(100f, masterSlider, masterVolumeText);
+    }
 
+    private void ChangedSFXVolume(PointerEventData eventData)
+    {
+        Util.ValueStepChanged(100f, sfxSlider, sfxVolumeText);
+    }
+
+    private void ChangedUIVolume(PointerEventData eventData)
+    {
+        Util.ValueStepChanged(100f, uiSlider, uiVolumeText);
+    }
 
     #endregion
 }
