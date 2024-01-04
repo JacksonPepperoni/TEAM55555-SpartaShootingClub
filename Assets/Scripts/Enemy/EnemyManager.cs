@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyManager : Singleton<EnemyManager>
+public class EnemyManager : MonoBehaviour
 {
+    static public EnemyManager instance;
 
     [SerializeField] private GameObject enemyPrefabs;
 
@@ -16,22 +17,28 @@ public class EnemyManager : Singleton<EnemyManager>
     private List<Transform> spawnPositions = new List<Transform>();
     private List<GameObject> enemyList = new List<GameObject>();
 
-    public override bool Initialize()
+    private void Awake()
     {
-        if (!base.Initialize()) return false;
+        instance = this;
 
         for (int i = 0; i < spawnPositionsRoot.childCount; i++)
         {
             spawnPositions.Add(spawnPositionsRoot.GetChild(i));
         }
-
-        currentSpawnCount = 0;
-        waveSpaawnCount = 4;
-        firstSetting();
-
-        return base.Initialize();
     }
 
+    private void Start()
+    {
+        Init();
+        firstSetting();
+    }
+
+    private void Init()
+    {
+        //enemyPrefabs = new List<GameObject>();    
+        currentSpawnCount = 0;
+        waveSpaawnCount = 4;
+    }
 
     private void firstSetting()
     {
@@ -65,19 +72,18 @@ public class EnemyManager : Singleton<EnemyManager>
     }
     private void OnEnemyDeath()
     {
-        Invoke("SpawnEnemy",3f);
+        Invoke("SpawnEnemy", 3f);
     }
     private void SpawnEnemy()
     {
-        while(true)
+        while (true)
         {
             int spawnIdx = Random.Range(0, spawnPositions.Count);
             Debug.Log(spawnIdx);
-
-            if (enemyList[spawnIdx].GetComponent<Rigidbody>()==null)
+            
+            if (enemyList[spawnIdx].GetComponent<Rigidbody>() == null)
             {
                 Debug.Log("성공");
-                gameObject.AddComponent<Rigidbody>().useGravity = false ;
                 enemyList[spawnIdx].GetComponent<EnemyController>().Respawn();
                 break;
             }
