@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : Singleton<EnemyManager>
 {
-    static public EnemyManager instance;
 
     [SerializeField] private GameObject enemyPrefabs;
 
@@ -17,9 +16,8 @@ public class EnemyManager : MonoBehaviour
     private List<Transform> spawnPositions = new List<Transform>();
     private List<GameObject> enemyList = new List<GameObject>();
 
-    private void Awake()
+    protected override void Awake()
     {
-        instance = this;
 
         for (int i = 0; i < spawnPositionsRoot.childCount; i++)
         {
@@ -27,18 +25,19 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    protected override void Start()
     {
-        Init();
         firstSetting();
     }
 
-    private void Init()
+    public override bool Initialize()
     {
-        //enemyPrefabs = new List<GameObject>();    
+        base.Initialize();
         currentSpawnCount = 0;
         waveSpaawnCount = 4;
+        return base.Initialize();
     }
+
 
     private void firstSetting()
     {
