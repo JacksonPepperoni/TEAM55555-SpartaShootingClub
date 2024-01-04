@@ -9,27 +9,36 @@ public class DescriptionPanel : MonoBehaviour
     [SerializeField] private WeaponDescription weaponDescription;
     [SerializeField] private GameObject ForeGround;
 
-    public void OpenPanel(ItemData itemData)
-    {
-        // TODO.
-        // 3. 정보를 토대로 정보 출력 메서드 호출
+    public bool IsWeaponOpened {get; private set;}
+    public WeaponDescription WeaponDescription => weaponDescription;
 
+    public void OpenPanel(Item item)
+    {
         ForeGround.SetActive(false);
 
-        if(itemData is AccessoryData)
-        {
-            weaponDescription.gameObject.SetActive(false);
-            accessoryDescription.gameObject.SetActive(true);
-        }
-        else
+        if(item is WeaponItem)
         {
             weaponDescription.gameObject.SetActive(true);
             accessoryDescription.gameObject.SetActive(false);
+            weaponDescription.GetCurrentWeapon(item as WeaponItem);
+            IsWeaponOpened = true;
+        }
+        else
+        {
+            weaponDescription.gameObject.SetActive(false);
+            accessoryDescription.gameObject.SetActive(true);
+            accessoryDescription.SetAccessoryInformation(item.ItemData as AccessoryData);
+            IsWeaponOpened = false;
         }
     }
 
     private void OnEnable()
     {
         ForeGround.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        IsWeaponOpened = false;
     }
 }

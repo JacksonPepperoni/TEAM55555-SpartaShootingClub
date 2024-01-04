@@ -7,6 +7,8 @@ public class TestingButton : MonoBehaviour
 {
     [SerializeField] private WeaponData weaponData;
     [SerializeField] private AccessoryData accessoryData;
+    [SerializeField] private AccessoryData accessoryData2;
+
     private Button _button;
 
     private void Awake()
@@ -22,7 +24,12 @@ public class TestingButton : MonoBehaviour
 
     private void GetItem()
     {
-        Inventory.Instance.AddItem(weaponData);
-        Inventory.Instance.AddItem(accessoryData);
+        Item item1 = new WeaponItem(weaponData);
+        Item item2 = new AccessoryItem(accessoryData);
+        Item item3 = new AccessoryItem(accessoryData2);
+        Inventory.Instance.AddItem(item1);
+        Inventory.Instance.AddItem(item2);
+        Inventory.Instance.AddItem(item3);
+
     }
 }

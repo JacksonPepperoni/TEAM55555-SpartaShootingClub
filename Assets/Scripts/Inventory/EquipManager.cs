@@ -16,7 +16,7 @@ public class EquipManager : MonoBehaviour
         Init();
     }
 
-    public bool AddWeapon(WeaponData weaponData)
+    public bool AddWeapon(WeaponItem weapon)
     {
         if(_equipList.Count >= MaxEquipCount)
         {
@@ -24,7 +24,6 @@ public class EquipManager : MonoBehaviour
         }
         else
         {
-            WeaponItem weapon = new WeaponItem(weaponData);
             _equipList.Add(weapon);
             OnListChanged?.Invoke();
             return true;
@@ -34,6 +33,11 @@ public class EquipManager : MonoBehaviour
     public WeaponData GetWeaponData(int index)
     {
         return _equipList[index].ItemData as WeaponData;
+    }
+
+    public WeaponItem GetWeapon(int index)
+    {
+        return _equipList[index];
     }
 
     public void RemoveWeapon(int index)
@@ -59,5 +63,15 @@ public class EquipManager : MonoBehaviour
         }
 
         _equipList = new List<WeaponItem>();
+    }
+    public void ChangeItem(int index)
+    {
+        if(_equipList.Count <= index)
+        {
+            return;
+        }
+
+        // TODO => 원래 데이터 삭제하고, 들어있는 WeaponItem 정보 꺼내서 주기
+        // _equipList[index].SetWeaponStats() << 이거 호출해서 주는 식으로
     }
 }

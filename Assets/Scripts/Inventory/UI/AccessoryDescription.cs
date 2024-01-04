@@ -11,5 +11,11 @@ public class AccessoryDescription : MonoBehaviour
     [SerializeField] TextMeshProUGUI description;
     [SerializeField] Image image;
 
-    // TODO => 현재 상태 받아서 출력
+
+    public void SetAccessoryInformation(AccessoryData accessoryData)
+    {
+        accessoryName.text = accessoryData.ItemName;
+        accessoryType.text = accessoryData.AccessoryType.ToString();
+        image.sprite = accessoryData.ItemSprite;
+    }
 }

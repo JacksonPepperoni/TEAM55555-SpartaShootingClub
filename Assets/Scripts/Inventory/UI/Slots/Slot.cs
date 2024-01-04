@@ -11,20 +11,30 @@ public abstract class Slot : MonoBehaviour
     public Button Button { get; private set; }
     public int SlotIndex { get; private set; }
 
+    protected bool _isDoubleClicked;
+
     private void Awake()
     {
         Button = GetComponent<Button>();
-        Button.onClick.AddListener(OpenDescriptionPanel);
+        Button.onClick.AddListener(OnFirstClick);
         Button.enabled = false;
+        _isDoubleClicked = false;
+    }
+
+    private void OnFirstClick()
+    {
+        StartCoroutine(ActiveDoubleClick());
     }
 
     protected virtual IEnumerator ActiveDoubleClick()
     {
+        _isDoubleClicked = false;
         Button.onClick.RemoveAllListeners();
         Button.onClick.AddListener(DoubleClickAction);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.15f);
+        OpenDescriptionPanel();
         Button.onClick.RemoveListener(DoubleClickAction);
-        Button.onClick.AddListener(OpenDescriptionPanel);
+        Button.onClick.AddListener(OnFirstClick);
     }
 
     protected abstract void DoubleClickAction();
@@ -39,8 +49,8 @@ public abstract class Slot : MonoBehaviour
 
     public void ChangeItemData(ItemData itemData)
     {
-        Button.enabled = true;
         itemImage.sprite = itemData.ItemSprite;
+        Button.enabled = true;
     }
 
     public void ResetSlot()
