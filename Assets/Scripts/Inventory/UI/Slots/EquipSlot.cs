@@ -7,15 +7,21 @@ public class EquipSlot : Slot
 {
     protected override void DoubleClickAction()
     {
-        ItemData itemData = EquipManager.Instance.GetWeaponData(SlotIndex);
-        Inventory.Instance.AddItem(itemData);
+        _isDoubleClicked = true;
+        Item item = EquipManager.Instance.GetWeapon(SlotIndex);
+        Inventory.Instance.AddItem(item);
         EquipManager.Instance.RemoveWeapon(SlotIndex);
     }
 
     protected override void OpenDescriptionPanel()
     {
-        ItemData itemData = EquipManager.Instance.GetWeaponData(SlotIndex);
-        DescriptionPanel.OpenPanel(itemData);
-        StartCoroutine(ActiveDoubleClick());
+        if(_isDoubleClicked)
+        {
+            return;
+        }
+        Item item = EquipManager.Instance.GetWeapon(SlotIndex);
+        DescriptionPanel.OpenPanel(item);
+
     }
+
 }

@@ -10,7 +10,6 @@ public class TestScenePSW : Singleton<TestScenePSW>
         // 1. 리소스 로드
         ResourceLoad((key, count, total) =>
         {
-            Debug.Log($"{key}, {count}, {total}");
             if (count == total)
             {
                 // 2. 객체 생성, 초기화
@@ -23,11 +22,11 @@ public class TestScenePSW : Singleton<TestScenePSW>
 
                 InputManager.Instance.Initialize();
 
-                // 3. UI 생성
+                // 3. UI 초기화, 생성
                 UIManager.Instance.Initialize();
 
-                var traningScene = ResourceManager.Instance.GetCache<GameObject>("UI_Traning_Scene");
-                UIManager.Instance.ShowScene<UIScene>(traningScene);
+                var trainingScene = ResourceManager.Instance.GetCache<GameObject>("UI_Training_Scene");
+                UIManager.Instance.ShowScene<UIScene>(trainingScene);
             }
         });
     }

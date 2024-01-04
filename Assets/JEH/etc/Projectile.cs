@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 
 public class Projectile : MonoBehaviour
 {
@@ -7,6 +6,9 @@ public class Projectile : MonoBehaviour
     protected float _damage;
 
   public  float _explosionsRadius; // 범위가 몇유닛인지적어주세요
+
+
+    [SerializeField] private GameObject TestPrefab;
 
 
     private int _layerMask;
@@ -52,10 +54,17 @@ public class Projectile : MonoBehaviour
         for (int i = 0; i < colliders.Length; i++)
         {
             Debug.Log(colliders[i].gameObject.name);
+
+           Rigidbody rig = colliders[i].GetComponent<Rigidbody>();
+
+           if (rig != null)
+                rig.AddExplosionForce(1000, transform.position - rig.gameObject.transform.position, 70);
+
         }
 
-        // 폭탄 이펙트 소환
 
+        // 폭탄 이펙트 소환
+        Instantiate(TestPrefab, transform.position, Quaternion.identity);
 
         ReturnPool();
     }

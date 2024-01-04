@@ -1106,7 +1106,7 @@ GameObject:
   - component: {fileID: 3103155310205144645}
   - component: {fileID: -3295216275710822548}
   m_Layer: 5
-  m_Name: UI_Traning_Scene
+  m_Name: UI_Training_Scene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -23,11 +23,7 @@ public class UIManager : Singleton<UIManager>
     public override bool Initialize()
     {
         if (!base.Initialize()) return false;
-
         UIRoot = GameObject.Find("@UIRoot") ?? new("@UIRoot");
-
-        //ShowScene<UIScene>(testScene);
-
         return true;
     }
 

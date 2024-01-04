@@ -10,7 +10,6 @@ public abstract class SlotPanel : MonoBehaviour
 
     protected List<Slot> _slotList;
 
-    // TODO => 변수 처리 제대로!!
     protected int MaxSlotLength;
 
     private void Awake()
@@ -25,7 +24,7 @@ public abstract class SlotPanel : MonoBehaviour
 
     private void OnEnable()
     {
-        // TODO => 상속받은 곳에서 처리해야함.
+        // 상속받은 곳에서 처리하는게 맞는데 일단 보류
         if(Inventory.Instance == null)
         {
             return;

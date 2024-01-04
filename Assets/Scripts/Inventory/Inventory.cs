@@ -14,18 +14,9 @@ public class Inventory : MonoBehaviour
         Init();
     }
 
-    public void AddItem(ItemData itemData)
+    public void AddItem(Item item)
     {
-        if(itemData is WeaponData)
-        {
-            WeaponItem item = new WeaponItem(itemData);
-            _inventoryList.Add(item);
-        }
-        else
-        {
-            Item item = new Item(itemData);
-            _inventoryList.Add(item);
-        }
+        _inventoryList.Add(item);
         OnListChanged?.Invoke();
     }
 
@@ -40,6 +31,11 @@ public class Inventory : MonoBehaviour
         return _inventoryList[index].ItemData;
     }
 
+    public Item GetItem(int index)
+    {
+        return _inventoryList[index];
+    }
+
     public int GetInventoryCount()
     {
         return _inventoryList.Count;
@@ -48,7 +44,7 @@ public class Inventory : MonoBehaviour
     public bool EquipItem(int index)
     {
         if(_inventoryList[index] is WeaponItem
-        && EquipManager.Instance.AddWeapon(_inventoryList[index].ItemData as WeaponData))
+        && EquipManager.Instance.AddWeapon(_inventoryList[index] as WeaponItem))
         {
             RemoveItem(index);
             return true;
