@@ -16,25 +16,19 @@ public class EnemyManager : Singleton<EnemyManager>
     private List<Transform> spawnPositions = new List<Transform>();
     private List<GameObject> enemyList = new List<GameObject>();
 
-    protected override void Awake()
+    public override bool Initialize()
     {
+        if (!base.Initialize()) return false;
 
         for (int i = 0; i < spawnPositionsRoot.childCount; i++)
         {
             spawnPositions.Add(spawnPositionsRoot.GetChild(i));
         }
-    }
 
-    protected override void Start()
-    {
-        firstSetting();
-    }
-
-    public override bool Initialize()
-    {
-        base.Initialize();
         currentSpawnCount = 0;
         waveSpaawnCount = 4;
+        firstSetting();
+
         return base.Initialize();
     }
 
