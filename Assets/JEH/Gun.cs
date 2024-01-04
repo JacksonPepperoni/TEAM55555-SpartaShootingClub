@@ -3,16 +3,22 @@ using UnityEngine;
 
 public class Gun : Weapon
 {
-    private float _rangeOfHits = Mathf.Infinity; // 피격거리. 레이 길이, 데미지 입히는 거리
+    [Header("피격거리")]
+    [SerializeField] private float _rangeOfHits = 100;
+
+    [Header("한번에 발사되는 총알수")] // 최소 1이상 설정 ,총알소모는 변수 관계없이 항상 1 
+    [SerializeField] private int _shotsAtOnce;
+
+    [Header("총알이 얼마나 퍼질지")]
+    [SerializeField] private float _spread;
 
     private Coroutine _shotCoroutine;
     private Coroutine _reloadCoroutine;
 
-    [Space(15)]
+    private int _layerMask;
+
     [SerializeField] private GameObject TestPrefab;
     [SerializeField] private GameObject TestPrefab22;
-
-    private int _layerMask;
 
 
     private void OnEnable()
@@ -114,30 +120,40 @@ public class Gun : Weapon
         _currentCartridge--;
         _currentShotDelay = _delayBetweenShots;
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, _rangeOfHits, _layerMask))
+        for (int i = 0; i < _shotsAtOnce; i++)
         {
-            Debug.DrawRay(ray.origin, ray.direction * _rangeOfHits, Color.red, 1);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-            GameObject wallPiece = Instantiate(TestPrefab);
-            wallPiece.transform.position = hit.point;
-            wallPiece.transform.forward = hit.normal;
 
-            GameObject dddd = Instantiate(TestPrefab22);
-            dddd.transform.position = hit.point;
-            dddd.transform.forward = hit.normal;
+            float x = Random.Range(-_spread, _spread);
+            float y = Random.Range(-_spread, _spread);
+            Vector3 dir = new Vector3(x, y, 0);
 
-            if (hit.collider.CompareTag("Ground"))
+            if (Physics.Raycast(ray.origin, (ray.direction + dir).normalized, out hit, _rangeOfHits, _layerMask))
             {
-               // Debug.Log("바닥");
+                GameObject wallPiece = Instantiate(TestPrefab);
+                wallPiece.transform.position = hit.point;
+                wallPiece.transform.forward = hit.normal;
+
+                GameObject dddd = Instantiate(TestPrefab22);
+                dddd.transform.position = hit.point;
+                dddd.transform.forward = hit.normal;
+
+                if (hit.collider.CompareTag("Ground"))
+                {
+                    // Debug.Log("바닥");
+                }
+                else if (hit.collider.CompareTag("Wall"))
+                {
+                    //  Debug.Log("벽");
+                }
             }
-            else if (hit.collider.CompareTag("Wall"))
-            {
-              //  Debug.Log("벽");
-            }
+
+            Debug.DrawRay(ray.origin, (ray.direction + dir).normalized * _rangeOfHits, Color.red, 1);
+
         }
+
     }
 
 

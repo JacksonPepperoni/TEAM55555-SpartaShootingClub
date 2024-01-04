@@ -1,0 +1,553 @@
+fileFormatVersion: 2
+guid: facf8aa618c1c7441843b097a4ace3a1
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: waepon-main-1
+      rect:
+        serializedVersion: 2
+        x: 1476
+        y: 1899
+        width: 402
+        height: 146
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c62df446fcd46942b28f20df6e7fb9f
+      internalID: -1008357622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: waepon-sub-1
+      rect:
+        serializedVersion: 2
+        x: 1933
+        y: 1975
+        width: 112
+        height: 70
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64adb734d0bc3bf4388290d654d7fba4
+      internalID: -341164271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: waepon-sub-2
+      rect:
+        serializedVersion: 2
+        x: 1945
+        y: 1878
+        width: 99
+        height: 85
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a79958177e5401f4aa71066205e068f3
+      internalID: -1249230481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: waepon-main-2
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 1706
+        width: 408
+        height: 169
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aacba3f8e84034340b0d8af6116455b2
+      internalID: -470463987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: waepon-sub-3
+      rect:
+        serializedVersion: 2
+        x: 1867
+        y: 1697
+        width: 181
+        height: 167
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9ed717c31414a74aa88da3d1d71a3ad
+      internalID: -570100396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: waepon-main-3
+      rect:
+        serializedVersion: 2
+        x: 1409
+        y: 1503
+        width: 505
+        height: 159
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7327987a0bafa04a941c3cb9f6e7233
+      internalID: 594874966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: waepon-main-4
+      rect:
+        serializedVersion: 2
+        x: 1402
+        y: 1309
+        width: 482
+        height: 148
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41d7aafff4be22b4e83a0f1f7df79457
+      internalID: -57955174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: waepon-main-5
+      rect:
+        serializedVersion: 2
+        x: 1393
+        y: 1171
+        width: 494
+        height: 123
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31e40f485bdb9954daffd45b57bef00e
+      internalID: -602080514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: waepon-main-6
+      rect:
+        serializedVersion: 2
+        x: 1398
+        y: 1003
+        width: 502
+        height: 131
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 115e8360b90f3c749b84244bf1a1685d
+      internalID: 781699028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: waepon-main-7
+      rect:
+        serializedVersion: 2
+        x: 1394
+        y: 762
+        width: 581
+        height: 195
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca9f8c46d1611764fbd75d381711835e
+      internalID: 1541698459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ndrfpsui_24
+      rect:
+        serializedVersion: 2
+        x: 1828
+        y: 880
+        width: 145
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f365362888dd24a44b9914a88138708b
+      internalID: -1421404713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: waepon-main-8
+      rect:
+        serializedVersion: 2
+        x: 1378
+        y: 530
+        width: 502
+        height: 173
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a77ec433bf4d40b4ca6cd5ae7ef3d935
+      internalID: -338434014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: waepon-main-9
+      rect:
+        serializedVersion: 2
+        x: 1355
+        y: 381
+        width: 487
+        height: 111
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13a0f1fa25d3f104eb30b3be925930dd
+      internalID: 1133311888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soldier-idle-squat
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 13
+        width: 270
+        height: 330
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e2c406b95d15a74081597a6b84da671
+      internalID: -141025607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soldier-idle-running
+      rect:
+        serializedVersion: 2
+        x: 283
+        y: 14
+        width: 270
+        height: 330
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb8b22043ad9bfd4b975c07f184fc482
+      internalID: -1980406765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: soldier-idle-standing
+      rect:
+        serializedVersion: 2
+        x: 588
+        y: 15
+        width: 270
+        height: 330
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b567687c8ae3a994784a765c24f49555
+      internalID: -1616252258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: waepon-main-10
+      rect:
+        serializedVersion: 2
+        x: 1365
+        y: 184
+        width: 488
+        height: 169
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b11bf727c2f17344abb8e59aaeaeb36
+      internalID: -1002722444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: waepon-main-11
+      rect:
+        serializedVersion: 2
+        x: 1291
+        y: 32
+        width: 668
+        height: 112
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1102e8c0e2f88384cac35e03d5238f54
+      internalID: 1046702690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      ndrfpsui_0: 646847158
+      ndrfpsui_1: 19837896
+      ndrfpsui_11: 1423098178
+      ndrfpsui_12: 260511955
+      ndrfpsui_13: -1283483642
+      ndrfpsui_15: -1312153095
+      ndrfpsui_16: -791851025
+      ndrfpsui_17: -1602190482
+      ndrfpsui_19: -2101868770
+      ndrfpsui_20: -1800940801
+      ndrfpsui_22: -837422699
+      ndrfpsui_24: -1421404713
+      ndrfpsui_25: 348648904
+      ndrfpsui_26: -1836120434
+      ndrfpsui_28: -432240660
+      ndrfpsui_5: -828151586
+      ndrfpsui_6: -1252854110
+      ndrfpsui_9: 1985510882
+      soldier-idle-running: -1980406765
+      soldier-idle-squat: -141025607
+      soldier-idle-standing: -1616252258
+      waepon-main-1: -1008357622
+      waepon-main-10: -1002722444
+      waepon-main-11: 1046702690
+      waepon-main-2: -470463987
+      waepon-main-3: 594874966
+      waepon-main-4: -57955174
+      waepon-main-5: -602080514
+      waepon-main-6: 781699028
+      waepon-main-7: 1541698459
+      waepon-main-8: -338434014
+      waepon-main-9: 1133311888
+      waepon-sub-1: -341164271
+      waepon-sub-2: -1249230481
+      waepon-sub-3: -570100396
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
