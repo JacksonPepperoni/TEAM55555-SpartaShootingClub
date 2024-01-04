@@ -4,7 +4,7 @@ using UnityEngine;
 public class Gun : Weapon
 {
     [Header("피격거리")]
-    [SerializeField] private float _rangeOfHits = 100;
+    [SerializeField] private float _rangeOfHits = 50;
 
     [Header("한번에 발사되는 총알수")] // 최소 1이상 설정 ,총알소모는 변수 관계없이 항상 1 
     [SerializeField] private int _shotsAtOnce;
@@ -18,7 +18,7 @@ public class Gun : Weapon
     private int _layerMask;
 
     [SerializeField] private GameObject TestPrefab;
-    [SerializeField] private GameObject TestPrefab22;
+   // [SerializeField] private GameObject TestPrefab22;
 
 
     private void OnEnable()
@@ -125,20 +125,13 @@ public class Gun : Weapon
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-
             float x = Random.Range(-_spread, _spread);
             float y = Random.Range(-_spread, _spread);
             Vector3 dir = new Vector3(x, y, 0);
 
             if (Physics.Raycast(ray.origin, (ray.direction + dir).normalized, out hit, _rangeOfHits, _layerMask))
             {
-                GameObject wallPiece = Instantiate(TestPrefab);
-                wallPiece.transform.position = hit.point;
-                wallPiece.transform.forward = hit.normal;
-
-                GameObject dddd = Instantiate(TestPrefab22);
-                dddd.transform.position = hit.point;
-                dddd.transform.forward = hit.normal;
+                Instantiate(TestPrefab, hit.point, Quaternion.LookRotation(hit.normal));
 
                 if (hit.collider.CompareTag("Ground"))
                 {
@@ -168,7 +161,7 @@ public class Gun : Weapon
 
     private void ReloadStart() //BOOL로 만들어서 재장전 성공, 취소 판단할것
     {
-        if (isReloading || _currentCartridge == _cartridge) // 총알꽉찬상태에선 리로드 불가
+        if (isReloading || _currentCartridge >= _cartridge) // 총알꽉찬상태에선 리로드 불가
             return;
 
         isReloading = true;
