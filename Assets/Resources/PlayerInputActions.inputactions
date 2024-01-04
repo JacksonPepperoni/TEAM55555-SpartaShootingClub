@@ -49,6 +49,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "FastRun",
+                    "type": "Button",
+                    "id": "e6190746-70b5-4e75-8162-05a61e05b387",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Walk",
+                    "type": "Button",
+                    "id": "0ae66012-3d22-4de6-9d4a-cdba672ffa4d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -142,8 +160,8 @@
                 },
                 {
                     "name": "",
-                    "id": "2282fb07-36dd-46a8-90ae-74adbfc5f07e",
-                    "path": "<Keyboard>/leftCtrl",
+                    "id": "6005d6a2-d310-4b51-b49c-2046619bf073",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -153,12 +171,23 @@
                 },
                 {
                     "name": "",
-                    "id": "6005d6a2-d310-4b51-b49c-2046619bf073",
-                    "path": "<Keyboard>/c",
+                    "id": "89e12126-0eab-4325-9b4d-1abc53d6b6dc",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Sit",
+                    "action": "FastRun",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e2195d96-f365-43c5-b2a5-a1d8392b48f5",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

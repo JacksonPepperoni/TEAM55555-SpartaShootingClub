@@ -357,12 +357,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f902e13231cd7a4cb4c721fb5dccf76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 2
+  moveSpeedBase: 2
+  moveSpeedModifierSit: 0.5
+  moveSpeedModifierFastRun: 2
+  moveSpeedModifierWalk: 0.5
   jumpHeight: 1
   sitHeight: 0.5
   gravity: -9.81
-  cinemachineContainer: {fileID: 7439492164653592113}
-  weaponContainer: {fileID: 0}
 --- !u!143 &8001195661026136467
 CharacterController:
   m_ObjectHideFlags: 0

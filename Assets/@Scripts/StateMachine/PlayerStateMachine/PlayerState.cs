@@ -37,6 +37,7 @@ public class PlayerGroundState : PlayerStateBase
         _controller.Move();
         if (_input.ADSTrigger)
             _controller.ChangeADS();
+        _controller.SetFastRun(_input.FastRun);
     }
 }
 
@@ -69,7 +70,7 @@ public class PlayerSitState : PlayerGroundState
     public override void OnStateStay()
     {
         base.OnStateStay();
-        if (_input.SitKeyUp)
+        if (_input.SitKeyDown)
             _machine.StateTransition(_machine.StateDictionary[PlayerStateMachine.PlayerState.Stand]);
     }
 }
