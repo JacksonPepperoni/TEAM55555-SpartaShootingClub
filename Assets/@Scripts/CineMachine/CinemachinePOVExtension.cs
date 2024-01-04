@@ -11,12 +11,19 @@ public class CinemachinePOVExtension : CinemachineExtension
     [SerializeField] private float mouseSensitivity = 10f;
     [SerializeField] private float clampAngle = 70f;
 
+    public float MouseSensitivity { get => mouseSensitivity; set => mouseSensitivity = value; }
+
     protected override void Awake()
     {
         _input = InputManager.Instance;
         _controller = GetComponentInParent<PlayerController>();
 
         base.Awake();
+    }
+
+    // 총기 반동 적용
+    public void ReceiveFirearmRecoil(Vector2 force, float time)
+    {
     }
 
     protected override void PostPipelineStageCallback(CinemachineVirtualCameraBase vcam, CinemachineCore.Stage stage, ref CameraState state, float deltaTime)
