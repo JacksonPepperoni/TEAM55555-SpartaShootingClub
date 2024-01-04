@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
@@ -51,5 +52,6 @@ public class HealthSystem : MonoBehaviour
         //_anim.SetBool("IsActive", false);
         //gameObject.GetComponent<BoxCollider>().enabled = false;
         OnDeath?.Invoke();
+        GetComponent<EnemyController>().Die();
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
@@ -7,6 +8,7 @@ public class EnemyManager : MonoBehaviour
     static public EnemyManager instance;
 
     [SerializeField] private GameObject enemyPrefabs;
+
 
     [SerializeField] private int currentSpawnCount;
     private int waveSpaawnCount;
@@ -48,15 +50,16 @@ public class EnemyManager : MonoBehaviour
             //컴포넌트만 다 끌 수 있나
             enemyList.Add(enemy);
         }
-        for(int i=0; i<waveSpaawnCount;)
+        for (int i = 0; i < waveSpaawnCount;)
         {
             int posIdx = Random.Range(0, enemyList.Count);
             //애니메이션 컴포넌트 켜주고 => rigidbody도 켜주고
-            if (enemyList[posIdx].GetComponent<EnemyController>().isActive==false)
+            if (!enemyList[posIdx].TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
             {
                 enemyList[posIdx].GetComponent<EnemyController>().Respawn();
+                currentSpawnCount++;
+                i++;
             }
-            
             //if (!enemyList[posIdx].GetComponent<Animator>().GetBool("IsActive"))
             //{
             //    enemyList[posIdx].GetComponent<EnemyController>().Respawn();
@@ -65,11 +68,10 @@ public class EnemyManager : MonoBehaviour
             //    currentSpawnCount++;
             //}
         }
-     
+
     }
     private void OnEnemyDeath()
     {
-        currentSpawnCount--;
         Invoke("SpawnEnemy",3f);
     }
     private void SpawnEnemy()
@@ -78,13 +80,14 @@ public class EnemyManager : MonoBehaviour
         {
             int spawnIdx = Random.Range(0, spawnPositions.Count);
             Debug.Log(spawnIdx);
-            if(enemyList[spawnIdx].GetComponent<BoxCollider>().enabled==false)
+
+            if (enemyList[spawnIdx].GetComponent<Rigidbody>()==null)
             {
                 Debug.Log("성공");
+                gameObject.AddComponent<Rigidbody>().useGravity = false ;
                 enemyList[spawnIdx].GetComponent<EnemyController>().Respawn();
                 break;
             }
-            
         }
     }
 }
