@@ -42,7 +42,6 @@ public class InputManager : Singleton<InputManager>
         _fastRunAction = _playerInput.currentActionMap.FindAction("FastRun");
         _walkAction = _playerInput.currentActionMap.FindAction("Walk");
 
-
         // 키 상호작용
         // ex) 달리다가 정조준하면 달리기 취소. 걷다가 달리면 걷기 취소
         _adsAction.started += _ => _fastRun = false;
