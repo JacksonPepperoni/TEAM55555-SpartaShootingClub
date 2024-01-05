@@ -1031,6 +1031,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6000220241442020069, guid: dca8df822b70b5948adcfc4dd112f795, type: 3}
+      propertyPath: attachedSlotPrefab
+      value: 
+      objectReference: {fileID: 6832461928987691494, guid: 4c4d75be53a1f3545bac9fda8e448081, type: 3}
     - target: {fileID: 8237410778125988828, guid: dca8df822b70b5948adcfc4dd112f795, type: 3}
       propertyPath: m_Name
       value: InventoryUI
