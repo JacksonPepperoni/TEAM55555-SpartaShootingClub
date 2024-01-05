@@ -23,4 +23,4 @@ MonoBehaviour:
   _numberOfBulletFiredAtOnce: 1
   _spread: 0
   _muzzleFlash: {fileID: 0}
-  _rangeOfHits: 20
+  _range: 15

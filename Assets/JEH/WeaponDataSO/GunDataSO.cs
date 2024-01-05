@@ -9,10 +9,10 @@ public class GunDataSO : WeaponDataSO
     [SerializeField] private float _spread; // 총이 얼만큼 퍼질지
     [SerializeField] GameObject _muzzleFlash; // 총구 불
 
-    [SerializeField] private float _rangeOfHits; // 사정거리, 폭발범위
+    [SerializeField] private float _range; // 사정거리
     public int NumberOfBulletFiredAtOnce { get { return _numberOfBulletFiredAtOnce; } }
     public float Spread { get { return _spread; } }
 
     public GameObject MuzzleFlash { get { return _muzzleFlash; } }
-    public float RangeOfHits { get { return _rangeOfHits; } }
+    public float Range { get { return _range; } }
 }
