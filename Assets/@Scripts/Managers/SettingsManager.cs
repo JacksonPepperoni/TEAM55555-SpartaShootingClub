@@ -18,6 +18,7 @@ public class SettingsManager : Singleton<SettingsManager>
 
         // TODO: JSON이나 PlayerPrefs에서 저장된 값 불러오기
 
+        _mouseReverse = PlayerPrefs.GetInt("Settings_Inversion") == 1;
         _fov = PlayerPrefs.GetFloat("Settings_Fov", 90);
         _sensitivity = PlayerPrefs.GetFloat("Settings_Sensitivity", 50);
 
@@ -32,7 +33,7 @@ public class SettingsManager : Singleton<SettingsManager>
     public bool MouseReverse 
     { 
         get => _mouseReverse; 
-        set => SetReverse(false); 
+        set => SetReverse(value); 
     }
 
     public float FOV
@@ -49,12 +50,14 @@ public class SettingsManager : Singleton<SettingsManager>
 
     public bool SetReverse(bool reverse)
     {
-        if (_povExtension == null)
-        {
-            _povExtension = GameObject.FindWithTag("Player").GetComponentInChildren<CinemachinePOVExtension>();
-            if (_povExtension == null)
-                return false;
-        }
+        if (_camManager.PovExtension == null)
+            return false;
+
+        _mouseReverse = reverse;
+        _camManager.PovExtension.MouseInversion = reverse;
+
+        // 임시 PlayerPrefs 저장
+        PlayerPrefs.SetInt("Settings_Inversion", _mouseReverse ? 1 : 0);
 
         return true;
     }

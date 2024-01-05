@@ -14,6 +14,7 @@ public class CinemachinePOVExtension : CinemachineExtension
     [SerializeField] private AnimationCurve _curve;
 
     public float MouseSensitivity { get => mouseSensitivity; set => mouseSensitivity = value; }
+    public bool MouseInversion { get => mouseInversion; set => mouseInversion = value; }
 
     protected override void Awake()
     {
