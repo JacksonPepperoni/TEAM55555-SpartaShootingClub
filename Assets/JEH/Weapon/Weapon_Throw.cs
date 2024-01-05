@@ -5,11 +5,10 @@ public class Weapon_Throw : Weapon
 {
     [SerializeField] private WeaponData_Throw _data;
 
-    private void OnEnable() // TODO 플레이어가 init 실행
+    private void OnEnable() // TODO 플레이어가 무기들때 init 실행
     {
         Initialize();
     }
-
 
     void Update()
     {
@@ -27,7 +26,6 @@ public class Weapon_Throw : Weapon
         {
             Reload();
         }
-
     }
 
 
@@ -36,8 +34,7 @@ public class Weapon_Throw : Weapon
         base.Initialize();
 
         _currentAmmo = _data.MagazineCapacity;
-
-        _layerMask = 1 << LayerMask.NameToLayer("Water"); // Water 레이어만 잡힘
+        _layerMask = 1 << LayerMask.NameToLayer("Water"); // TODO 임시로 Water 레이어만 잡힘. 피격되는 물체 레이어로 교체할것
     }
 
     protected override void Shoot()
@@ -45,13 +42,11 @@ public class Weapon_Throw : Weapon
         if (Time.time < lastFireTime + _data.DelayBetweenShots)
             return;
 
-
         if (_currentAmmo <= 0)
             return;
 
 
         lastFireTime = Time.time;
-
         _currentAmmo--;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

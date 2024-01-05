@@ -6,16 +6,15 @@ public class Weapon_Gun : Weapon
     [SerializeField] private WeaponData_Gun _data;
 
     private Coroutine _shootCoroutine;
-
-    public GameObject TestPrefab;
-
     private ParticleSystem _muzzleParticle;
 
-    private void OnEnable() // TODO 플레이어가 init 실행
+    public GameObject TestPrefab; //탄흔 실험용
+
+
+    private void OnEnable() // TODO 플레이어가 무기들때 init 실행
     {
         Initialize();
     }
-
 
     protected override void Initialize()
     {
@@ -28,18 +27,18 @@ public class Weapon_Gun : Weapon
             _muzzleParticle.transform.localPosition = Vector3.zero;
             _muzzleParticle.transform.forward = transform.GetChild(0).forward;
         }
-        _muzzleParticle.Stop();
 
+        if (_muzzleParticle != null)
+            _muzzleParticle?.Stop();
 
         _shootCoroutine = null;
         _currentAmmo = _data.MagazineCapacity;
-        _layerMask = 1 << LayerMask.NameToLayer("Water"); // Water 레이어만 잡힘
+        _layerMask = 1 << LayerMask.NameToLayer("Water"); // TODO 임시로 Water 레이어만 잡힘. 피격되는 물체 레이어로 교체할것
 
     }
 
     private void Update()
     {
-
         if (Input.GetMouseButtonDown(0))
         {
             _isFirePress = true;
@@ -54,7 +53,6 @@ public class Weapon_Gun : Weapon
         {
             Reload();
         }
-
 
     }
 
@@ -77,6 +75,9 @@ public class Weapon_Gun : Weapon
     {
         while (true)
         {
+
+            yield return new WaitForSeconds(_data.CastingDelay);
+
             if (_currentAmmo <= 0)
             {
                 CartridgeEmpty();
@@ -119,7 +120,10 @@ public class Weapon_Gun : Weapon
 
     protected override void Shoot()
     {
-        _muzzleParticle.Play();
+
+        if (_muzzleParticle != null)
+            _muzzleParticle.Play();
+
 
         lastFireTime = Time.time;
         _currentAmmo--;

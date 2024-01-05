@@ -178,6 +178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61bea9d65808b8d4eab7f6e426d66a23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damage: 100
   _explosionsRadius: 12.27
-  _power: 1000
-  TestPrefab: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3, type: 3}
+  _force: 1000
+  _effectParticle: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3, type: 3}
+  _timeToDie: 3

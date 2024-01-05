@@ -7,16 +7,13 @@ public abstract class Weapon : MonoBehaviour
     protected int _currentAmmo;
     protected int _layerMask;
     protected float lastFireTime;
-
     protected Coroutine _reloadCoroutine;
-
 
     protected virtual void Initialize()
     {
         transform.localPosition = Vector3.zero;
         _isReloading = false;
         _isFirePress = false;
-
         _reloadCoroutine = null;
         lastFireTime = -100;
 
