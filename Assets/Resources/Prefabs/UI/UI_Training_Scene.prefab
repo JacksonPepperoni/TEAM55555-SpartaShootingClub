@@ -626,7 +626,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: -1008357622, guid: facf8aa618c1c7441843b097a4ace3a1, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -1212,8 +1212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e73dfc126022f144782d620ade8c801b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  options: {fileID: 5860527412731594800, guid: 0108ef0c3f4150145a30630d8ebf7fe6, type: 3}
-  gunManage: {fileID: 5860527412731594800, guid: 820e108fa14023d41bd938e4ac5fff80, type: 3}
 --- !u!1 &8746088729936682914
 GameObject:
   m_ObjectHideFlags: 0
