@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "DefaultAttackData", menuName = "Attacks/Default", order = 0)]
 public class AttackSO : ScriptableObject
 {
     [Header("Attack Info")]
@@ -10,5 +11,4 @@ public class AttackSO : ScriptableObject
     public float power;
     public float speed;
     public LayerMask target;
-
 }

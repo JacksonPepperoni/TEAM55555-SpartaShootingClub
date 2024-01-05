@@ -12,7 +12,6 @@ public class testBullet : MonoBehaviour
 
         if(takeDamage!= null)
         {
-            Debug.Log(takeDamage.damageType.ToString());
             takeDamage.CallDamage(damage);
         }
         //Destroy(gameObject); 

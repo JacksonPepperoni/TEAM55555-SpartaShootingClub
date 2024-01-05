@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class EnemyStats
 {
-    [Range(1, 100)] public int maxHealth;
+    [Range(0f,20f)] public float speed;
     
     public AttackSO attackSO;
 }

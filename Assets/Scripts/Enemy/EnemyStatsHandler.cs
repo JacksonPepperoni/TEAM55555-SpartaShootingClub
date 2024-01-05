@@ -1,49 +1,31 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyStatsHandler : MonoBehaviour
 {
     [SerializeField] private EnemyStats baseStats;
-    public EnemyStats CurrentStats { get; private set; }
+    public EnemyStats currentStats { get; private set; }
 
     private void Awake()
     {
-        InitStats();
+        InitEnemyStats();
+        
     }
-
-    private void InitStats()
+    private void InitEnemyStats()
     {
-        AttackSO _attackSO = null;
-        if(baseStats.attackSO!=null)
+        AttackSO attackSO = null;
+        if (baseStats.attackSO != null)
         {
-            _attackSO = Instantiate(baseStats.attackSO);
+            attackSO = Instantiate(baseStats.attackSO);
         }
-        CurrentStats = new EnemyStats { attackSO = _attackSO };
-    }
-
-    private void UpdateStats(Func<float, float, float> operation , EnemyStats newModifier)
-    {
-        CurrentStats.maxHealth = (int)operation(CurrentStats.maxHealth, newModifier.maxHealth);
-
-        if (CurrentStats.attackSO == null || newModifier.attackSO == null)
-            return;
-        UpdateAttackStats(operation, CurrentStats.attackSO, newModifier.attackSO);
-    }
-
-    private void UpdateAttackStats(Func<float, float, float> operation, AttackSO currentAttack, AttackSO newAttack)
-    {
-        if (currentAttack == null || newAttack == null)
-        {
-            return;
-        }
-
-        currentAttack.delay = operation(currentAttack.delay, newAttack.delay);
-        currentAttack.power = operation(currentAttack.power, newAttack.power);
-        currentAttack.size = operation(currentAttack.size, newAttack.size);
-        currentAttack.speed = operation(currentAttack.speed, newAttack.speed);
+        currentStats = new EnemyStats { attackSO = attackSO };
+        currentStats.speed= baseStats.speed;
+        //if (_stats.attackSO != null)
+        //{
+        //    _stats.attackSO.target = baseStats.attackSO.target;
+        //}
     }
 }
-
-
