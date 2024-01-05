@@ -24,6 +24,7 @@ public class CinemachinePOVExtension : CinemachineExtension
     // 총기 반동 적용
     public void ReceiveFirearmRecoil(Vector2 force, float time)
     {
+
     }
 
     protected override void PostPipelineStageCallback(CinemachineVirtualCameraBase vcam, CinemachineCore.Stage stage, ref CameraState state, float deltaTime)
