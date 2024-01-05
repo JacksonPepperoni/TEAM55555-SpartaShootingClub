@@ -1,17 +1,24 @@
+using UnityEditor;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    protected ParticleSystem _particleSystem;
-    protected float _damage;
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _explosionsRadius * 0.5f);
+    }
 
-  public  float _explosionsRadius; // 범위가 몇유닛인지적어주세요
 
+    private ParticleSystem _particleSystem;
+    private float _damage;
 
+    [SerializeField] private float _explosionsRadius; // 범위가 몇유닛인지적어주세요
+    [SerializeField] private float _power;
     [SerializeField] private GameObject TestPrefab;
 
-
     private int _layerMask;
+
     // LineRenderer
 
     protected virtual void Awake()
@@ -36,14 +43,10 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-     //   Pow();
+        //   Pow();
     }
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _explosionsRadius * 0.5f);
-    }
+ 
     void Explosion()
     {
 
@@ -55,10 +58,10 @@ public class Projectile : MonoBehaviour
         {
             Debug.Log(colliders[i].gameObject.name);
 
-           Rigidbody rig = colliders[i].GetComponent<Rigidbody>();
+            Rigidbody rig = colliders[i].GetComponent<Rigidbody>();
 
-           if (rig != null)
-                rig.AddExplosionForce(1000, transform.position - rig.gameObject.transform.position, 70);
+            if (rig != null)
+                rig.AddExplosionForce(_power, transform.position - rig.gameObject.transform.position, _explosionsRadius * 7);
 
         }
 
