@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -34,13 +33,11 @@ public class UIGunItem : UIBase
     {
         // 팝업 생성
         // 해당 오브젝트 위치를 기준으로 오른쪽에 생성
-        Debug.Log("Enter");
     }
 
     private void ExitWeaponTooltip(PointerEventData eventData)
     {
         // 팝업 없애기
-        Debug.Log("Exit");
     }
 
     #endregion
