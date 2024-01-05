@@ -20,10 +20,19 @@ public class Util
         GameObject.Destroy(popup.gameObject);
     }
 
-    public static void ValueStepChanged(float stepSize, Slider slider, TextMeshProUGUI valueText)
+    public static void SetSliderUI(Slider slider, TextMeshProUGUI valueText, float value, float minValue = 0, float maxValue = 100)
     {
-        float steppedValue = Mathf.Round(slider.value * stepSize);
-        slider.value = steppedValue * 0.01f;
+        slider.minValue = minValue;
+        slider.maxValue = maxValue;
+
+        slider.value = value;
+        valueText.text = value.ToString();
+    }
+
+    public static void SliderValueChanged(Slider slider, TextMeshProUGUI valueText)
+    {
+        float steppedValue = Mathf.Round(slider.value);
+        slider.value = steppedValue;
         valueText.text = steppedValue.ToString();
     }
 }
