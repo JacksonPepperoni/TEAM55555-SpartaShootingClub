@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     protected bool _isReloading;
-    protected bool _isLeftPress;
+    protected bool _isFirePress;
     protected int _currentAmmo;
     protected int _layerMask;
     protected float lastFireTime;
@@ -15,7 +15,7 @@ public abstract class Weapon : MonoBehaviour
     {
         transform.localPosition = Vector3.zero;
         _isReloading = false;
-        _isLeftPress = false;
+        _isFirePress = false;
 
         _reloadCoroutine = null;
         lastFireTime = -100;

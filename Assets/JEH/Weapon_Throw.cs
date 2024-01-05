@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class Throw : Weapon
+public class Weapon_Throw : Weapon
 {
-    [SerializeField] private ThrowDataSO _data;
+    [SerializeField] private WeaponData_Throw _data;
 
     private void OnEnable() // TODO 플레이어가 init 실행
     {
@@ -15,12 +15,12 @@ public class Throw : Weapon
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _isLeftPress = true;
+            _isFirePress = true;
             Shoot();
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            _isLeftPress = false;
+            _isFirePress = false;
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -35,7 +35,7 @@ public class Throw : Weapon
     {
         base.Initialize();
 
-        _currentAmmo = _data.Ammo;
+        _currentAmmo = _data.MagazineCapacity;
 
         _layerMask = 1 << LayerMask.NameToLayer("Water"); // Water 레이어만 잡힘
     }
@@ -57,13 +57,13 @@ public class Throw : Weapon
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         GameObject rig = Instantiate(_data.Projectile, gameObject.transform.position, Quaternion.identity);
-        rig.GetComponent<Rigidbody>()?.AddForce(ray.direction * _data.Power);
+        rig.GetComponent<Rigidbody>()?.AddForce(ray.direction * _data.ThrowPower);
     }
 
 
     private void Reload() 
     {
-        if (_isReloading || _currentAmmo >= _data.Ammo)
+        if (_isReloading || _currentAmmo >= _data.MagazineCapacity)
             return;
 
         _isReloading = true;
@@ -79,7 +79,7 @@ public class Throw : Weapon
         yield return new WaitForSeconds(_data.ReloadTime);
 
         // 소지탄창수--;
-        _currentAmmo = _data.Ammo;
+        _currentAmmo = _data.MagazineCapacity;
 
         Debug.Log("리로드 완료");
 

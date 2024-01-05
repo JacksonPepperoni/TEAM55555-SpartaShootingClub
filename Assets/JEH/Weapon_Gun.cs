@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class Gun : Weapon
+public class Weapon_Gun : Weapon
 {
-    [SerializeField] private GunDataSO _data;
+    [SerializeField] private WeaponData_Gun _data;
 
     private Coroutine _shootCoroutine;
 
@@ -22,14 +22,17 @@ public class Gun : Weapon
         base.Initialize();
 
 
-        _muzzleParticle = Instantiate(_data.MuzzleFlash, transform.GetChild(0)).GetComponent<ParticleSystem>();
-        _muzzleParticle.transform.localPosition = Vector3.zero;
-        _muzzleParticle.transform.forward = transform.GetChild(0).forward;
+        if (_muzzleParticle == null)
+        {
+            _muzzleParticle = Instantiate(_data.MuzzleFlash, transform.GetChild(0)).GetComponent<ParticleSystem>();
+            _muzzleParticle.transform.localPosition = Vector3.zero;
+            _muzzleParticle.transform.forward = transform.GetChild(0).forward;
+        }
         _muzzleParticle.Stop();
 
-        _currentAmmo = _data.Ammo;
-        _shootCoroutine = null;
 
+        _shootCoroutine = null;
+        _currentAmmo = _data.MagazineCapacity;
         _layerMask = 1 << LayerMask.NameToLayer("Water"); // Water 레이어만 잡힘
 
     }
@@ -39,12 +42,12 @@ public class Gun : Weapon
 
         if (Input.GetMouseButtonDown(0))
         {
-            _isLeftPress = true;
+            _isFirePress = true;
             ShotStart();
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            _isLeftPress = false;
+            _isFirePress = false;
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -96,7 +99,7 @@ public class Gun : Weapon
             }
             else
             {
-                if (!_isLeftPress)
+                if (!_isFirePress)
                 {
                     ShootStop();
                     yield break;
@@ -149,7 +152,7 @@ public class Gun : Weapon
 
     private void Reload() //BOOL로 만들어서 재장전 성공, 취소 판단할것
     {
-        if (_isReloading || _currentAmmo >= _data.Ammo || _shootCoroutine != null)
+        if (_isReloading || _currentAmmo >= _data.MagazineCapacity || _shootCoroutine != null)
             return;
 
         _isReloading = true;
@@ -165,7 +168,7 @@ public class Gun : Weapon
         yield return new WaitForSeconds(_data.ReloadTime);
 
         // 소지탄창수--;
-        _currentAmmo = _data.Ammo;
+        _currentAmmo = _data.MagazineCapacity;
 
         Debug.Log("리로드 완료");
 
