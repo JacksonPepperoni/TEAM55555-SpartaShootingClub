@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: RangedAttackData
   m_EditorClassIdentifier: 
   size: 0.2
-  delay: 1
+  delay: 0.6
   power: 1
-  speed: 10
+  speed: 15
   target:
     serializedVersion: 2
     m_Bits: 0
@@ -24,3 +24,4 @@ MonoBehaviour:
   spread: 0
   numberofProjectilesPershot: 1
   multipleProjectilesAngel: 2
+  reloadDelay: 5
