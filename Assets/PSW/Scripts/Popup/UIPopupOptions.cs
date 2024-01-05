@@ -13,9 +13,9 @@ public class UIPopupOptions : UIPopup
     private UIElement currentActivePanel;
     private Transform mainPanel;
 
-    private Button graphicBtn;
-    private Button audioBtn;
-    private Button controlBtn;
+    private Toggle graphicBtn;
+    private Toggle audioBtn;
+    private Toggle controlBtn;
     private Button closedBtn;
 
     #endregion
@@ -44,10 +44,12 @@ public class UIPopupOptions : UIPopup
     private void SetButtons()
     {
         SetUI<Button>();
-        graphicBtn = GetUI<Button>("Btn_Options_Graphic");
-        audioBtn = GetUI<Button>("Btn_Options_Audio");
-        controlBtn = GetUI<Button>("Btn_Options_Control");
         closedBtn = GetUI<Button>("Btn_Closed");
+
+        SetUI<Toggle>();
+        graphicBtn = GetUI<Toggle>("Toggle_Options_Graphic");
+        audioBtn = GetUI<Toggle>("Toggle_Options_Audio");
+        controlBtn = GetUI<Toggle>("Toggle_Options_Control");
     }
 
     private void SetEvents()

@@ -10,17 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9be75dc79bce6cb43a5d5f306cb1d0a7, type: 3}
-  m_Name: Gun_SniperRifle
+  m_Name: Gun_Handgun
   m_EditorClassIdentifier: 
-  _weaponName: "\uC800\uACA9\uCD1D"
-  _weaponIcon: {fileID: 0}
-  _damage: 100
-  _ammo: 5
-  _delayBetweenShots: 3
+  itemName: "\uAD8C\uCD1D"
+  itemSprite: {fileID: 0}
+  _damage: 10
+  _magazineCapacity: 5
+  _castingDelay: 0
+  _delayBetweenShots: 0.5
   _reloadTime: 2
   _isContinuousShooting: 0
-  _isAutoReloading: 0
-  _numberOfBulletFiredAtOnce: 1
+  _isAutoReloading: 1
+  _shotAtOnce: 1
   _spread: 0
-  _muzzleFlash: {fileID: 0}
-  _rangeOfHits: 50
+  _range: 20
+  _muzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}

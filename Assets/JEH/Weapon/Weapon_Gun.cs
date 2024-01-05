@@ -1,55 +1,58 @@
 using System.Collections;
 using UnityEngine;
 
-public class Gun : Weapon
+public class Weapon_Gun : Weapon
 {
-    [SerializeField] private GunDataSO _gunData;
+    [SerializeField] private WeaponData_Gun _data;
 
     private Coroutine _shootCoroutine;
+    private ParticleSystem _muzzleParticle;
 
-    public GameObject TestPrefab;
+    public GameObject TestPrefab; //탄흔 실험용
 
 
-    private void OnEnable() // TODO 플레이어가 init 실행
+    private void OnEnable() // TODO 플레이어가 무기들때 init 실행
     {
         Initialize();
     }
 
-
     protected override void Initialize()
     {
-        transform.localPosition = Vector3.zero;
+        base.Initialize();
 
-        lastFireTime = 0 - _gunData.DelayBetweenShots;
-        _currentAmmo = _gunData.Ammo;
 
-        _isReloading = false;
-        _isLeftPress = false;
+        if (_muzzleParticle == null)
+        {
+            _muzzleParticle = Instantiate(_data.MuzzleFlash, transform.GetChild(0)).GetComponent<ParticleSystem>();
+            _muzzleParticle.transform.localPosition = Vector3.zero;
+            _muzzleParticle.transform.forward = transform.GetChild(0).forward;
+        }
+
+        if (_muzzleParticle != null)
+            _muzzleParticle?.Stop();
+
         _shootCoroutine = null;
-        _reloadCoroutine = null;
-
-        _layerMask = 1 << LayerMask.NameToLayer("Water"); // Water 레이어만 잡힘
+        _currentAmmo = _data.MagazineCapacity;
+        _layerMask = 1 << LayerMask.NameToLayer("Water"); // TODO 임시로 Water 레이어만 잡힘. 피격되는 물체 레이어로 교체할것
 
     }
 
     private void Update()
     {
-
         if (Input.GetMouseButtonDown(0))
         {
-            _isLeftPress = true;
+            _isFirePress = true;
             ShotStart();
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            _isLeftPress = false;
+            _isFirePress = false;
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            ReloadStart();
+            Reload();
         }
-
 
     }
 
@@ -61,10 +64,8 @@ public class Gun : Weapon
         if (_isReloading)
             return;
 
-        if (Time.time < lastFireTime + _gunData.DelayBetweenShots)
+        if (Time.time < lastFireTime + _data.DelayBetweenShots)
             return;
-
-
 
         _shootCoroutine ??= StartCoroutine(ShootCoroutine());
 
@@ -74,6 +75,9 @@ public class Gun : Weapon
     {
         while (true)
         {
+
+            yield return new WaitForSeconds(_data.CastingDelay);
+
             if (_currentAmmo <= 0)
             {
                 CartridgeEmpty();
@@ -82,21 +86,21 @@ public class Gun : Weapon
 
             Shoot();
 
-            if (_currentAmmo <= 0 && _gunData.IsAutoReloading)
+            if (_currentAmmo <= 0 && _data.IsAutoReloading)
             {
                 yield return StartCoroutine(ReloadCoroutine());
             }
 
-            yield return new WaitForSeconds(_gunData.DelayBetweenShots);
+            yield return new WaitForSeconds(_data.DelayBetweenShots);
 
-            if (!_gunData.IsContinuousShooting)
+            if (!_data.IsContinuousShooting)
             {
                 ShootStop();
                 yield break;
             }
             else
             {
-                if (!_isLeftPress)
+                if (!_isFirePress)
                 {
                     ShootStop();
                     yield break;
@@ -116,33 +120,32 @@ public class Gun : Weapon
 
     protected override void Shoot()
     {
+
+        if (_muzzleParticle != null)
+            _muzzleParticle.Play();
+
+
         lastFireTime = Time.time;
         _currentAmmo--;
 
-        for (int i = 0; i < _gunData.NumberOfBulletFiredAtOnce; i++)
+        for (int i = 0; i < _data.ShotAtOnce; i++)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            float x = Random.Range(-_gunData.Spread, _gunData.Spread);
-            float y = Random.Range(-_gunData.Spread, _gunData.Spread);
+            float x = Random.Range(-_data.Spread * 0.5f, _data.Spread * 0.5f);
+            float y = Random.Range(-_data.Spread * 0.5f, _data.Spread * 0.5f);
             Vector3 dir = new Vector3(x, y, 0);
 
-            if (Physics.Raycast(ray.origin, (ray.direction + dir).normalized, out hit, _gunData.RangeOfHits, _layerMask))
+            if (Physics.Raycast(ray.origin, (ray.direction + dir).normalized, out hit, _data.Range, _layerMask))
             {
 
                 Instantiate(TestPrefab, hit.point, Quaternion.LookRotation(hit.normal)); // 탄흔
-
-                if (hit.collider.CompareTag("Wall"))
-                {
-                    //  Debug.Log("벽");
-                }
+                Debug.Log(DamageCalculation(hit.point, _data.Damage, _data.Range)); //데미지 계산
             }
 
-            Debug.DrawRay(ray.origin, (ray.direction + dir).normalized * _gunData.RangeOfHits, Color.red, 1);
-
+            Debug.DrawRay(ray.origin, (ray.direction + dir).normalized * _data.Range, Color.red, 1);
         }
-
     }
 
 
@@ -151,9 +154,9 @@ public class Gun : Weapon
     #region 재장전
 
 
-    private void ReloadStart() //BOOL로 만들어서 재장전 성공, 취소 판단할것
+    private void Reload() //BOOL로 만들어서 재장전 성공, 취소 판단할것
     {
-        if (_isReloading || _currentAmmo >= _gunData.Ammo)
+        if (_isReloading || _currentAmmo >= _data.MagazineCapacity || _shootCoroutine != null)
             return;
 
         _isReloading = true;
@@ -166,10 +169,10 @@ public class Gun : Weapon
         _isReloading = true;
 
         Debug.Log("리로딩");
-        yield return new WaitForSeconds(_gunData.ReloadTime);
+        yield return new WaitForSeconds(_data.ReloadTime);
 
         // 소지탄창수--;
-        _currentAmmo = _gunData.Ammo;
+        _currentAmmo = _data.MagazineCapacity;
 
         Debug.Log("리로드 완료");
 
@@ -186,7 +189,6 @@ public class Gun : Weapon
         }
 
         _isReloading = false;
-
     }
 
 

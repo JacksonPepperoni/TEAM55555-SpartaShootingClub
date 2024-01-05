@@ -1,74 +1,68 @@
 using System.Collections;
 using UnityEngine;
 
-public class Throw : Weapon
+public class Weapon_Throw : Weapon
 {
-    [SerializeField] private ThrowDataSO _throwData;
+    [SerializeField] private WeaponData_Throw _data;
 
-
-    private void OnEnable() // TODO 플레이어가 init 실행
+    private void OnEnable() // TODO 플레이어가 무기들때 init 실행
     {
         Initialize();
     }
-
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            _isLeftPress = true;
+            _isFirePress = true;
             Shoot();
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            _isLeftPress = false;
+            _isFirePress = false;
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            ReloadStart();
+            Reload();
         }
-
     }
 
 
     protected override void Initialize()
     {
-        transform.localPosition = Vector3.zero;
-        _currentAmmo = _throwData.Ammo;
+        base.Initialize();
 
-        lastFireTime = 0;
-
-        _isReloading = false;
-        _isLeftPress = false;
-
-        _layerMask = 1 << LayerMask.NameToLayer("Water"); // Water 레이어만 잡힘
+        _currentAmmo = _data.MagazineCapacity;
+        _layerMask = 1 << LayerMask.NameToLayer("Water"); // TODO 임시로 Water 레이어만 잡힘. 피격되는 물체 레이어로 교체할것
     }
 
     protected override void Shoot()
     {
-        if (Time.time < lastFireTime + _throwData.DelayBetweenShots)
+        if (Time.time < lastFireTime + _data.DelayBetweenShots)
             return;
 
+        if (_isReloading) return;
 
         if (_currentAmmo <= 0)
+        {
+            CartridgeEmpty(); 
             return;
-
+        }
 
         lastFireTime = Time.time;
-
         _currentAmmo--;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        GameObject rig = Instantiate(_throwData.Projectile, gameObject.transform.position, Quaternion.identity);
-        rig.GetComponent<Rigidbody>()?.AddForce(ray.direction * _throwData.Power);
+        GameObject rig = Instantiate(_data.Projectile, gameObject.transform.position, Quaternion.identity);
+        rig.GetComponent<Rigidbody>()?.AddForce(ray.direction * _data.ThrowPower);
     }
 
 
-    private void ReloadStart() //BOOL로 만들어서 재장전 성공, 취소 판단할것
+    private void Reload()
     {
-        if (_isReloading || _currentAmmo >= _throwData.Ammo)
+        if (_isReloading || _currentAmmo >= _data.MagazineCapacity)
             return;
 
         _isReloading = true;
@@ -81,10 +75,10 @@ public class Throw : Weapon
         _isReloading = true;
 
         Debug.Log("리로딩");
-        yield return new WaitForSeconds(_throwData.ReloadTime);
+        yield return new WaitForSeconds(_data.ReloadTime);
 
         // 소지탄창수--;
-        _currentAmmo = _throwData.Ammo;
+        _currentAmmo = _data.MagazineCapacity;
 
         Debug.Log("리로드 완료");
 
