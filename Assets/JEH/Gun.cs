@@ -128,22 +128,17 @@ public class Gun : Weapon
             float y = Random.Range(-_gunData.Spread, _gunData.Spread);
             Vector3 dir = new Vector3(x, y, 0);
 
-            if (Physics.Raycast(ray.origin, (ray.direction + dir).normalized, out hit, _gunData.RangeOfHits, _layerMask))
+            if (Physics.Raycast(ray.origin, (ray.direction + dir).normalized, out hit, _gunData.Range, _layerMask))
             {
 
                 Instantiate(TestPrefab, hit.point, Quaternion.LookRotation(hit.normal)); // 탄흔
-
-                if (hit.collider.CompareTag("Wall"))
-                {
-                    //  Debug.Log("벽");
-                }
+                Debug.Log(DamageCalculation(hit.point, _gunData.Damage, _gunData.Range));
             }
 
-            Debug.DrawRay(ray.origin, (ray.direction + dir).normalized * _gunData.RangeOfHits, Color.red, 1);
-
+            Debug.DrawRay(ray.origin, (ray.direction + dir).normalized * _gunData.Range, Color.red, 1);
         }
-
     }
+
 
 
     #endregion
@@ -153,7 +148,7 @@ public class Gun : Weapon
 
     private void ReloadStart() //BOOL로 만들어서 재장전 성공, 취소 판단할것
     {
-        if (_isReloading || _currentAmmo >= _gunData.Ammo)
+        if (_isReloading || _currentAmmo >= _gunData.Ammo || _shootCoroutine != null)
             return;
 
         _isReloading = true;
@@ -186,7 +181,6 @@ public class Gun : Weapon
         }
 
         _isReloading = false;
-
     }
 
 

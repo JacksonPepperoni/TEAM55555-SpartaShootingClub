@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -11,7 +10,7 @@ public class Projectile : MonoBehaviour
 
 
     private ParticleSystem _particleSystem;
-    private float _damage;
+    private float _damage = 100;
 
     [SerializeField] private float _explosionsRadius; // 범위가 몇유닛인지적어주세요
     [SerializeField] private float _power;
@@ -56,7 +55,7 @@ public class Projectile : MonoBehaviour
 
         for (int i = 0; i < colliders.Length; i++)
         {
-            Debug.Log(colliders[i].gameObject.name);
+            Debug.Log(colliders[i].gameObject.name + DamageCalculation(colliders[i].gameObject.transform.position, _damage, _explosionsRadius));
 
             Rigidbody rig = colliders[i].GetComponent<Rigidbody>();
 
@@ -79,5 +78,9 @@ public class Projectile : MonoBehaviour
         CancelInvoke();
         Destroy(this.gameObject);
     }
-
+    protected virtual float DamageCalculation(Vector3 target, float damage, float range)
+    {
+        float per = (Vector3.Distance(transform.position, target) / range * 100); // 피격위치가 사정거리의 몇퍼센트인지
+        return damage * (1 - per / 100); // 떨어진 거리만큼 데미지 감소
+    }
 }
