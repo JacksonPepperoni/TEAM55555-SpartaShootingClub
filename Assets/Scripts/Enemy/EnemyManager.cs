@@ -34,7 +34,7 @@ public class EnemyManager : MonoBehaviour
             spawnPositions.Add(spawnPositionsRoot.GetChild(i));
         }
         currentSpawnCount = 0;
-        waveSpaawnCount = 4;
+        waveSpaawnCount = 2;
 
         SetEnemy();
     }
