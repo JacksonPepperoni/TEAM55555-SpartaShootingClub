@@ -1595,7 +1595,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952167289}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.3869839, y: 1.2451755, z: 1.9377443}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3186,6 +3186,7 @@ GameObject:
   - component: {fileID: 5588870630349537609}
   - component: {fileID: 7316732815030744117}
   - component: {fileID: 7316732815030744116}
+  - component: {fileID: 7316732815030744118}
   m_Layer: 0
   m_Name: testAttackTarget
   m_TagString: Untagged
@@ -4708,6 +4709,18 @@ MonoBehaviour:
   baseStats:
     speed: 0
     attackSO: {fileID: 11400000, guid: b4e075b57ec53de4f950f77106ddc6c1, type: 2}
+--- !u!114 &7316732815030744118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4026247224999672439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ee5e55d8702e5f41bcaf5813890a95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7324326276616590807
 Transform:
   m_ObjectHideFlags: 0

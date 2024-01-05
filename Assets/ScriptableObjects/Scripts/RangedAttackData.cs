@@ -11,4 +11,5 @@ public class RangedAttackData : AttackSO
     public float spread;
     public int numberofProjectilesPershot;
     public float multipleProjectilesAngel;
+    public float reloadDelay;
 }

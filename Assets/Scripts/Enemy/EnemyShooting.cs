@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
@@ -14,14 +15,14 @@ public class EnemyShooting : MonoBehaviour
     private AttackSO _attackSO;
 
     private float _timeSinceLastAttack = float.MaxValue;
-    private bool isAttacking;
+    private float _timeSinceLastReload = float.MaxValue;
+    private bool isAttacking=true;
 
     private void Start()
     {
         _projectileManager = ProjectileManager.instance;
         _stats = GetComponent<EnemyStatsHandler>();
         _attackSO = _stats.currentStats.attackSO;
-        isAttacking = true;
     }
 
     private void Update()
@@ -33,14 +34,43 @@ public class EnemyShooting : MonoBehaviour
     {
         if (_stats.currentStats.attackSO==null)
             return;
+
+        HandleReload();
+        
         if (_timeSinceLastAttack <= _stats.currentStats.attackSO.delay)
         {
             _timeSinceLastAttack += Time.deltaTime;
+  
         }
         if (isAttacking && _timeSinceLastAttack > _stats.currentStats.attackSO.delay)
         {
             _timeSinceLastAttack = 0;
             OnShoot();
+        }
+    }
+    private void HandleReload()
+    {
+        _timeSinceLastReload+=Time.deltaTime;
+
+        switch (isAttacking)
+        {
+            case true://발사 중일 때
+                Debug.Log("발사중");
+                if (_timeSinceLastReload > 5f)
+                {
+                    _timeSinceLastReload = 0;
+                    isAttacking = false;
+                }
+
+                break;
+            case false://재장전 중일 때
+                Debug.Log("발사안함");
+                if (_timeSinceLastReload > 2f)
+                {
+                    _timeSinceLastReload = 0;
+                    isAttacking = true;
+                }
+                break;
         }
     }
     private void OnShoot()
