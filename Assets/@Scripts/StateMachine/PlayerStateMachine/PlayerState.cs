@@ -31,8 +31,8 @@ public class PlayerGroundState : PlayerStateBase
         _controller.Move();
         if (_input.ADSTrigger)
             _controller.ChangeADS();
-        _controller.SetFastRun(_input.FastRun);
-        if (!_input.FastRun && _input.FireTrigger)
+        _controller.SetFastRun(_input.FastRunPress);
+        if (!_input.FastRunPress && _input.FirePress)
         {
             Debug.Log("fire");
         }

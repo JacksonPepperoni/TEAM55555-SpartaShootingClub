@@ -12,18 +12,20 @@ public class InputManager : Singleton<InputManager>
     private InputAction _fastRunAction;
     private InputAction _walkAction;
 
-    private bool _fastRun;
-    private bool _walk;
+    private bool _fastRunPress;
+    private bool _walkPress;
+    private bool _firePress;
 
     public Vector2 MouseDelta => _aimAction.ReadValue<Vector2>();
     public Vector2 PlayerMovement => _moveAction.ReadValue<Vector2>();
 
-    public bool FireTrigger => _fireAction.triggered;
+    public bool FirePress => _firePress;
+
     public bool ADSTrigger => _adsAction.triggered;
     public bool SitKeyDown => _sitAction.triggered;
     //public bool SitKeyUp => !sit.inProgress;
-    public bool FastRun => _fastRun;
-    public bool Walk => _walk;
+    public bool FastRunPress => _fastRunPress;
+    public bool WalkPress => _walkPress;
 
     public override bool Initialize()
     {
@@ -44,11 +46,13 @@ public class InputManager : Singleton<InputManager>
 
         // 키 상호작용
         // ex) 달리다가 정조준하면 달리기 취소. 걷다가 달리면 걷기 취소
-        _adsAction.started += _ => _fastRun = false;
-        _fastRunAction.started += _ => { _fastRun = true; _walk = false; };
-        _fastRunAction.canceled += _ => _fastRun = false;
-        _walkAction.started += _ => { _walk = true; _fastRun = false; };
-        _walkAction.canceled += _ => _walk = false;
+        _fireAction.started += _ => _firePress = true;
+        _fireAction.canceled += _ => _firePress = false;
+        _adsAction.started += _ => _fastRunPress = false;
+        _fastRunAction.started += _ => { _fastRunPress = true; _walkPress = false; _firePress = false; };
+        _fastRunAction.canceled += _ => _fastRunPress = false;
+        _walkAction.started += _ => { _walkPress = true; _fastRunPress = false; };
+        _walkAction.canceled += _ => _walkPress = false;
 
         Cursor.visible = false;
 

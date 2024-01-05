@@ -42,9 +42,9 @@ public class PlayerController : MonoBehaviour
         get
         {
             float modifiers = 1f;
-            if (_input.Walk)
+            if (_input.WalkPress)
                 modifiers *= moveSpeedModifierWalk;
-            else if (_input.FastRun)
+            else if (_input.FastRunPress)
                 modifiers *= moveSpeedModifierFastRun;
 
             if (_isSit)

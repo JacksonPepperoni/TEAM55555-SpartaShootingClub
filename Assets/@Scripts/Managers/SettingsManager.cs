@@ -18,7 +18,7 @@ public class SettingsManager : Singleton<SettingsManager>
 
         // TODO: JSON이나 PlayerPrefs에서 저장된 값 불러오기
 
-        _mouseReverse = PlayerPrefs.GetInt("Settings_Inversion") == 1;
+        _mouseReverse = PlayerPrefs.GetInt("Settings_Inversion", 0) == 1;
         _fov = PlayerPrefs.GetFloat("Settings_Fov", 90);
         _sensitivity = PlayerPrefs.GetFloat("Settings_Sensitivity", 50);
 
