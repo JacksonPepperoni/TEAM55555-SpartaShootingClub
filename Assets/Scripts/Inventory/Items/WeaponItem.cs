@@ -15,7 +15,6 @@ public class WeaponItem : Item
 
     public bool TryAddAccessory(AccessoryItem accessoryItem)
     {
-
         AccessoryData accessoryData = accessoryItem.ItemData as AccessoryData;
 
         if(CurrentParts.ContainsKey(accessoryData.AccessoryType))
