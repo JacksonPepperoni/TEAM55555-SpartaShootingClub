@@ -152,7 +152,7 @@ TextureImporter:
         width: 830
         height: 270
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -173,7 +173,7 @@ TextureImporter:
         width: 750
         height: 304
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,6 +181,48 @@ TextureImporter:
       bones: []
       spriteID: 80d732bc91a115041b532264b9e0a50c
       internalID: -1461613945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pistol
+      rect:
+        serializedVersion: 2
+        x: 646
+        y: 1806
+        width: 263
+        height: 194
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6fad28d9cc01fc4f945c790bbd2a04c
+      internalID: -97612666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grenade
+      rect:
+        serializedVersion: 2
+        x: 984
+        y: 1524
+        width: 163
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a15d1c12ff395e546a18b8069f52cfa2
+      internalID: -1481658278
       vertices: []
       indices: 
       edges: []
@@ -197,6 +239,8 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       AssaultRifle: -1461613945
+      Grenade: -1481658278
+      Pistol: -97612666
       ShotGun: 832470299
       SniperRifle: 1540628551
   mipmapLimitGroupName: 

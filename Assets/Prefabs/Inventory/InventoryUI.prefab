@@ -182,7 +182,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3291799002082903688}
-  - {fileID: 4610604677129825390}
+  - {fileID: 1405925075801042888}
   - {fileID: 6152356868909832932}
   m_Father: {fileID: 3679824895361212420}
   m_RootOrder: -1
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   accessoryDescription: {fileID: 9168502989640724063}
-  weaponDescription: {fileID: 6000220241442020069}
+  weaponDescription: {fileID: 9168169312609769795}
   ForeGround: {fileID: 1886818292734573746}
 --- !u!1 &3482652052407227196
 GameObject:
@@ -745,6 +745,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5739228115644942458, guid: f5fc53d032153aa48b8ac9ec469b129a, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5739228115644942458, guid: f5fc53d032153aa48b8ac9ec469b129a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5739228115644942458, guid: f5fc53d032153aa48b8ac9ec469b129a, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -777,6 +789,18 @@ PrefabInstance:
     - target: {fileID: 105954077198273204, guid: 288b1c089419ab148b795932c46e17a5, type: 3}
       propertyPath: m_Name
       value: Description_Weapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036537500322272699, guid: 288b1c089419ab148b795932c46e17a5, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036537500322272699, guid: 288b1c089419ab148b795932c46e17a5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036537500322272699, guid: 288b1c089419ab148b795932c46e17a5, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2724196815251363823, guid: 288b1c089419ab148b795932c46e17a5, type: 3}
       propertyPath: m_Pivot.x
@@ -865,17 +889,22 @@ PrefabInstance:
     - target: {fileID: 5293825865134612836, guid: 288b1c089419ab148b795932c46e17a5, type: 3}
       propertyPath: weaponImage
       value: 
-      objectReference: {fileID: 1463924184652033594}
+      objectReference: {fileID: 4048198012503403932}
     - target: {fileID: 5293825865134612836, guid: 288b1c089419ab148b795932c46e17a5, type: 3}
       propertyPath: attachedSlotPrefab
       value: 
-      objectReference: {fileID: 6832461928987691494, guid: cb493f07e579f1c4bab42edfdf8f2af0, type: 3}
+      objectReference: {fileID: 6832461928987691494, guid: 4c4d75be53a1f3545bac9fda8e448081, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 288b1c089419ab148b795932c46e17a5, type: 3}
---- !u!114 &1463924184652033594 stripped
+--- !u!224 &1405925075801042888 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2724196815251363823, guid: 288b1c089419ab148b795932c46e17a5, type: 3}
+  m_PrefabInstance: {fileID: 3912664877098973223}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4048198012503403932 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1036537500322272699, guid: 288b1c089419ab148b795932c46e17a5, type: 3}
   m_PrefabInstance: {fileID: 3912664877098973223}
@@ -886,12 +915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &4610604677129825390 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2724196815251363823, guid: 288b1c089419ab148b795932c46e17a5, type: 3}
-  m_PrefabInstance: {fileID: 3912664877098973223}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6000220241442020069 stripped
+--- !u!114 &9168169312609769795 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5293825865134612836, guid: 288b1c089419ab148b795932c46e17a5, type: 3}
   m_PrefabInstance: {fileID: 3912664877098973223}
