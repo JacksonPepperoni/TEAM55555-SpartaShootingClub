@@ -44,6 +44,10 @@ public class UIPanelAudio : UIElement
 
     private void SetEvents()
     {
+        Util.SetSliderUI(masterSlider, masterVolumeText, 100);
+        Util.SetSliderUI(sfxSlider, sfxVolumeText, 100);
+        Util.SetSliderUI(uiSlider, uiVolumeText, 100);
+
         masterSlider.gameObject.SetEvent(UIEventType.Click, ChangedMasterVolume);
         masterSlider.gameObject.SetEvent(UIEventType.Drag, ChangedMasterVolume);
 
@@ -60,17 +64,17 @@ public class UIPanelAudio : UIElement
 
     private void ChangedMasterVolume(PointerEventData eventData)
     {
-        Util.ValueStepChanged(100f, masterSlider, masterVolumeText);
+        Util.SliderValueChanged(masterSlider, masterVolumeText);
     }
 
     private void ChangedSFXVolume(PointerEventData eventData)
     {
-        Util.ValueStepChanged(100f, sfxSlider, sfxVolumeText);
+        Util.SliderValueChanged(sfxSlider, sfxVolumeText);
     }
 
     private void ChangedUIVolume(PointerEventData eventData)
     {
-        Util.ValueStepChanged(100f, uiSlider, uiVolumeText);
+        Util.SliderValueChanged(uiSlider, uiVolumeText);
     }
 
     #endregion

@@ -23,6 +23,7 @@ public class TestScenePSW : Singleton<TestScenePSW>
                 InputManager.Instance.Initialize();
 
                 // 3. UI 초기화, 생성
+                SettingsManager.Instance.Initialize();
                 UIManager.Instance.Initialize();
 
                 var trainingScene = ResourceManager.Instance.GetCache<GameObject>("UI_Training_Scene");

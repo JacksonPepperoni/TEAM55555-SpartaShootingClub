@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UIEventHandler : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IDragHandler
+public class UIEventHandler : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler, IDragHandler
 {
     private readonly Dictionary<UIEventType, Action<PointerEventData>> _eventHandlers = new();
 
@@ -31,7 +31,7 @@ public class UIEventHandler : MonoBehaviour, IPointerClickHandler, IPointerEnter
     public void OnPointerClick(PointerEventData eventData) => InvokeEventAction(UIEventType.Click, eventData);
     public void OnPointerEnter(PointerEventData eventData) => InvokeEventAction(UIEventType.PointerEnter, eventData);
     public void OnPointerExit(PointerEventData eventData) => InvokeEventAction(UIEventType.PointerExit, eventData);
-    public void OnPointerDown(PointerEventData eventData) => InvokeEventAction(UIEventType.PointerExit, eventData);
+    public void OnPointerUp(PointerEventData eventData) => InvokeEventAction(UIEventType.PointerUp, eventData);
     public void OnDrag(PointerEventData eventData) => InvokeEventAction(UIEventType.Drag, eventData);
 
     private void OnDestroy()
