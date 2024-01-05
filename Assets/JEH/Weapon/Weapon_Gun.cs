@@ -21,7 +21,6 @@ public class Weapon_Gun : Weapon
     {
         base.Initialize();
 
-
         if (_muzzleParticle == null)
         {
             _muzzleParticle = Instantiate(_data.MuzzleFlash, transform.GetChild(0)).GetComponent<ParticleSystem>();
@@ -34,8 +33,7 @@ public class Weapon_Gun : Weapon
 
         _shootCoroutine = null;
         _currentAmmo = _data.MagazineCapacity;
-        _layerMask = 1 << LayerMask.NameToLayer("Water"); // TODO 임시로 Water 레이어만 잡힘. 피격되는 물체 레이어로 교체할것
-
+        _layerMask = 0b1;
     }
 
     private void Update()
@@ -54,7 +52,6 @@ public class Weapon_Gun : Weapon
         {
             Reload();
         }
-
     }
 
 
@@ -69,7 +66,6 @@ public class Weapon_Gun : Weapon
             return;
 
         _shootCoroutine ??= StartCoroutine(ShootCoroutine());
-
     }
 
     private IEnumerator ShootCoroutine()
@@ -131,7 +127,7 @@ public class Weapon_Gun : Weapon
 
         for (int i = 0; i < _data.ShotAtOnce; i++)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
             RaycastHit hit;
 
             float x = Random.Range(-_data.Spread * 0.5f, _data.Spread * 0.5f);

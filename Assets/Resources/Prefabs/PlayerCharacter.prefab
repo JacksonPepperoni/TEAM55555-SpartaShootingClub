@@ -241,6 +241,12 @@ MonoBehaviour:
   mouseSensitivity: 10
   clampAngle: 70
   mouseInversion: 0
+  _curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5504479181509346240
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +259,7 @@ GameObject:
   - component: {fileID: 9002081856504524903}
   - component: {fileID: 8001195661026136467}
   - component: {fileID: 3446823982895441838}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerCharacter
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -293,6 +299,11 @@ MonoBehaviour:
   moveSpeedModifierFastRun: 2
   moveSpeedModifierWalk: 0.5
   sitHeight: 0.5
+  sitStandDuration: 0.1
+  defaultHeight: {x: 0, y: 1.5, z: 0}
+  verticalRecoil: 10
+  horizontalRecoil: 10
+  recoilDuration: 0.1
 --- !u!143 &8001195661026136467
 CharacterController:
   m_ObjectHideFlags: 0
