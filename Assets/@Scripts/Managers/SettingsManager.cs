@@ -1,12 +1,12 @@
 using Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SettingsManager : Singleton<SettingsManager>
 {
     private CinemachineManager _camManager;
 
-    // Settings Value
+    // Settings Control Value
+    private bool _mouseReverse;
     private float _fov;
     private float _sensitivity;
 
@@ -17,6 +17,7 @@ public class SettingsManager : Singleton<SettingsManager>
         _camManager = CinemachineManager.Instance;
 
         // TODO: JSON이나 PlayerPrefs에서 저장된 값 불러오기
+
         _fov = PlayerPrefs.GetFloat("Settings_Fov", 90);
         _sensitivity = PlayerPrefs.GetFloat("Settings_Sensitivity", 50);
 
@@ -24,6 +25,14 @@ public class SettingsManager : Singleton<SettingsManager>
         SetMouseSensitivity(_sensitivity);
 
         return true;
+    }
+
+    #region Control Settings
+
+    public bool MouseReverse 
+    { 
+        get => _mouseReverse; 
+        set => SetReverse(false); 
     }
 
     public float FOV
@@ -36,6 +45,18 @@ public class SettingsManager : Singleton<SettingsManager>
     {
         get => _sensitivity;
         set => SetMouseSensitivity(value);
+    }
+
+    public bool SetReverse(bool reverse)
+    {
+        if (_povExtension == null)
+        {
+            _povExtension = GameObject.FindWithTag("Player").GetComponentInChildren<CinemachinePOVExtension>();
+            if (_povExtension == null)
+                return false;
+        }
+
+        return true;
     }
 
     public bool SetFOV(float fov)
@@ -65,4 +86,6 @@ public class SettingsManager : Singleton<SettingsManager>
 
         return true;
     }
+
+    #endregion
 }

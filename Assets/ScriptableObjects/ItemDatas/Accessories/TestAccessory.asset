@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: TestAcc
   itemSprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  itemType: 2
   accessoryType: 1
+  value: 0

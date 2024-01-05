@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47407927e1d121f4abc9386c977d0481, type: 3}
   m_Name: Throw_Bomb
   m_EditorClassIdentifier: 
-  _weaponName: "\uC218\uB958\uD0C4"
-  _weaponIcon: {fileID: 0}
+  itemName: "\uC218\uB958\uD0C4"
+  itemSprite: {fileID: -1481658278, guid: 319d69ec9f758c3408d419d20fde2787, type: 3}
+  itemType: 1
   _damage: 100
-  _ammo: 100
+  _magazineCapacity: 10
+  _castingDelay: 0
   _delayBetweenShots: 1
-  _delayReload: 1
+  _reloadTime: 2
   _isContinuousShooting: 0
   _isAutoReloading: 1
+  _range: 0
   _projectile: {fileID: 5551801837373248604, guid: a864ff30401cb1a46989a8408d3ddab8, type: 3}
-  _power: 900
+  _throwPower: 1000

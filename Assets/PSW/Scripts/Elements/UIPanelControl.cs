@@ -1,7 +1,6 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine;
 
 public class UIPanelControl : UIElement
 {
@@ -68,7 +67,7 @@ public class UIPanelControl : UIElement
 
     private void UpdateNormalSense(PointerEventData eventData)
     {
-        SettingsManager.Instance.MouseSensitivity = normalSenseSlider.value;
+        SettingsManager.Instance.SetMouseSensitivity(normalSenseSlider.value);
     }
 
     #endregion

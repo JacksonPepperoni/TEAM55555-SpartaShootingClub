@@ -1,7 +1,6 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine;
 
 public class UIPanelGraphic : UIElement
 {
@@ -54,7 +53,7 @@ public class UIPanelGraphic : UIElement
 
     private void UpdateFOV(PointerEventData eventData)
     {
-        SettingsManager.Instance.FOV = fovSlider.value;
+        SettingsManager.Instance.SetFOV(fovSlider.value);
     }
 
     #endregion

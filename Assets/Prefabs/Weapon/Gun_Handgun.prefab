@@ -12,7 +12,7 @@ GameObject:
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3306451490063965843, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3196670257931967979}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.56, y: -0.33000004, z: 0.23999977}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 7518660651974772997}
   - component: {fileID: -6636390742394913070}
   m_Layer: 0
-  m_Name: Gun_MachineGun
+  m_Name: Gun_Handgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,5 +76,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947ec4f47e458bb4eb9b7b775cadee4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gunData: {fileID: 11400000, guid: cd171d0f138a68a4ab22c53f35d7a258, type: 2}
+  _data: {fileID: 11400000, guid: 82231d87a9b4bf24393355865f1b6ecc, type: 2}
   TestPrefab: {fileID: 8643059132588269506, guid: ce4599ad17bfb6b41b6a345f13b30321, type: 3}
