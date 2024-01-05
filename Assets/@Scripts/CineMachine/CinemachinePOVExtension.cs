@@ -11,6 +11,8 @@ public class CinemachinePOVExtension : CinemachineExtension
     [SerializeField] private float clampAngle = 70f;
     [SerializeField] private bool mouseInversion = false;
 
+    [SerializeField] private AnimationCurve _curve;
+
     public float MouseSensitivity { get => mouseSensitivity; set => mouseSensitivity = value; }
 
     protected override void Awake()
@@ -21,8 +23,9 @@ public class CinemachinePOVExtension : CinemachineExtension
     }
 
     // 총기 반동 적용
-    public void ReceiveFirearmRecoil(Vector2 force, float time)
+    public void ReceiveFirearmRecoil(float verticalForce, float horizontalForce, float time)
     {
+
     }
 
     protected override void PostPipelineStageCallback(CinemachineVirtualCameraBase vcam, CinemachineCore.Stage stage, ref CameraState state, float deltaTime)

@@ -106,7 +106,10 @@ public class CinemachineManager : Singleton<CinemachineManager>
             _weaponCam.fieldOfView = newFOV;
             yield return null;
         }
+        _vcam.m_Lens.FieldOfView = toFOV;
+        _weaponCam.fieldOfView = toFOV;
         _coADSChange = null;
     }
 
+    public void ProvideFirearmRecoil(float verticalForce, float horizontalForce, float time) => PovExtension.ReceiveFirearmRecoil(verticalForce, horizontalForce, time);
 }

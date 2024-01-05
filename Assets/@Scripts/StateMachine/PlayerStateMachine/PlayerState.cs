@@ -32,6 +32,10 @@ public class PlayerGroundState : PlayerStateBase
         if (_input.ADSTrigger)
             _controller.ChangeADS();
         _controller.SetFastRun(_input.FastRun);
+        if (!_input.FastRun && _input.FireTrigger)
+        {
+            Debug.Log("fire");
+        }
     }
 }
 
@@ -41,7 +45,7 @@ public class PlayerStandState : PlayerGroundState
 
     public override void OnStateEnter()
     {
-        _controller.Stand();
+        _controller.Sit(false);
     }
 
     public override void OnStateStay()
@@ -58,7 +62,7 @@ public class PlayerSitState : PlayerGroundState
 
     public override void OnStateEnter()
     {
-        _controller.Sit();
+        _controller.Sit(true);
     }
 
     public override void OnStateStay()

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -8,6 +9,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeedModifierFastRun = 2f;
     [SerializeField] private float moveSpeedModifierWalk = 0.5f;
     [SerializeField] private float sitHeight = 0.5f;
+    [SerializeField] private float sitStandDuration = 0.1f;
+    [SerializeField] private Vector3 defaultHeight = new Vector3(0, 1.5f, 0);
     //[SerializeField] private float jumpHeight = 1f;
     //[SerializeField] private float gravity = Physics.gravity.y;
 
@@ -20,10 +23,17 @@ public class PlayerController : MonoBehaviour
 
     private bool _isSit;
     private bool _isADS;
+    private Coroutine _coSitAndStandHeightChange;
 
     private readonly int AnimatorHash_ADSTrigger = Animator.StringToHash("ADSTrigger");
     private readonly int AnimatorHash_MoveVelocity = Animator.StringToHash("MoveVelocity");
     private readonly int AnimatorHash_FastRun = Animator.StringToHash("FastRun");
+
+    // TEST CODE
+    // TODO: 총기반동 Data에서 받아올 것
+    public float verticalRecoil = 10f;
+    public float horizontalRecoil = 10f;
+    public float recoilDuration = 0.1f;
 
     public bool IsADS { get => _isADS; set => _isADS = value; }
 
@@ -72,16 +82,17 @@ public class PlayerController : MonoBehaviour
         _weaponAnimator.SetFloat(AnimatorHash_MoveVelocity, movement.magnitude);
     }
 
-    public void Sit()
+    public void Sit(bool active)
     {
-        _cinemachineContainer.localPosition += Vector3.down * sitHeight;
-        _isSit = true;
-    }
+        if (_coSitAndStandHeightChange != null)
+            StopCoroutine(_coSitAndStandHeightChange);
 
-    public void Stand()
-    {
-        _cinemachineContainer.localPosition += Vector3.up * sitHeight;
-        _isSit = false;
+        var fromHeigh = _cinemachineContainer.localPosition;
+        var toHeight = active ? defaultHeight + Vector3.down * sitHeight : defaultHeight + Vector3.up * sitHeight;
+
+        _coSitAndStandHeightChange = StartCoroutine(CoSitAndStandHeightChange(fromHeigh, toHeight, sitStandDuration));
+
+        _isSit = active;
     }
 
     public void ChangeADS()
@@ -104,5 +115,18 @@ public class PlayerController : MonoBehaviour
             _isADS = false;
             CinemachineManager.Instance.ADSFOVChange(_isADS, 0.1f, false);
         }
+    }
+
+    private IEnumerator CoSitAndStandHeightChange(Vector3 fromHeight, Vector3 toHeight, float duration)
+    {
+        for (float t = 0f; t < duration; t += Time.deltaTime)
+        {
+            float ratio = Mathf.Clamp01(t / duration);
+            Vector3 newHeight = Vector3.Lerp(fromHeight, toHeight, ratio);
+            _cinemachineContainer.localPosition = newHeight;
+            yield return null;
+        }
+        _cinemachineContainer.localPosition = toHeight;
+        _coSitAndStandHeightChange = null;
     }
 }
