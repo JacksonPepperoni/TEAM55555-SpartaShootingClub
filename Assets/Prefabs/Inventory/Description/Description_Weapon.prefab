@@ -98,8 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: {fileID: 7862630053800956432}
   weaponDescriptionText: {fileID: 8019589289906242635}
-  weaponImage: {fileID: 0}
-  attachedSlotPrefab: {fileID: 0}
+  weaponImage: {fileID: 1036537500322272699}
+  attachedSlotPrefab: {fileID: 6832461928987691494, guid: 4c4d75be53a1f3545bac9fda8e448081, type: 3}
   attachedTransforms:
   - {fileID: 9114523480037524825}
   - {fileID: 7774077585260819605}

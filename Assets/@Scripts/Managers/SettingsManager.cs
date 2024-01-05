@@ -1,4 +1,5 @@
 using Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SettingsManager : Singleton<SettingsManager>
@@ -16,8 +17,8 @@ public class SettingsManager : Singleton<SettingsManager>
         if (!base.Initialize()) return false;
 
         // TODO: JSON이나 PlayerPrefs에서 저장된 값 불러오기
-        _fov = 90f;
-        _sensitivity = 10f;
+        _fov = PlayerPrefs.GetFloat("Settings_Fov", 90);
+        _sensitivity = PlayerPrefs.GetFloat("Settings_Sensitivity", 50);
 
         SetFOV(_fov);
         SetMouseSensitivity(_sensitivity);
@@ -57,6 +58,9 @@ public class SettingsManager : Singleton<SettingsManager>
         _vcam.m_Lens.FieldOfView = fov;
         _weaponCam.fieldOfView = fov;
 
+        // 임시 PlayerPrefs 저장
+        PlayerPrefs.SetFloat("Settings_Fov", fov);
+
         return true;
     }
 
@@ -71,6 +75,9 @@ public class SettingsManager : Singleton<SettingsManager>
 
         _sensitivity = sensitivity;
         _povExtension.MouseSensitivity = sensitivity;
+
+        // 임시 PlayerPrefs 저장
+        PlayerPrefs.SetFloat("Settings_Sensitivity", sensitivity);
 
         return true;
     }

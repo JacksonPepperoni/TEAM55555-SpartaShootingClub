@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47407927e1d121f4abc9386c977d0481, type: 3}
+  m_Name: Throw_Normal
+  m_EditorClassIdentifier: 
+  _weaponName: "\uC218\uB958\uD0C4"
+  _weaponIcon: {fileID: 0}
+  _damage: 100
+  _ammo: 100
+  _delayBetweenShots: 1
+  _delayReload: 1
+  _isContinuousShooting: 0
+  _isAutoReloading: 1
+  _projectile: {fileID: 5551801837373248604, guid: a864ff30401cb1a46989a8408d3ddab8, type: 3}
+  _power: 900
