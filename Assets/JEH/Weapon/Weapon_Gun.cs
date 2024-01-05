@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+
 public class Weapon_Gun : Weapon
 {
     [SerializeField] private WeaponData_Gun _data;
