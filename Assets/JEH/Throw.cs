@@ -6,7 +6,7 @@ public class Throw : Weapon
     [SerializeField] private ThrowDataSO _throwData;
 
 
-    private void OnEnable()
+    private void OnEnable() // TODO 플레이어가 init 실행
     {
         Initialize();
     }

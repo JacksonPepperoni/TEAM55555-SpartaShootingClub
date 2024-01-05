@@ -7,12 +7,10 @@ public class Gun : Weapon
 
     private Coroutine _shootCoroutine;
 
-
     public GameObject TestPrefab;
 
 
-
-    private void OnEnable()
+    private void OnEnable() // TODO 플레이어가 init 실행
     {
         Initialize();
     }
@@ -22,7 +20,7 @@ public class Gun : Weapon
     {
         transform.localPosition = Vector3.zero;
 
-        lastFireTime = 0;
+        lastFireTime = 0 - _gunData.DelayBetweenShots;
         _currentAmmo = _gunData.Ammo;
 
         _isReloading = false;
@@ -62,6 +60,11 @@ public class Gun : Weapon
     {
         if (_isReloading)
             return;
+
+        if (Time.time < lastFireTime + _gunData.DelayBetweenShots)
+            return;
+
+
 
         _shootCoroutine ??= StartCoroutine(ShootCoroutine());
 
@@ -113,11 +116,6 @@ public class Gun : Weapon
 
     protected override void Shoot()
     {
-
-        if (Time.time < lastFireTime + _gunData.DelayBetweenShots)
-            return;
-
-
         lastFireTime = Time.time;
         _currentAmmo--;
 
