@@ -15,6 +15,14 @@ public class EnemyAnimationController: MonoBehaviour
         animator=GetComponent<Animator>();
         shotController=GetComponent<EnemyShooting>();
     }
+    public void SetAnimationAttack(bool value)
+    {
+        animator.SetBool(isAttack, value);
+    }
 
+    public void SetAnimationReload(bool value)
+    {
+        animator.SetBool(isReload, value);
+    }
 
 }
