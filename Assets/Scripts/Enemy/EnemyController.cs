@@ -11,11 +11,6 @@ public class EnemyController : MonoBehaviour
     public bool isActive = false;
     private float speed = 100f;
 
-    private void Awake()
-    {
-    }
-
-
     IEnumerator SetActive()
     {
         while (true)

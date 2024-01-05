@@ -18,13 +18,13 @@ public class TakeDamage : MonoBehaviour
         switch (damageType)
         {
             case collisionType.Head:
-                healthController.OnDamage(damage * 2);
+                healthController.HitDamage(damage * 2);
                 break;
             case collisionType.Body:
-                healthController.OnDamage(damage);
+                healthController.HitDamage(damage);
                 break;
             case collisionType.Limbs:
-                healthController.OnDamage(damage / 2);
+                healthController.HitDamage(damage / 2);
                 break;
         }
     }
