@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class SettingsManager : Singleton<SettingsManager>
 {
-    private CinemachineVirtualCamera _vcam;
-    private Camera _weaponCam;
-    private CinemachinePOVExtension _povExtension;
+    private CinemachineManager _camManager;
 
     // Settings Control Value
     private bool _mouseReverse;
@@ -16,8 +14,11 @@ public class SettingsManager : Singleton<SettingsManager>
     {
         if (!base.Initialize()) return false;
 
+        _camManager = CinemachineManager.Instance;
+
         // TODO: JSON이나 PlayerPrefs에서 저장된 값 불러오기
 
+        _mouseReverse = PlayerPrefs.GetInt("Settings_Inversion", 0) == 1;
         _fov = PlayerPrefs.GetFloat("Settings_Fov", 90);
         _sensitivity = PlayerPrefs.GetFloat("Settings_Sensitivity", 50);
 
@@ -32,7 +33,7 @@ public class SettingsManager : Singleton<SettingsManager>
     public bool MouseReverse 
     { 
         get => _mouseReverse; 
-        set => SetReverse(false); 
+        set => SetReverse(value); 
     }
 
     public float FOV
@@ -49,35 +50,25 @@ public class SettingsManager : Singleton<SettingsManager>
 
     public bool SetReverse(bool reverse)
     {
-        if (_povExtension == null)
-        {
-            _povExtension = GameObject.FindWithTag("Player").GetComponentInChildren<CinemachinePOVExtension>();
-            if (_povExtension == null)
-                return false;
-        }
+        if (_camManager.PovExtension == null)
+            return false;
+
+        _mouseReverse = reverse;
+        _camManager.PovExtension.MouseInversion = reverse;
+
+        // 임시 PlayerPrefs 저장
+        PlayerPrefs.SetInt("Settings_Inversion", _mouseReverse ? 1 : 0);
 
         return true;
     }
 
     public bool SetFOV(float fov)
     {
-        if (_vcam == null)
-        {
-            _vcam = GameObject.FindWithTag("Player").GetComponentInChildren<CinemachineVirtualCamera>();
-            if (_vcam == null)
-                return false;
-        }
-
-        if (_weaponCam == null)
-        {
-            _weaponCam = Camera.main.transform.GetChild(0).GetComponent<Camera>();
-            if (_weaponCam == null)
-                return false;
-        }
+        if (_camManager.Vcam == null || _camManager.WeaponCam == null)
+            return false;
 
         _fov = fov;
-        _vcam.m_Lens.FieldOfView = fov;
-        _weaponCam.fieldOfView = fov;
+        _camManager.DefaultFOV = fov;
 
         // 임시 PlayerPrefs 저장
         PlayerPrefs.SetFloat("Settings_Fov", fov);
@@ -87,15 +78,11 @@ public class SettingsManager : Singleton<SettingsManager>
 
     public bool SetMouseSensitivity(float sensitivity)
     {
-        if (_povExtension == null)
-        {
-            _povExtension = GameObject.FindWithTag("Player").GetComponentInChildren<CinemachinePOVExtension>();
-            if (_povExtension == null)
-                return false;
-        }
+        if (_camManager.PovExtension == null)
+            return false;
 
         _sensitivity = sensitivity;
-        _povExtension.MouseSensitivity = sensitivity;
+        _camManager.PovExtension.MouseSensitivity = sensitivity;
 
         // 임시 PlayerPrefs 저장
         PlayerPrefs.SetFloat("Settings_Sensitivity", sensitivity);

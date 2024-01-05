@@ -1,9 +1,14 @@
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIGunItem : UIBase
 {
     #region Fields
+
+    [SerializeField] private Transform tooltipPanel;
+    [SerializeField] private ItemData gunData;
+    [SerializeField] private GameObject tooltip;
 
     private Toggle toggle;
 
@@ -31,13 +36,16 @@ public class UIGunItem : UIBase
 
     private void EnterWeaponTooltip(PointerEventData eventData)
     {
-        // 팝업 생성
-        // 해당 오브젝트 위치를 기준으로 오른쪽에 생성
+        if (tooltip == null) return;
+        tooltip.SetActive(true);
+        tooltip.transform.localPosition = transform.localPosition + new Vector3(-300, 0, 0);
+        tooltip.GetComponent<UIGunTooltip>().SetData(gunData);
     }
 
     private void ExitWeaponTooltip(PointerEventData eventData)
     {
-        // 팝업 없애기
+        if (tooltip == null) return;
+        tooltip.gameObject.SetActive(false);
     }
 
     #endregion

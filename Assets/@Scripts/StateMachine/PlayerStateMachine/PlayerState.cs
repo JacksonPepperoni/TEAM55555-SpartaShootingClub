@@ -15,17 +15,11 @@ public class PlayerStateBase : IState
         _cameraTransform = machine.CameraTransform;
     }
 
-    public virtual void OnStateEnter()
-    {
-    }
+    public virtual void OnStateEnter() { }
 
-    public virtual void OnStateExit()
-    {
-    }
+    public virtual void OnStateExit() { }
 
-    public virtual void OnStateStay()
-    {
-    }
+    public virtual void OnStateStay() { }
 }
 
 public class PlayerGroundState : PlayerStateBase
@@ -37,7 +31,11 @@ public class PlayerGroundState : PlayerStateBase
         _controller.Move();
         if (_input.ADSTrigger)
             _controller.ChangeADS();
-        _controller.SetFastRun(_input.FastRun);
+        _controller.SetFastRun(_input.FastRunPress);
+        if (!_input.FastRunPress && _input.FirePress)
+        {
+            Debug.Log("fire");
+        }
     }
 }
 
@@ -47,7 +45,7 @@ public class PlayerStandState : PlayerGroundState
 
     public override void OnStateEnter()
     {
-        _controller.Stand();
+        _controller.Sit(false);
     }
 
     public override void OnStateStay()
@@ -64,7 +62,7 @@ public class PlayerSitState : PlayerGroundState
 
     public override void OnStateEnter()
     {
-        _controller.Sit();
+        _controller.Sit(true);
     }
 
     public override void OnStateStay()
