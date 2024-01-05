@@ -1,6 +1,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
 
 public class UIPanelControl : UIElement
 {
@@ -40,8 +41,12 @@ public class UIPanelControl : UIElement
 
     private void SetEvents()
     {
+        Util.SetSliderUI(normalSenseSlider, normalSenseText, SettingsManager.Instance.MouseSensitivity);
+        Util.SetSliderUI(aimSenseSlider, aimSenseText, 50);
+
         normalSenseSlider.gameObject.SetEvent(UIEventType.Click, ChangedNormalSense);
         normalSenseSlider.gameObject.SetEvent(UIEventType.Drag, ChangedNormalSense);
+        normalSenseSlider.gameObject.SetEvent(UIEventType.PointerUp, UpdateNormalSense);
 
         aimSenseSlider.gameObject.SetEvent(UIEventType.Click, ChangedAimSense);
         aimSenseSlider.gameObject.SetEvent(UIEventType.Drag, ChangedAimSense);
@@ -53,12 +58,17 @@ public class UIPanelControl : UIElement
 
     private void ChangedNormalSense(PointerEventData eventData)
     {
-        Util.ValueStepChanged(100f, normalSenseSlider, normalSenseText);
+        Util.SliderValueChanged(normalSenseSlider, normalSenseText);
     }
 
     private void ChangedAimSense(PointerEventData eventData)
     {
-        Util.ValueStepChanged(100f, aimSenseSlider, aimSenseText);
+        Util.SliderValueChanged(aimSenseSlider, aimSenseText);
+    }
+
+    private void UpdateNormalSense(PointerEventData eventData)
+    {
+        SettingsManager.Instance.MouseSensitivity = normalSenseSlider.value;
     }
 
     #endregion

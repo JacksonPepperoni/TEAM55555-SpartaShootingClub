@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 5882595950484782190}
   - component: {fileID: 1487862238911313019}
   m_Layer: 5
-  m_Name: Field_Slider_FOV
+  m_Name: FOV Field
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,6 +182,7 @@ RectTransform:
   m_Children:
   - {fileID: 3070173440345692476}
   - {fileID: 7128847436791614050}
+  - {fileID: 619271142661540913}
   m_Father: {fileID: 2557554357946134818}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -613,7 +614,7 @@ GameObject:
   - component: {fileID: 6679973166834087684}
   - component: {fileID: 3420238583599728944}
   m_Layer: 5
-  m_Name: Value Text
+  m_Name: Text_Graphic_Fov
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -631,12 +632,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7128847436791614050}
+  m_Father: {fileID: 2133908946235199512}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 360, y: 0}
+  m_AnchoredPosition: {x: 880, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6679973166834087684
@@ -667,7 +668,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 90
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1e94a9989f1a18d41bbed35f5d463a39, type: 2}
   m_sharedMaterial: {fileID: -6733553543988574399, guid: 1e94a9989f1a18d41bbed35f5d463a39, type: 2}
@@ -747,7 +748,7 @@ GameObject:
   - component: {fileID: 7128847436791614050}
   - component: {fileID: 2040577419323674941}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Slider_Graphic_Fov
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -768,7 +769,6 @@ RectTransform:
   - {fileID: 4473653969429985126}
   - {fileID: 3100045440010126851}
   - {fileID: 8469441283483774948}
-  - {fileID: 619271142661540913}
   m_Father: {fileID: 2133908946235199512}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -824,7 +824,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

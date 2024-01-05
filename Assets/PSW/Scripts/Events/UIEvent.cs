@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public enum UIEventType
 {
-    Click, PointerEnter, PointerExit, PointerDown, Drag,
+    Click, PointerEnter, PointerExit, PointerUp, Drag,
 }
 
 public static class UIEvent
