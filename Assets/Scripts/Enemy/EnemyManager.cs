@@ -20,72 +20,54 @@ public class EnemyManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
-        for (int i = 0; i < spawnPositionsRoot.childCount; i++)
-        {
-            spawnPositions.Add(spawnPositionsRoot.GetChild(i));
-        }
     }
 
     private void Start()
     {
         Init();
-        firstSetting();
     }
 
     private void Init()
     {
-        //enemyPrefabs = new List<GameObject>();    
+        for (int i = 0; i < spawnPositionsRoot.childCount; i++)
+        {
+            spawnPositions.Add(spawnPositionsRoot.GetChild(i));
+        }
         currentSpawnCount = 0;
         waveSpaawnCount = 4;
+
+        SetEnemy();
     }
 
-    private void firstSetting()
+    private void SetEnemy()
     {
         for (int i = 0; i < spawnPositions.Count; i++)
         {
-            //int prefabIdx = Random.Range(0, enemyPrefabs.Count);
+            //TODO : int prefabIdx = Random.Range(0, enemyPrefabs.Count);
             GameObject enemy = Instantiate(enemyPrefabs, spawnPositions[i].position, Quaternion.Euler(-90, 0, 0));
             enemy.GetComponent<HealthSystem>().OnDeath += OnEnemyDeath;
-            //컴포넌트만 다 끌 수 있나
             enemyList.Add(enemy);
         }
-        for (int i = 0; i < waveSpaawnCount;)
-        {
-            int posIdx = Random.Range(0, enemyList.Count);
-            //애니메이션 컴포넌트 켜주고 => rigidbody도 켜주고
-            if (!enemyList[posIdx].TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
-            {
-                enemyList[posIdx].GetComponent<EnemyController>().Respawn();
-                currentSpawnCount++;
-                i++;
-            }
-            //if (!enemyList[posIdx].GetComponent<Animator>().GetBool("IsActive"))
-            //{
-            //    enemyList[posIdx].GetComponent<EnemyController>().Respawn();
-            //    //컴포넌트만 켜주기enemyList[posIdx].GetComponent<BoxCollider>().enabled = true;
-            //    i++;
-            //    currentSpawnCount++;
-            //}
-        }
-
+        SpawnEnemy();
     }
+
     private void OnEnemyDeath()
     {
         Invoke("SpawnEnemy", 3f);
+        currentSpawnCount--;
     }
     private void SpawnEnemy()
     {
-        while (true)
+
+        for (int i = currentSpawnCount; i < waveSpaawnCount;)
         {
-            int spawnIdx = Random.Range(0, spawnPositions.Count);
-            Debug.Log(spawnIdx);
-            
-            if (enemyList[spawnIdx].GetComponent<Rigidbody>() == null)
+            int spawnIdx = Random.Range(0, enemyList.Count);
+            //애니메이션 컴포넌트 켜주고 => rigidbody도 켜주고
+            if (!enemyList[spawnIdx].TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
             {
-                Debug.Log("성공");
                 enemyList[spawnIdx].GetComponent<EnemyController>().Respawn();
-                break;
+                currentSpawnCount++;
+                i++;
             }
         }
     }

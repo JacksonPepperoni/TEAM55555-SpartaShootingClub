@@ -6,34 +6,39 @@ using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
-    //private EnemyStatsHandler _statsHandler;
-
-    public int maxHealth = 100;
+    private int maxHealth = 100;
     public float currentHealth { get; private set; }
 
+    private float timeSinceLastChange;
+    private float hitDamageDelay;
+
     public event Action OnDeath;
-
-    //[SerializeField] Animator _anim;
-
-    private void Awake()
-    {
-        //_statsHandler = GetComponent<EnemyStatsHandler>();
-        //_anim = GetComponent<Animator>();
-    }
-
     private void Start()
     {
-        //currentHealth = _statsHandler.CurrentStats.maxHealth;
         InitHealthSystem();
+    }
+
+    private void Update()
+    {
+        if(timeSinceLastChange < hitDamageDelay)
+            timeSinceLastChange += Time.deltaTime;
     }
 
     public void InitHealthSystem()
     {
         currentHealth = maxHealth;
+        timeSinceLastChange = float.MaxValue;
+        hitDamageDelay = 0.5f;
     }
 
-    public void OnDamage(float damage)
+    public void HitDamage(float damage)
     {
+        if(damage <=0 || timeSinceLastChange < hitDamageDelay)
+        {
+            return;
+        }
+        timeSinceLastChange = 0f;
+
         Debug.Log("맞기 전 데미지" + currentHealth);
         currentHealth -= damage;
         Debug.Log("맞은 후 데미지" + currentHealth);
@@ -48,9 +53,6 @@ public class HealthSystem : MonoBehaviour
     private void CallDeath()
     {
         Debug.Log("죽었음");
-        //_anim.SetBool("IsDie", true);
-        //_anim.SetBool("IsActive", false);
-        //gameObject.GetComponent<BoxCollider>().enabled = false;
         OnDeath?.Invoke();
         GetComponent<EnemyController>().Die();
     }
