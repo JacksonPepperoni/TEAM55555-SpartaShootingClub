@@ -42,9 +42,13 @@ public class Weapon_Throw : Weapon
         if (Time.time < lastFireTime + _data.DelayBetweenShots)
             return;
 
-        if (_currentAmmo <= 0)
-            return;
+        if (_isReloading) return;
 
+        if (_currentAmmo <= 0)
+        {
+            CartridgeEmpty(); 
+            return;
+        }
 
         lastFireTime = Time.time;
         _currentAmmo--;
@@ -56,7 +60,7 @@ public class Weapon_Throw : Weapon
     }
 
 
-    private void Reload() 
+    private void Reload()
     {
         if (_isReloading || _currentAmmo >= _data.MagazineCapacity)
             return;
