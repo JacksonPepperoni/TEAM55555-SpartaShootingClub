@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9be75dc79bce6cb43a5d5f306cb1d0a7, type: 3}
-  m_Name: Gun_Handgun
+  m_Name: Gun_Shotgun
   m_EditorClassIdentifier: 
-  _weaponName: "\uAD8C\uCD1D"
+  _weaponName: "\uC0F7\uAC74"
   _weaponIcon: {fileID: 0}
-  _damage: 10
+  _damage: 20
   _ammo: 8
-  _delayBetweenShots: 0.5
+  _delayBetweenShots: 1
   _reloadTime: 2
   _isContinuousShooting: 0
-  _isAutoReloading: 1
-  _numberOfBulletFiredAtOnce: 1
-  _spread: 0
-  _muzzleFlash: {fileID: 0}
+  _isAutoReloading: 0
+  _shotAtOnce: 5
+  _spread: 0.1
   _range: 15
+  _muzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}

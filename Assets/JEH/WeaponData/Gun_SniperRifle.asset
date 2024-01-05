@@ -20,7 +20,7 @@ MonoBehaviour:
   _reloadTime: 2
   _isContinuousShooting: 0
   _isAutoReloading: 0
-  _numberOfBulletFiredAtOnce: 1
+  _shotAtOnce: 1
   _spread: 0
-  _muzzleFlash: {fileID: 0}
   _range: 50
+  _muzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
