@@ -7,9 +7,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeedModifierSit = 0.5f;
     [SerializeField] private float moveSpeedModifierFastRun = 2f;
     [SerializeField] private float moveSpeedModifierWalk = 0.5f;
-    [SerializeField] private float jumpHeight = 1f;
     [SerializeField] private float sitHeight = 0.5f;
-    [SerializeField] private float gravity = Physics.gravity.y;
+    //[SerializeField] private float jumpHeight = 1f;
+    //[SerializeField] private float gravity = Physics.gravity.y;
 
     private Transform _cinemachineContainer;
     private CharacterController _controller;
@@ -19,16 +19,18 @@ public class PlayerController : MonoBehaviour
     private Animator _weaponAnimator;
 
     private bool _isSit;
+    private bool _isADS;
 
     private readonly int AnimatorHash_ADSTrigger = Animator.StringToHash("ADSTrigger");
     private readonly int AnimatorHash_MoveVelocity = Animator.StringToHash("MoveVelocity");
     private readonly int AnimatorHash_FastRun = Animator.StringToHash("FastRun");
 
+    public bool IsADS { get => _isADS; set => _isADS = value; }
+
     public float MoveSpeedValue
     {
         get
         {
-
             float modifiers = 1f;
             if (_input.Walk)
                 modifiers *= moveSpeedModifierWalk;
@@ -72,13 +74,13 @@ public class PlayerController : MonoBehaviour
 
     public void Sit()
     {
-        _cinemachineContainer.localPosition += Vector3.down * 0.5f;
+        _cinemachineContainer.localPosition += Vector3.down * sitHeight;
         _isSit = true;
     }
 
     public void Stand()
     {
-        _cinemachineContainer.localPosition += Vector3.up * 0.5f;
+        _cinemachineContainer.localPosition += Vector3.up * sitHeight;
         _isSit = false;
     }
 
@@ -87,11 +89,20 @@ public class PlayerController : MonoBehaviour
         if (_weaponAnimator == null)
             _weaponAnimator = _cameraTransform.GetComponentInChildren<Animator>();
 
+        _isADS = !_isADS;
         _weaponAnimator.SetTrigger(AnimatorHash_ADSTrigger);
+
+        //TODO: 총기 줌 속도와 동일한 duration 제공
+        CinemachineManager.Instance.ADSFOVChange(_isADS, 0.1f);
     }
 
     public void SetFastRun(bool active)
     {
         _weaponAnimator.SetBool(AnimatorHash_FastRun, active);
+        if (active)
+        {
+            _isADS = false;
+            CinemachineManager.Instance.ADSFOVChange(_isADS, 0.1f, false);
+        }
     }
 }

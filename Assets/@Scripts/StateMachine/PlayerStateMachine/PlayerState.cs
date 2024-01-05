@@ -15,17 +15,11 @@ public class PlayerStateBase : IState
         _cameraTransform = machine.CameraTransform;
     }
 
-    public virtual void OnStateEnter()
-    {
-    }
+    public virtual void OnStateEnter() { }
 
-    public virtual void OnStateExit()
-    {
-    }
+    public virtual void OnStateExit() { }
 
-    public virtual void OnStateStay()
-    {
-    }
+    public virtual void OnStateStay() { }
 }
 
 public class PlayerGroundState : PlayerStateBase

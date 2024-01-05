@@ -4,19 +4,18 @@ using UnityEngine;
 public class CinemachinePOVExtension : CinemachineExtension
 {
     private InputManager _input;
-    private PlayerController _controller;
     private Vector3 _startingRotation;
 
     // TODO: 마우스 감도 설정값에서 받아올 것
     [SerializeField] private float mouseSensitivity = 10f;
     [SerializeField] private float clampAngle = 70f;
+    [SerializeField] private bool mouseInversion = false;
 
     public float MouseSensitivity { get => mouseSensitivity; set => mouseSensitivity = value; }
 
     protected override void Awake()
     {
         _input = InputManager.Instance;
-        _controller = GetComponentInParent<PlayerController>();
 
         base.Awake();
     }
@@ -40,7 +39,7 @@ public class CinemachinePOVExtension : CinemachineExtension
             _startingRotation.x += deltaInput.x * Time.deltaTime * mouseSensitivity;
             _startingRotation.y += deltaInput.y * Time.deltaTime * mouseSensitivity;
             _startingRotation.y = Mathf.Clamp(_startingRotation.y, -clampAngle, clampAngle);
-
+            _startingRotation.y *= mouseInversion ? -1f : 1f;
             state.RawOrientation = Quaternion.Euler(-_startingRotation.y, _startingRotation.x, 0f);
         }
     }

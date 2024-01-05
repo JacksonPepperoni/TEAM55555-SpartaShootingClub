@@ -24,6 +24,14 @@ public class WJY_TestSceneManager : Singleton<WJY_TestSceneManager>
                 Instantiate(weapon, Camera.main.transform.GetChild(0));
 
                 InputManager.Instance.Initialize();
+
+                // 3. UI 초기화, 생성
+                SettingsManager.Instance.Initialize();
+                UIManager.Instance.Initialize();
+                CinemachineManager.Instance.Initialize();
+
+                var trainingScene = ResourceManager.Instance.GetCache<GameObject>("UI_Training_Scene");
+                UIManager.Instance.ShowScene<UIScene>(trainingScene);
             }
         });
     }
