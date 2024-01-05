@@ -14,13 +14,13 @@ public class ProjectileManager : MonoBehaviour
     {
         objectPool = GetComponent<ObjectPool>();
     }
-    public void ShootBullet(Vector2 startPosition, Vector2 direction, RangedAttackData attackData)
+    public void ShootBullet(Vector3 startPosition, Vector3 direction, RangedAttackData attackData)
     {
         GameObject obj = objectPool.SpawnFromPool(attackData.bulletNameTag);
 
         obj.transform.position = startPosition;
-        //RangedAttackController attackController = obj.GetComponent<RangedAttackController>();
-        //attackController.InitalizeAttack(direction, attackData, this);
+        EnemyRangedAttackController attackController = obj.GetComponent<EnemyRangedAttackController>();
+        attackController.InitalizeAttack(direction, attackData, this);
 
         obj.SetActive(true);
     }

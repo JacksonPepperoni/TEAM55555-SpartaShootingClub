@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class EnemyShooting : MonoBehaviour
 {
-    //private ProjectileManager _projectileManager;
+    private ProjectileManager _projectileManager;
 
     [SerializeField] private Transform projectileSpawnPosition;
-    //private Vector2 _aimDirection = Vector2.right;
+    private Vector3 _aimDirection = new Vector3(0,0,1);
 
     private EnemyStatsHandler _stats { get; set; }
     private AttackSO _attackSO;
@@ -18,8 +18,10 @@ public class EnemyShooting : MonoBehaviour
 
     private void Start()
     {
-        //_projectileManager = ProjectileManager.instance;
-        isAttacking = false;
+        _projectileManager = ProjectileManager.instance;
+        _stats = GetComponent<EnemyStatsHandler>();
+        _attackSO = _stats.currentStats.attackSO;
+        isAttacking = true;
     }
 
     private void Update()
@@ -41,10 +43,6 @@ public class EnemyShooting : MonoBehaviour
             OnShoot();
         }
     }
-    //private void OnAim(Vector2 newAimdirection)
-    //{
-    //    _aimDirection = newAimdirection;
-    //}
     private void OnShoot()
     {
         RangedAttackData rangedAttackData = _attackSO as RangedAttackData;
@@ -62,10 +60,10 @@ public class EnemyShooting : MonoBehaviour
     }
     private void CreateProjectile(RangedAttackData rangedAttackData, float angle)
     {
-        //_projectileManager.ShootBullet(projectileSpawnPosition.position, RotateVector2(_aimDirection, angle), rangedAttackData);
+        _projectileManager.ShootBullet(projectileSpawnPosition.position, RotateVector3(_aimDirection, angle), rangedAttackData);
     }
-    private Vector2 RotateVector2(Vector2 v, float degree)
+    private Vector2 RotateVector3(Vector3 v, float degree)
     {
-        return Quaternion.Euler(0, 0, degree) * v;
+        return Quaternion.Euler(0, degree, degree) * v;
     }
 }
