@@ -9,9 +9,6 @@ public class Weapon_Gun : Weapon
     private Coroutine _shootCoroutine;
     private ParticleSystem _muzzleParticle;
 
-    public GameObject TestPrefab; //탄흔 실험용
-
-
     private void OnEnable() // TODO 플레이어가 무기들때 init 실행
     {
         // Initialize();
@@ -20,7 +17,6 @@ public class Weapon_Gun : Weapon
     protected override void Initialize()
     {
         base.Initialize();
-
 
         if (_muzzleParticle == null)
         {
@@ -34,8 +30,7 @@ public class Weapon_Gun : Weapon
 
         _shootCoroutine = null;
         _currentAmmo = _data.MagazineCapacity;
-        _layerMask = 1 << LayerMask.NameToLayer("Water"); // TODO 임시로 Water 레이어만 잡힘. 피격되는 물체 레이어로 교체할것
-
+        _layerMask = 0b1;
     }
 
     private void Update()
@@ -54,7 +49,6 @@ public class Weapon_Gun : Weapon
         {
             Reload();
         }
-
     }
 
 
@@ -69,7 +63,6 @@ public class Weapon_Gun : Weapon
             return;
 
         _shootCoroutine ??= StartCoroutine(ShootCoroutine());
-
     }
 
     private IEnumerator ShootCoroutine()
@@ -131,7 +124,7 @@ public class Weapon_Gun : Weapon
 
         for (int i = 0; i < _data.ShotAtOnce; i++)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
             RaycastHit hit;
 
             float x = Random.Range(-_data.Spread * 0.5f, _data.Spread * 0.5f);
@@ -141,7 +134,10 @@ public class Weapon_Gun : Weapon
             if (Physics.Raycast(ray.origin, (ray.direction + dir).normalized, out hit, _data.Range, _layerMask))
             {
 
-                Instantiate(TestPrefab, hit.point, Quaternion.LookRotation(hit.normal)); // 탄흔
+                GameObject obj = ResourceManager.Instance.InstantiatePrefab("Metal");
+                obj.transform.position = hit.point;
+                obj.transform.forward = hit.normal;
+
                 Debug.Log(DamageCalculation(hit.point, _data.Damage, _data.Range)); //데미지 계산
             }
 

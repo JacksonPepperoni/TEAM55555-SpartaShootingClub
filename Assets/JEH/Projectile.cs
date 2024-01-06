@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
+
 public class Projectile : MonoBehaviour
 {
     #region Gizmo
@@ -11,9 +13,8 @@ public class Projectile : MonoBehaviour
     #endregion
 
     [SerializeField] private float _damage;
-    [SerializeField] private float _explosionsRadius; 
+    [SerializeField] private float _explosionsRadius;
     [SerializeField] private float _force;
-    [SerializeField] private GameObject _effectParticle;
     [SerializeField] private float _timeToDie; //몇초후에 터질지
 
     private int _layerMask;
@@ -33,7 +34,6 @@ public class Projectile : MonoBehaviour
         //   Pow();
     }
 
-
     void Explosion()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, _explosionsRadius * 0.5f, _layerMask);
@@ -48,14 +48,16 @@ public class Projectile : MonoBehaviour
 
         }
 
-        Instantiate(_effectParticle, transform.position, Quaternion.identity);
+        GameObject obj = ResourceManager.Instance.InstantiatePrefab("SmallExplosion");
+        obj.transform.position = transform.position;
+
         ReturnPool();
     }
 
     protected virtual void ReturnPool()
     {
         CancelInvoke();
-        Destroy(this.gameObject);
+        ResourceManager.Instance.Destroy(this.gameObject);
     }
 
     protected virtual float DamageCalculation(Vector3 target, float damage, float range)

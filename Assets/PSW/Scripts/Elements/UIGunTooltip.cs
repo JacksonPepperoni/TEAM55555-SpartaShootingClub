@@ -1,86 +1,83 @@
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIGunTooltip : UIBase
 {
-    private TextMeshProUGUI _name;
-    private TextMeshProUGUI _type;
-    private TextMeshProUGUI _damage_accOpt;
-    private TextMeshProUGUI _ammo_accVal;
-    private TextMeshProUGUI _fireRate;
-    private TextMeshProUGUI _range;
+    #region Fields
 
-    private GameObject _weaponOption;
+    private ItemData itemData;
 
-    private Image _image;
+    private TextMeshProUGUI nameText;
+    private TextMeshProUGUI typeText;
+    private TextMeshProUGUI damageText;
+    private TextMeshProUGUI magazineText;
+    private TextMeshProUGUI fireRateText;
+    private TextMeshProUGUI rangeText;
+
+    private Image gunImage;
+
+    #endregion
 
     protected override void Init()
     {
         base.Init();
         SetText();
         SetImage();
-        SetGameObject();
+
+        gameObject.SetActive(false);
     }
 
     private void SetText()
     {
         SetUI<TextMeshProUGUI>();
-        _name = GetUI<TextMeshProUGUI>("Name");
-        _type = GetUI<TextMeshProUGUI>("Type");
-        _damage_accOpt = GetUI<TextMeshProUGUI>("Damage_AccOption");
-        _ammo_accVal = GetUI<TextMeshProUGUI>("Ammo_AccValue");
-        _fireRate = GetUI<TextMeshProUGUI>("FireRate");
-        _range = GetUI<TextMeshProUGUI>("Range");
+        nameText = GetUI<TextMeshProUGUI>("Text_Name");
+        typeText = GetUI<TextMeshProUGUI>("Text_Type");
+        damageText = GetUI<TextMeshProUGUI>("Text_DamageAccOption");
+        magazineText = GetUI<TextMeshProUGUI>("Text_AmmoAccValue");
+        fireRateText = GetUI<TextMeshProUGUI>("Text_FireRate");
+        rangeText = GetUI<TextMeshProUGUI>("Text_Range");
     }
 
     private void SetImage()
     {
         SetUI<Image>();
-        _image = GetUI<Image>("Image");
+        gunImage = GetUI<Image>("Image_Gun");
     }
 
-    private void SetGameObject()
+    public void SetData(ItemData itemData)
     {
-        SetUI<GameObject>();
-        _weaponOption = GetUI<GameObject>("Fourth");
-    }
+        this.itemData = itemData;
 
-    public void GetData(ItemData itemData)
-    {
-        switch (itemData.ItemType)
+        switch (this.itemData.ItemType)
         {
-            case ItemType.Weapon : SetTooltipContent(itemData as WeaponData); break;
-            case ItemType.Accessory : SetTooltipContent(itemData as AccessoryData); break;
+            case ItemType.Weapon: SetTooltipContent(this.itemData as WeaponData_Gun); break;
+            case ItemType.Accessory: SetTooltipContent(this.itemData as AccessoryData); break;
         }
     }
 
     private void SetTooltipContent(WeaponData weaponData)
     {
-        _weaponOption.SetActive(true);
+        if (weaponData == null) return;
 
-        _name.text = weaponData.ItemName;
-        _type.text = "타입 : " + weaponData.ItemType.ToString();
-        _damage_accOpt.text = "공격력 : " + weaponData.Damage.ToString();
-        _ammo_accVal.text = "장탄 수 : " + weaponData.MagazineCapacity.ToString();
+        nameText.text = weaponData.ItemName;
+        typeText.text = $"타입 : {weaponData.ItemType}";
+        damageText.text = $"공격력 : {weaponData.Damage}";
+        magazineText.text = $"장탄 수 : {weaponData.MagazineCapacity}";
+        fireRateText.text = $"연사 속도 : {weaponData.DelayBetweenShots}/s";
+        rangeText.text = $"거리 : {weaponData.Range}M";
 
-        _fireRate.text = "연사 속도 : " + weaponData.DelayBetweenShots.ToString() +"/s";
-        _range.text = "사정거리 : " + weaponData.Range.ToString() + "m";
-
-        _image.sprite = weaponData.ItemSprite;
+        gunImage.sprite = weaponData.ItemSprite;
     }
 
     private void SetTooltipContent(AccessoryData accessoryData)
     {
-        _weaponOption.SetActive(false);
+        nameText.text = accessoryData.ItemName;
+        typeText.text = $"타입 : {accessoryData.ItemType}";
+        damageText.text = TypeToOptStr(accessoryData.AccessoryType, out string oper);
+        magazineText.text = accessoryData.Value.ToString() + oper;
 
-        _name.text = accessoryData.ItemName;
-        _type.text = "타입 : " + accessoryData.ItemType.ToString();
-        _damage_accOpt.text = TypeToOptStr(accessoryData.AccessoryType, out string oper);
-        _ammo_accVal.text = accessoryData.Value.ToString() + oper;
-
-        _image.sprite = accessoryData.ItemSprite;
+        gunImage.sprite = accessoryData.ItemSprite;
     }
 
     private string TypeToOptStr(AccessoryType accessoryType, out string oper)

@@ -31,5 +31,4 @@ public abstract class Weapon : MonoBehaviour
         float per = (Vector3.Distance(transform.position, target) / range * 100); // 피격위치가 사정거리의 몇퍼센트인지
         return damage * (1 - per / 100); // 떨어진 거리만큼 퍼센트로 데미지 감소
     }
-
 }
