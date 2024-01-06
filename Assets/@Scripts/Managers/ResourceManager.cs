@@ -76,7 +76,7 @@ public class ResourceManager : Singleton<ResourceManager>
 
 
     // 풀생성 GameObject obj = ResourceManager.Instance.InstantiatePrefab(prefab name);
-    public GameObject InstantiatePrefab(string key, Transform parent = null)
+    public GameObject InstantiatePrefab(string key)
     {
         GameObject prefab = GetCache<GameObject>(key);
 
