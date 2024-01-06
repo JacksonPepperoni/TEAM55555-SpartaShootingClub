@@ -55,8 +55,11 @@ public class Weapon_Throw : Weapon
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        GameObject rig = Instantiate(_data.Projectile, gameObject.transform.position, Quaternion.identity);
-        rig.GetComponent<Rigidbody>()?.AddForce(ray.direction * _data.ThrowPower);
+        GameObject obj = ResourceManager.Instance.InstantiatePrefab("Bomb");
+        obj.transform.position = gameObject.transform.position;
+        obj.transform.rotation = Quaternion.identity;
+
+        obj.GetComponent<Rigidbody>()?.AddForce(ray.direction * _data.ThrowPower);
     }
 
 

@@ -32,6 +32,10 @@ public class MainScene : Singleton<MainScene>
 
                 var trainingScene = ResourceManager.Instance.GetCache<GameObject>("UI_Training_Scene");
                 UIManager.Instance.ShowScene<UIScene>(trainingScene);
+
+                // 풀매니저 추가했습니다
+                PoolManager.Instance.Initialize();
+
             }
         });
     }

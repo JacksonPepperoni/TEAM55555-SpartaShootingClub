@@ -9,9 +9,6 @@ public class Weapon_Gun : Weapon
     private Coroutine _shootCoroutine;
     private ParticleSystem _muzzleParticle;
 
-    public GameObject TestPrefab; //탄흔 실험용
-
-
     private void OnEnable() // TODO 플레이어가 무기들때 init 실행
     {
         Initialize();
@@ -137,7 +134,10 @@ public class Weapon_Gun : Weapon
             if (Physics.Raycast(ray.origin, (ray.direction + dir).normalized, out hit, _data.Range, _layerMask))
             {
 
-                Instantiate(TestPrefab, hit.point, Quaternion.LookRotation(hit.normal)); // 탄흔
+                GameObject obj = ResourceManager.Instance.InstantiatePrefab("Metal");
+                obj.transform.position = hit.point;
+                obj.transform.forward = hit.normal;
+
                 Debug.Log(DamageCalculation(hit.point, _data.Damage, _data.Range)); //데미지 계산
             }
 
