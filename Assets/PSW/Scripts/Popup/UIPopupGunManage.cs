@@ -98,5 +98,6 @@ public class UIPopupGunManage : UIPopup
         }
 
         WeaponEquipManager.Instance.SetWeapon(gunType, weaponData as WeaponData_Gun);
+        UI.ClosePopup(this);
     }
 }
