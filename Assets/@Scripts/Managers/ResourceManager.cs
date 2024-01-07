@@ -40,7 +40,12 @@ public class ResourceManager : Singleton<ResourceManager>
 
             @"Prefabs/Effect/SmallExplosion",
             @"Prefabs/Effect/Metal",
-            @"Prefabs/Projectile/Bomb"
+            @"Prefabs/Projectile/Bomb",
+
+            @"Prefabs/Weapon/Gun_Handgun",
+            @"Prefabs/Weapon/Gun_MachineGun",
+            @"Prefabs/Weapon/Gun_Shotgun",
+            @"Prefabs/Weapon/Gun_SniperRifle"
         };
 
         int loadCount = 0;

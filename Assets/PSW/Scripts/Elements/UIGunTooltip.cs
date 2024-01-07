@@ -67,6 +67,9 @@ public class UIGunTooltip : UIBase
         fireRateText.text = $"연사 속도 : {weaponData.DelayBetweenShots}/s";
         rangeText.text = $"거리 : {weaponData.Range}M";
 
+        fireRateText.enabled = true;
+        rangeText.enabled = true;
+
         gunImage.sprite = weaponData.ItemSprite;
     }
 
@@ -76,6 +79,9 @@ public class UIGunTooltip : UIBase
         typeText.text = $"타입 : {accessoryData.ItemType}";
         damageText.text = TypeToOptStr(accessoryData.AccessoryType, out string oper);
         magazineText.text = accessoryData.Value.ToString() + oper;
+
+        fireRateText.enabled = false;
+        rangeText.enabled = false;
 
         gunImage.sprite = accessoryData.ItemSprite;
     }

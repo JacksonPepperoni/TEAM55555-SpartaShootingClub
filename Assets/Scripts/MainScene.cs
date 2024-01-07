@@ -39,6 +39,8 @@ public class MainScene : Singleton<MainScene>
                 // 풀매니저 추가했습니다
                 PoolManager.Instance.Initialize();
 
+                WeaponEquipManager.Instance.Initialize();
+
             }
         });
     }

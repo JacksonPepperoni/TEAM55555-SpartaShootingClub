@@ -2,41 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponEquipManager : MonoBehaviour
+public class WeaponEquipManager : Singleton<WeaponEquipManager>
 {
-    public static WeaponEquipManager Instance;
-    [SerializeField] private GameObject testWeaponPreFab;
-    [SerializeField] private Transform weaponCameraTF;
-    [SerializeField] private WeaponData_Gun firstWeaponData;
+    private Transform weaponCameraTF;
+    private List<GameObject> weaponList;
+    private Weapon_Gun currentWeapon;
 
-    private Weapon_Gun _currentWeapon;
+    public Weapon_Gun CurrentWeapon => currentWeapon;
+    public float DefaultAdsFOV { get; private set; }
 
-    public Weapon_Gun CurrentWeapon => _currentWeapon;
-
-    private void Awake()
+    public override bool Initialize()
     {
-        if(Instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
+        weaponCameraTF = Camera.main.transform.GetChild(0).transform;
+        weaponList = new List<GameObject>();
 
-        SetWeapon(0, firstWeaponData);
+        weaponList.Add(ResourceManager.Instance.GetCache<GameObject>("Gun_Handgun"));
+        weaponList.Add(ResourceManager.Instance.GetCache<GameObject>("Gun_SniperRifle"));
+        weaponList.Add(ResourceManager.Instance.GetCache<GameObject>("Gun_Shotgun"));
+        weaponList.Add(ResourceManager.Instance.GetCache<GameObject>("Gun_MachineGun"));
+
+        SetWeapon(0);
+
+        DefaultAdsFOV = CinemachineManager.Instance.ADSFOV;
+
+        return base.Initialize();
     }
 
-    public void SetWeapon(int index, WeaponData_Gun weaponData_Gun)
+    public void SetWeapon(int index)
     {
-        // TODO => 두 매개 변수 중 하나는 필요없음!!
-        if(_currentWeapon != null)
+        if(currentWeapon != null)
         {
-            Destroy(_currentWeapon.gameObject);
+            Destroy(currentWeapon.gameObject);
         }
 
-        _currentWeapon = Instantiate(testWeaponPreFab, weaponCameraTF).GetComponent<Weapon_Gun>();
-        _currentWeapon.GetWeaponData(weaponData_Gun);
+        currentWeapon = Instantiate(weaponList[index] , weaponCameraTF).GetComponent<Weapon_Gun>();
     }
 
 

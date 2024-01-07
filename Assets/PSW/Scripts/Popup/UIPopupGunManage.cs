@@ -9,8 +9,8 @@ public class UIPopupGunManage : UIPopup
 
     private Button closedBtn;
     private Button equipBtn;
-    [SerializeField] private List<Toggle> GunToggles;
-    [SerializeField] private List<Toggle> accessoryToggles;
+    private List<Toggle> GunToggles;
+    private List<Toggle> accessoryToggles;
 
     #endregion
 
@@ -29,7 +29,10 @@ public class UIPopupGunManage : UIPopup
         SetUI<Toggle>();
         Toggle tempval;
 
-        tempval = GetUI<Toggle>("Toggle_Weapon_AR");
+        GunToggles = new List<Toggle>();
+        accessoryToggles = new List<Toggle>();
+
+        tempval = GetUI<Toggle>("Toggle_Weapon_HG");
         GunToggles.Add(tempval);
         tempval = GetUI<Toggle>("Toggle_Weapon_SR");
         GunToggles.Add(tempval);
@@ -71,13 +74,11 @@ public class UIPopupGunManage : UIPopup
     private void EquipWeapon(PointerEventData eventData)
     {
         int gunType = -1;
-        WeaponData weaponData = null;
         for(int i=0; i < GunToggles.Count; i++)
         {
             if(GunToggles[i].isOn == true)
             {
                 gunType = i;
-                weaponData = GunToggles[i].GetComponent<UIGunItem>().GetWeaponData();
                 break;
             }
         }
@@ -89,15 +90,36 @@ public class UIPopupGunManage : UIPopup
                 switch(i)
                 {
                     // Sight, Muzzle, Grip, Magazine
-                    case 0: break; // change adsFOV
+                    case 0:
+                    {
+                        float defaultVal = WeaponEquipManager.Instance.DefaultAdsFOV;
+                        CinemachineManager.Instance.ADSFOV = defaultVal * 0.5f;
+                    }
+                    break;
                     case 1: break; // change gunSound
                     case 2: break; // change grip
                     case 3: break; // change Magazine;
                 }
             }
+            else
+            {
+                switch(i)
+                {
+                    // Sight, Muzzle, Grip, Magazine
+                    case 0:
+                    {
+                        float defaultVal = WeaponEquipManager.Instance.DefaultAdsFOV;
+                        CinemachineManager.Instance.ADSFOV = defaultVal * 1f;
+                    }
+                    break;
+                    case 1: break; // change gunSound
+                    case 2: break; // change recoil TODO => SO var to Class var
+                    case 3: break; // change Magazine TODO => SO var to Class var
+                }
+            }
         }
 
-        WeaponEquipManager.Instance.SetWeapon(gunType, weaponData as WeaponData_Gun);
+        WeaponEquipManager.Instance.SetWeapon(gunType);
         UI.ClosePopup(this);
     }
 }
