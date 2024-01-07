@@ -8,6 +8,7 @@ public class Weapon_Gun : Weapon
 
     private Coroutine _shootCoroutine;
     private ParticleSystem _muzzleParticle;
+    private Transform _muzzlePoint;
 
     private void OnEnable() // TODO 플레이어가 무기들때 init 실행
     {
@@ -18,10 +19,12 @@ public class Weapon_Gun : Weapon
     {
         base.Initialize();
 
+        _muzzlePoint = transform.GetChild(0).transform.GetChild(1);
+
         if (_muzzleParticle == null)
         {
             _muzzleParticle = Instantiate(_data.MuzzleFlash, transform.GetChild(0)).GetComponent<ParticleSystem>();
-            _muzzleParticle.transform.localPosition = Vector3.zero;
+            _muzzleParticle.transform.localPosition = _muzzlePoint.position;
             _muzzleParticle.transform.forward = transform.GetChild(0).forward;
         }
 
