@@ -25,7 +25,7 @@ public class Weapon_Gun : Weapon
         if (_muzzleParticle == null)
         {
             _muzzleParticle = Instantiate(_data.MuzzleFlash, _muzzlePoint.position, Quaternion.identity, transform.GetChild(0)).GetComponent<ParticleSystem>();
-            _muzzleParticle.transform.forward = _muzzlePoint.forward *= -1f;
+            _muzzleParticle.transform.forward = _muzzlePoint.forward;
         }
 
         if (_muzzleParticle != null)
