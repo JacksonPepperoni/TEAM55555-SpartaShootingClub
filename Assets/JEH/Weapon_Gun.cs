@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-
 public class Weapon_Gun : Weapon
 {
     [SerializeField] private WeaponData_Gun _data;
@@ -9,6 +8,8 @@ public class Weapon_Gun : Weapon
     private Coroutine _shootCoroutine;
     private ParticleSystem _muzzleParticle;
     private Transform _muzzlePoint;
+
+    public WeaponData_Gun Data => _data;
 
     private void OnEnable() // TODO 플레이어가 무기들때 init 실행
     {
@@ -35,28 +36,9 @@ public class Weapon_Gun : Weapon
         _layerMask = 0b1;
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _isFirePress = true;
-            ShotStart();
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            _isFirePress = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
-        }
-    }
-
-
     #region 발사
 
-    private void ShotStart()
+    public void ShotStart()
     {
         if (_isReloading)
             return;
@@ -120,6 +102,8 @@ public class Weapon_Gun : Weapon
         if (_muzzleParticle != null)
             _muzzleParticle.Play();
 
+        //TODO: 반동데이터 받아와서 적용
+        CinemachineManager.Instance.ProvideFirearmRecoil(_data);
 
         lastFireTime = Time.time;
         _currentAmmo--;
@@ -129,10 +113,12 @@ public class Weapon_Gun : Weapon
             Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
             RaycastHit hit;
 
-            float x = Random.Range(-_data.Spread * 0.5f, _data.Spread * 0.5f);
-            float y = Random.Range(-_data.Spread * 0.5f, _data.Spread * 0.5f);
+            float x = Random.Range(-_data.ShotMOA * 0.5f, _data.ShotMOA * 0.5f);
+            float y = Random.Range(-_data.ShotMOA * 0.5f, _data.ShotMOA * 0.5f);
             Vector3 dir = new Vector3(x, y, 0);
 
+
+            // TODO: 계산식 오류있음.
             if (Physics.Raycast(ray.origin, (ray.direction + dir).normalized, out hit, _data.Range, _layerMask))
             {
 
@@ -155,14 +141,14 @@ public class Weapon_Gun : Weapon
     #region 재장전
 
 
-    private void Reload() //BOOL로 만들어서 재장전 성공, 취소 판단할것
+    public bool Reload() //BOOL로 만들어서 재장전 성공, 취소 판단할것
     {
         if (_isReloading || _currentAmmo >= _data.MagazineCapacity || _shootCoroutine != null)
-            return;
+            return false;
 
         _isReloading = true;
         _reloadCoroutine ??= StartCoroutine(ReloadCoroutine());
-
+        return true;
     }
 
     private IEnumerator ReloadCoroutine()
@@ -181,7 +167,7 @@ public class Weapon_Gun : Weapon
         _reloadCoroutine = null;
     }
 
-    private void ReloadStop() // 장전중에 무기바꾸면 리로딩 취소
+    public void ReloadStop() // 장전중에 무기바꾸면 리로딩 취소
     {
         if (_reloadCoroutine != null)
         {
@@ -199,7 +185,4 @@ public class Weapon_Gun : Weapon
         _data = weaponData_Gun;
         Initialize();
     }
-
 }
-
-

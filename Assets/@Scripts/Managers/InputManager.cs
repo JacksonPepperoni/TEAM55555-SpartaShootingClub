@@ -11,6 +11,7 @@ public class InputManager : Singleton<InputManager>
     private InputAction _sitAction;
     private InputAction _fastRunAction;
     private InputAction _walkAction;
+    private InputAction _reloadAction;
 
     private bool _fastRunPress;
     private bool _walkPress;
@@ -23,9 +24,9 @@ public class InputManager : Singleton<InputManager>
 
     public bool ADSTrigger => _adsAction.triggered;
     public bool SitKeyDown => _sitAction.triggered;
-    //public bool SitKeyUp => !sit.inProgress;
     public bool FastRunPress => _fastRunPress;
     public bool WalkPress => _walkPress;
+    public bool ReloadTrigger => _reloadAction.triggered;
 
     public override bool Initialize()
     {
@@ -43,6 +44,7 @@ public class InputManager : Singleton<InputManager>
         _sitAction = _playerInput.currentActionMap.FindAction("Sit");
         _fastRunAction = _playerInput.currentActionMap.FindAction("FastRun");
         _walkAction = _playerInput.currentActionMap.FindAction("Walk");
+        _reloadAction = _playerInput.currentActionMap.FindAction("Reload");
 
         // 키 상호작용
         // ex) 달리다가 정조준하면 달리기 취소. 걷다가 달리면 걷기 취소
@@ -53,6 +55,7 @@ public class InputManager : Singleton<InputManager>
         _fastRunAction.canceled += _ => _fastRunPress = false;
         _walkAction.started += _ => { _walkPress = true; _fastRunPress = false; };
         _walkAction.canceled += _ => _walkPress = false;
+        _reloadAction.started += _ => { _fastRunPress = false; _firePress = false; };
 
         Cursor.visible = false;
 

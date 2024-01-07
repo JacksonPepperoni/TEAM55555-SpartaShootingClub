@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class MainScene : Singleton<MainScene>
 {
+    private PlayerController _player;
+    public PlayerController Player => _player;
+
     protected override void Start()
     {
         base.Start();
@@ -19,7 +22,7 @@ public class MainScene : Singleton<MainScene>
                 var ground = ResourceManager.Instance.GetCache<GameObject>("Ground");
                 Instantiate(ground);
                 var player = ResourceManager.Instance.GetCache<GameObject>("PlayerCharacter");
-                Instantiate(player);
+                _player = Instantiate(player).GetComponent<PlayerController>();
                 // var weapon = ResourceManager.Instance.GetCache<GameObject>("Weapon");
                 // Instantiate(weapon, Camera.main.transform.GetChild(0));
 
