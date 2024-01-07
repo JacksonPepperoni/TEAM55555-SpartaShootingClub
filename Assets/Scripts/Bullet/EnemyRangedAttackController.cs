@@ -8,8 +8,9 @@ public class EnemyRangedAttackController : MonoBehaviour
 
     private RangedAttackData _attackData;
     private float _currentDuration;
-    private Vector2 _direction;
+    private Vector3 _direction;
     private bool _isReady;
+    private int damage = 50;
 
     private Rigidbody _rigidbody;
     private SpriteRenderer _spriteRenderer;
@@ -34,11 +35,11 @@ public class EnemyRangedAttackController : MonoBehaviour
         {
             DestroyProjectile(transform.position, false);
         }
-        //_rigidbody.velocity = _direction * _attackData.speed;
-        transform.position += new Vector3(0, 0, 1) * Time.deltaTime;
+        _rigidbody.velocity = -Vector3.right * 150 * Time.deltaTime; 
+        //transform.position += new Vector3(0, 0, 1*_attackData.speed) * Time.deltaTime;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if ((levelCollisionLayer.value == (levelCollisionLayer.value | (1 << collision.gameObject.layer))))
         {

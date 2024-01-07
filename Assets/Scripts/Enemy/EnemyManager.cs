@@ -7,15 +7,18 @@ public class EnemyManager : MonoBehaviour
 {
     static public EnemyManager instance;
 
-    [SerializeField] private GameObject enemyPrefabs;
+    [SerializeField] private GameObject[] enemyPrefabs;
 
 
     [SerializeField] private int currentSpawnCount;
     private int waveSpaawnCount;
 
-    [SerializeField] private Transform spawnPositionsRoot;
-    private List<Transform> spawnPositions = new List<Transform>();
+    [SerializeField] private Transform BaseEnemyspawnPositionsRoot;
+    [SerializeField] private Transform AttackEnemyspawnPositionsRoot;
+    private List<Transform> BaseEnemyspawnPositions = new List<Transform>();
+    private List<Transform> AttackEnemyspawnPositions = new List<Transform>();
     private List<GameObject> enemyList = new List<GameObject>();
+
 
     private void Awake()
     {
@@ -29,22 +32,34 @@ public class EnemyManager : MonoBehaviour
 
     private void Init()
     {
-        for (int i = 0; i < spawnPositionsRoot.childCount; i++)
+        for (int i = 0; i < BaseEnemyspawnPositionsRoot.childCount; i++)
         {
-            spawnPositions.Add(spawnPositionsRoot.GetChild(i));
+            BaseEnemyspawnPositions.Add(BaseEnemyspawnPositionsRoot.GetChild(i));
+        }
+
+        for(int i=0; i<AttackEnemyspawnPositionsRoot.childCount;i++)
+        {
+            AttackEnemyspawnPositions.Add(AttackEnemyspawnPositionsRoot.GetChild(i));
         }
         currentSpawnCount = 0;
-        waveSpaawnCount = 2;
+        waveSpaawnCount = 3;
 
         SetEnemy();
     }
 
     private void SetEnemy()
     {
-        for (int i = 0; i < spawnPositions.Count; i++)
+        for (int i = 0; i < BaseEnemyspawnPositions.Count; i++)
         {
             //TODO : int prefabIdx = Random.Range(0, enemyPrefabs.Count);
-            GameObject enemy = Instantiate(enemyPrefabs, spawnPositions[i].position, Quaternion.Euler(-90, 0, 0));
+            GameObject enemy = Instantiate(enemyPrefabs[0], BaseEnemyspawnPositions[i].position, Quaternion.Euler(-90, 0, 0));
+            enemy.GetComponent<HealthSystem>().OnDeath += OnEnemyDeath;
+            enemyList.Add(enemy);
+        }
+
+        for(int i=0; i<AttackEnemyspawnPositions.Count; i++)
+        {
+            GameObject enemy = Instantiate(enemyPrefabs[1], AttackEnemyspawnPositions[i].position, Quaternion.Euler(-90, -90, 0));
             enemy.GetComponent<HealthSystem>().OnDeath += OnEnemyDeath;
             enemyList.Add(enemy);
         }

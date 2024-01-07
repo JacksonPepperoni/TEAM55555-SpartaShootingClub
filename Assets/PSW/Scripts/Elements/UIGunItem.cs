@@ -49,9 +49,4 @@ public class UIGunItem : UIBase
     }
 
     #endregion
-
-    public WeaponData GetWeaponData()
-    {
-        return gunData as WeaponData;
-    }
 }

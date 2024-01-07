@@ -7,7 +7,7 @@ public class EnemyAnimationController: MonoBehaviour
     private Animator animator;
     private EnemyShooting shotController;
 
-    private static readonly int isAttack = Animator.StringToHash("isAttack");
+    private static readonly int isActive = Animator.StringToHash("isActive");
     private static readonly int isReload = Animator.StringToHash("isReload");
 
     private void Awake()
@@ -15,6 +15,14 @@ public class EnemyAnimationController: MonoBehaviour
         animator=GetComponent<Animator>();
         shotController=GetComponent<EnemyShooting>();
     }
+    public void SetAnimationActive(bool value)
+    {
+        animator.SetBool(isActive, value);
+    }
 
+    public void SetAnimationReload(bool value)
+    {
+        animator.SetBool(isReload, value);
+    }
 
 }

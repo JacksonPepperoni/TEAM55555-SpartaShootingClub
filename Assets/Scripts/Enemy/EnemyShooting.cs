@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class EnemyShooting : MonoBehaviour
 {
     private ProjectileManager _projectileManager;
 
+    private EnemyAnimationController _animController;
+
     [SerializeField] private Transform projectileSpawnPosition;
     private Vector3 _aimDirection = new Vector3(0,0,1);
 
@@ -15,11 +18,13 @@ public class EnemyShooting : MonoBehaviour
     private AttackSO _attackSO;
 
     private float _timeSinceLastAttack = float.MaxValue;
-    private float _timeSinceLastReload = float.MaxValue;
-    private bool isAttacking=true;
+    private float _timeSinceLastReload = 0;
+    private bool isAttacking=false;
+    public bool isActive = false;
 
     private void Start()
     {
+        _animController = GetComponent<EnemyAnimationController>();
         _projectileManager = ProjectileManager.instance;
         _stats = GetComponent<EnemyStatsHandler>();
         _attackSO = _stats.currentStats.attackSO;
@@ -42,7 +47,7 @@ public class EnemyShooting : MonoBehaviour
             _timeSinceLastAttack += Time.deltaTime;
   
         }
-        if (isAttacking && _timeSinceLastAttack > _stats.currentStats.attackSO.delay)
+        if (isActive && isAttacking && _timeSinceLastAttack > _stats.currentStats.attackSO.delay)
         {
             _timeSinceLastAttack = 0;
             OnShoot();
@@ -55,7 +60,8 @@ public class EnemyShooting : MonoBehaviour
         switch (isAttacking)
         {
             case true://발사 중일 때
-                Debug.Log("발사중");
+                _animController.SetAnimationReload(false);
+
                 if (_timeSinceLastReload > 5f)
                 {
                     _timeSinceLastReload = 0;
@@ -64,8 +70,8 @@ public class EnemyShooting : MonoBehaviour
 
                 break;
             case false://재장전 중일 때
-                Debug.Log("발사안함");
-                if (_timeSinceLastReload > 2f)
+                _animController.SetAnimationReload(true);
+                if (_timeSinceLastReload > 2.5f)
                 {
                     _timeSinceLastReload = 0;
                     isAttacking = true;
@@ -85,6 +91,7 @@ public class EnemyShooting : MonoBehaviour
             float angle = minAngle + projectilesAngleSpace * i;
             float randomSpread = Random.Range(-rangedAttackData.spread, rangedAttackData.spread);
             angle += randomSpread;
+            _animController.SetAnimationActive(true);
             CreateProjectile(rangedAttackData, angle);
         }
     }

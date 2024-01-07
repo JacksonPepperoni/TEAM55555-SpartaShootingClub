@@ -15,7 +15,7 @@ public class Weapon_Gun : Weapon
 
     private void OnEnable() // TODO 플레이어가 무기들때 init 실행
     {
-        // Initialize();
+        Initialize();
     }
 
     protected override void Initialize()
@@ -188,10 +188,4 @@ public class Weapon_Gun : Weapon
     }
 
     #endregion
-
-    public void GetWeaponData(WeaponData_Gun weaponData_Gun)
-    {
-        _data = weaponData_Gun;
-        Initialize();
-    }
 }

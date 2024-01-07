@@ -32,8 +32,7 @@ public class MainScene : Singleton<MainScene>
                 SettingsManager.Instance.Initialize();
                 CinemachineManager.Instance.Initialize();
                 InputManager.Instance.Initialize();
-                PoolManager.Instance.Initialize();
-                AudioManager.Instance.Initialize();
+                PoolManager.Instance.Initialize();AudioManager.Instance.Initialize();
                 WeaponEquipManager.Instance.Initialize();
             }
         });

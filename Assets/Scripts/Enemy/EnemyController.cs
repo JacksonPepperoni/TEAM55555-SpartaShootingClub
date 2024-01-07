@@ -45,6 +45,10 @@ public class EnemyController : MonoBehaviour
         StartCoroutine("SetActive");
         gameObject.AddComponent<Rigidbody>().useGravity = false;
         gameObject.GetComponent<HealthSystem>().InitHealthSystem();
+        if(gameObject.GetComponent<EnemyShooting>() != null)
+        {
+            gameObject.GetComponent<EnemyShooting>().isActive=true;
+        }
     }
 
     public void Die()

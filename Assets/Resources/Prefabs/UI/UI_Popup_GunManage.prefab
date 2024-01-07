@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5750117387609414426}
   - component: {fileID: 7601089631544871528}
   m_Layer: 5
-  m_Name: Toggle_Weapon_AR
+  m_Name: Toggle_Weapon_HG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2867,7 +2867,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB3CC\uACA9 \uC18C\uCD1D (AR)"
+  m_text: "\uAD8C\uCD1D (HG)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1e94a9989f1a18d41bbed35f5d463a39, type: 2}
   m_sharedMaterial: {fileID: -6733553543988574399, guid: 1e94a9989f1a18d41bbed35f5d463a39, type: 2}
@@ -3285,8 +3285,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1b3abb73153228488b4a503f83825ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GunToggles: []
-  accessoryToggles: []
 --- !u!1 &6032221120278625466
 GameObject:
   m_ObjectHideFlags: 0

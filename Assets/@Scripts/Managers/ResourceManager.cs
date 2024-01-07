@@ -46,6 +46,12 @@ public class ResourceManager : Singleton<ResourceManager>
             @"Audios/AudioMixer",
             @"Audios/SFX/Movement/S_CH_Loop_Walking",
             @"Audios/SFX/Movement/S_CH_Loop_Running",
+            
+            // 총기 프리팹
+            @"Prefabs/Weapon/Gun_Handgun",
+            @"Prefabs/Weapon/Gun_MachineGun",
+            @"Prefabs/Weapon/Gun_Shotgun",
+            @"Prefabs/Weapon/Gun_SniperRifle"
         };
 
         int loadCount = 0;
