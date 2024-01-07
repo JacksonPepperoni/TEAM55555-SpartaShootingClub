@@ -113,15 +113,6 @@ public class PlayerController : MonoBehaviour
         _coSitAndStandHeightChange = StartCoroutine(CoSitAndStandHeightChange(fromHeigh, toHeight, sitStandDuration));
 
         _isSit = active;
-
-        //if (active)
-        //{
-        //    _ui.SceneUI.GetComponent<UISceneTraining>().UpdateIdle(2);
-        //}
-        //else
-        //{
-        //    _ui.SceneUI.GetComponent<UISceneTraining>().UpdateIdle(0);
-        //}
     }
 
     public void ChangeADS()
@@ -139,6 +130,7 @@ public class PlayerController : MonoBehaviour
     public void SetFastRun(bool active)
     {
         _weaponAnimator.SetBool(AnimatorHash_FastRun, active);
+        
         if (active)
         {
             _isADS = false;
@@ -147,7 +139,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            _ui.SceneUI.GetComponent<UISceneTraining>().UpdateIdle(0);
+            if (_isSit) _ui.SceneUI.GetComponent<UISceneTraining>().UpdateIdle(2);
+            else _ui.SceneUI.GetComponent<UISceneTraining>().UpdateIdle(0);
         }
     }
 
