@@ -138,7 +138,9 @@ public class Weapon_Gun : Weapon
                 obj.transform.position = hit.point;
                 obj.transform.forward = hit.normal;
 
-                Debug.Log(DamageCalculation(hit.point, _data.Damage, _data.Range)); //데미지 계산
+
+                hit.transform.gameObject.GetComponent<HealthSystem>()?.HitDamage(DamageCalculation(hit.point, _data.Damage, _data.Range));
+               // Debug.Log(DamageCalculation(hit.point, _data.Damage, _data.Range)); //데미지 계산
             }
 
             Debug.DrawRay(ray.origin, (ray.direction + dir).normalized * _data.Range, Color.red, 1);
