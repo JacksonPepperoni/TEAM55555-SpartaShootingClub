@@ -11,6 +11,8 @@ public class WeaponEquipManager : MonoBehaviour
 
     private Weapon_Gun _currentWeapon;
 
+    public Weapon_Gun CurrentWeapon => _currentWeapon;
+
     private void Awake()
     {
         if(Instance != null)
