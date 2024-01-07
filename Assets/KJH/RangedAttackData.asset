@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: 0.2
   delay: 0.6
-  power: 1
-  speed: 15
+  power: 50
+  speed: 8
   target:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   bulletNameTag: Bullet
-  duration: 2
+  duration: 7
   spread: 0
   numberofProjectilesPershot: 1
   multipleProjectilesAngel: 2

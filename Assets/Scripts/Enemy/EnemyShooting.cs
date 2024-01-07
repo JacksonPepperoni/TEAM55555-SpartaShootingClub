@@ -61,7 +61,6 @@ public class EnemyShooting : MonoBehaviour
             case true://발사 중일 때
                 _animController.SetAnimationReload(false);
 
-                Debug.Log("발사중");
                 if (_timeSinceLastReload > 5f)
                 {
                     _timeSinceLastReload = 0;
@@ -70,7 +69,6 @@ public class EnemyShooting : MonoBehaviour
 
                 break;
             case false://재장전 중일 때
-                Debug.Log("발사안함");
                 _animController.SetAnimationReload(true);
                 if (_timeSinceLastReload > 2.5f)
                 {
