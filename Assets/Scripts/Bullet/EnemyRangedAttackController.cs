@@ -35,7 +35,8 @@ public class EnemyRangedAttackController : MonoBehaviour
         {
             DestroyProjectile(transform.position, false);
         }
-        transform.position += new Vector3(0, 0, 1*_attackData.speed) * Time.deltaTime;
+        _rigidbody.velocity = -Vector3.right * 150 * Time.deltaTime; 
+        //transform.position += new Vector3(0, 0, 1*_attackData.speed) * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider collision)

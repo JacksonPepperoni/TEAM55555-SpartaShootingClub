@@ -20,6 +20,7 @@ public class EnemyShooting : MonoBehaviour
     private float _timeSinceLastAttack = float.MaxValue;
     private float _timeSinceLastReload = 0;
     private bool isAttacking=false;
+    public bool isActive = false;
 
     private void Start()
     {
@@ -46,7 +47,7 @@ public class EnemyShooting : MonoBehaviour
             _timeSinceLastAttack += Time.deltaTime;
   
         }
-        if (isAttacking && _timeSinceLastAttack > _stats.currentStats.attackSO.delay)
+        if (isActive && isAttacking && _timeSinceLastAttack > _stats.currentStats.attackSO.delay)
         {
             _timeSinceLastAttack = 0;
             OnShoot();
@@ -90,7 +91,7 @@ public class EnemyShooting : MonoBehaviour
             float angle = minAngle + projectilesAngleSpace * i;
             float randomSpread = Random.Range(-rangedAttackData.spread, rangedAttackData.spread);
             angle += randomSpread;
-            _animController.SetAnimationAttack(true);
+            _animController.SetAnimationActive(true);
             CreateProjectile(rangedAttackData, angle);
         }
     }
