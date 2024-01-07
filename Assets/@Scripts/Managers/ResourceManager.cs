@@ -37,6 +37,10 @@ public class ResourceManager : Singleton<ResourceManager>
             @"Prefabs/UI/Panels/UI_Panel_Audio",
             @"Prefabs/UI/Panels/UI_Panel_Control",
             @"Prefabs/UI/Panels/UI_Panel_Graphic",
+
+            @"Prefabs/Effect/SmallExplosion",
+            @"Prefabs/Effect/Metal",
+            @"Prefabs/Projectile/Bomb"
         };
 
         int loadCount = 0;
@@ -67,5 +71,30 @@ public class ResourceManager : Singleton<ResourceManager>
             Resources.UnloadAsset(resource);
             _resources.Remove(key);
         }
+    }
+
+
+
+    // 풀생성 GameObject obj = ResourceManager.Instance.InstantiatePrefab(prefab name);
+    public GameObject InstantiatePrefab(string key)
+    {
+        GameObject prefab = GetCache<GameObject>(key);
+
+        if (prefab == null)
+        {
+            Debug.LogError($"[ResourceManager] Instantiate({key}): Failed to load prefab.");
+            return null;
+        }
+
+        return PoolManager.Instance.Pop(prefab);
+    }
+
+    // 오브젝트를 풀에 돌려놓거나 파괴한다. ResourceManager.Instance.Destroy(this.gameobject);
+    public void Destroy(GameObject obj)
+    {
+        if (obj == null) return;
+        if (PoolManager.Instance.Push(obj)) return;
+
+        UnityEngine.Object.Destroy(obj);
     }
 }

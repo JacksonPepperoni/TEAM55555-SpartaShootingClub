@@ -33,9 +33,10 @@ public class PlayerGroundState : PlayerStateBase
             _controller.ChangeADS();
         _controller.SetFastRun(_input.FastRunPress);
         if (!_input.FastRunPress && _input.FirePress)
-        {
-            Debug.Log("fire");
-        }
+            WeaponEquipManager.Instance.CurrentWeapon.ShotStart();
+        if (_input.ReloadTrigger)
+            if (WeaponEquipManager.Instance.CurrentWeapon.Reload() && _controller.IsADS)
+                _controller.ChangeADS();
     }
 }
 

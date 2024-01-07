@@ -2,9 +2,15 @@ using UnityEngine;
 
 public class ReturnPool : MonoBehaviour
 {
-    void OnEnable()
+    [SerializeField] private float _returnTime;
+    private void OnEnable()
     {
-        Destroy(this.gameObject, 4);
+        Invoke("Destroy", _returnTime);
+    }
+
+   private void Destroy()
+    {
+        ResourceManager.Instance.Destroy(this.gameObject);
     }
 
 }
