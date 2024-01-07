@@ -19,6 +19,10 @@ public class WeaponData_Gun : WeaponData
     [SerializeField] private AnimationCurve _recoilCurve;
     [SerializeField] GameObject _muzzleFlash;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioClip _fireSound;
+    [SerializeField] private AudioClip _ReloadSound;
+
     public int ShotAtOnce // 최소값 1
     {
         private set { _shotAtOnce = value < 1 ? 1 : value; }
@@ -28,6 +32,8 @@ public class WeaponData_Gun : WeaponData
     public float ShotMOA => _spread + CurrentMOA;
     public float Spread => _spread;
     public GameObject MuzzleFlash => _muzzleFlash;
+    public AudioClip FireSound => _fireSound;
+    public AudioClip ReloadSound => _ReloadSound;
 
     public float VerticalRecoilForce
     {

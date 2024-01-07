@@ -1,9 +1,12 @@
-using Cinemachine;
 using UnityEngine;
 
 public class SettingsManager : Singleton<SettingsManager>
 {
+    private AudioManager _audioManager;
     private CinemachineManager _camManager;
+
+    // Settings Audio Value
+    private float _masterVolume;
 
     // Settings Control Value
     private bool _mouseReverse;
@@ -14,19 +17,42 @@ public class SettingsManager : Singleton<SettingsManager>
     {
         if (!base.Initialize()) return false;
 
+        _audioManager = AudioManager.Instance;
         _camManager = CinemachineManager.Instance;
 
         // TODO: JSON이나 PlayerPrefs에서 저장된 값 불러오기
 
+        _masterVolume = PlayerPrefs.GetFloat("Settings_MasterVolume", 100);
         _mouseReverse = PlayerPrefs.GetInt("Settings_Inversion", 0) == 1;
         _fov = PlayerPrefs.GetFloat("Settings_Fov", 90);
         _sensitivity = PlayerPrefs.GetFloat("Settings_Sensitivity", 50);
 
+        SetMasterVolume(_masterVolume);
         SetFOV(_fov);
         SetMouseSensitivity(_sensitivity);
 
         return true;
     }
+
+    #region Audio Settings
+
+    public float MasterVolume
+    {
+        get => _masterVolume;
+        set => SetMasterVolume(value);
+    }
+
+    public bool SetMasterVolume(float volume)
+    {
+        if (_audioManager == null) return false;
+
+        _audioManager.Source.volume = volume * 0.01f;
+        PlayerPrefs.SetFloat("Settings_MasterVolume", volume);
+
+        return true;
+    }
+
+    #endregion
 
     #region Control Settings
 

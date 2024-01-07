@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -38,5 +39,24 @@ public class AudioManager : Singleton<AudioManager>
         {
             this.Source.Play();
         }
+    }
+
+    public void PlayOneShot(AudioClip clip)
+    {
+        if (clip == null) return;
+
+        var newSourceObject = new GameObject($"Audio Source -> {clip.name}");
+        var newAudioSource = newSourceObject.AddComponent<AudioSource>();
+
+        newAudioSource.volume = Source.volume;
+        newAudioSource.PlayOneShot(clip);
+
+        StartCoroutine(nameof(DestroySourceWhenFinished), newAudioSource);
+    }
+
+    private IEnumerator DestroySourceWhenFinished(AudioSource source)
+    {
+        yield return new WaitWhile(() => source.isPlaying);
+        Destroy(source.gameObject);
     }
 }

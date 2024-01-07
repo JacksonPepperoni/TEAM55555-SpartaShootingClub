@@ -1,6 +1,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
 
 public class UIPanelAudio : UIElement
 {
@@ -44,12 +45,13 @@ public class UIPanelAudio : UIElement
 
     private void SetEvents()
     {
-        Util.SetSliderUI(masterSlider, masterVolumeText, 100);
+        Util.SetSliderUI(masterSlider, masterVolumeText, SettingsManager.Instance.MasterVolume);
         Util.SetSliderUI(sfxSlider, sfxVolumeText, 100);
         Util.SetSliderUI(uiSlider, uiVolumeText, 100);
 
         masterSlider.gameObject.SetEvent(UIEventType.Click, ChangedMasterVolume);
         masterSlider.gameObject.SetEvent(UIEventType.Drag, ChangedMasterVolume);
+        masterSlider.gameObject.SetEvent(UIEventType.PointerUp, UpdateMasterVolume);
 
         sfxSlider.gameObject.SetEvent(UIEventType.Click, ChangedSFXVolume);
         sfxSlider.gameObject.SetEvent(UIEventType.Drag, ChangedSFXVolume);
@@ -75,6 +77,11 @@ public class UIPanelAudio : UIElement
     private void ChangedUIVolume(PointerEventData eventData)
     {
         Util.SliderValueChanged(uiSlider, uiVolumeText);
+    }
+
+    private void UpdateMasterVolume(PointerEventData eventData)
+    {
+        SettingsManager.Instance.SetMasterVolume(masterSlider.value);
     }
 
     #endregion

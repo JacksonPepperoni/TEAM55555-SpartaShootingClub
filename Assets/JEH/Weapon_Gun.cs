@@ -10,6 +10,7 @@ public class Weapon_Gun : Weapon
     private Transform _muzzlePoint;
 
     private UISceneTraining _scene;
+    private AudioManager _audio;
 
     public WeaponData_Gun Data => _data;
 
@@ -38,6 +39,7 @@ public class Weapon_Gun : Weapon
         _layerMask = 0b1;
 
         _scene = UIManager.Instance.SceneUI.GetComponent<UISceneTraining>();
+        _audio = AudioManager.Instance;
     }
 
     #region 발사
@@ -112,6 +114,7 @@ public class Weapon_Gun : Weapon
         lastFireTime = Time.time;
         _currentAmmo--;
         _scene.UpdateMagazine(_currentAmmo); // UI 세팅
+        _audio.PlayOneShot(_data.FireSound); // 발사 사운드
 
         for (int i = 0; i < _data.ShotAtOnce; i++)
         {
@@ -160,17 +163,11 @@ public class Weapon_Gun : Weapon
     {
         _isReloading = true;
 
-        Debug.Log("리로딩");
+        _audio.PlayOneShot(_data.ReloadSound);
         yield return new WaitForSeconds(_data.ReloadTime);
 
-        // 소지탄창수--;
-        _currentAmmo = _data.MagazineCapacity;
-
-        // UI 세팅
-        _scene.UpdateMagazine(_currentAmmo);
-
-
-        Debug.Log("리로드 완료");
+        _currentAmmo = _data.MagazineCapacity; // 소지탄창수--;
+        _scene.UpdateMagazine(_currentAmmo); // UI 탄창 업데이트
 
         _isReloading = false;
         _reloadCoroutine = null;
