@@ -19,13 +19,12 @@ public class Weapon_Gun : Weapon
     {
         base.Initialize();
 
-        _muzzlePoint = transform.GetChild(0).transform.GetChild(1);
+        _muzzlePoint = transform.GetChild(0).Find("MuzzlePoint");
 
         if (_muzzleParticle == null)
         {
-            _muzzleParticle = Instantiate(_data.MuzzleFlash, transform.GetChild(0)).GetComponent<ParticleSystem>();
-            _muzzleParticle.transform.localPosition = _muzzlePoint.position;
-            _muzzleParticle.transform.forward = transform.GetChild(0).forward;
+            _muzzleParticle = Instantiate(_data.MuzzleFlash, _muzzlePoint.position, Quaternion.identity, transform.GetChild(0)).GetComponent<ParticleSystem>();
+            _muzzleParticle.transform.forward = _muzzlePoint.forward *= -1f; // 테스트총이 반대방향이라 반대로 해놨습니다
         }
 
         if (_muzzleParticle != null)

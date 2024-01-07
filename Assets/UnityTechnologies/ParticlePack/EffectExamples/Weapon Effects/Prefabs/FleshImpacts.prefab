@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33932568950116852}
   - component: {fileID: 23996664202140068}
   - component: {fileID: 135056908871083446}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FleshImpacts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 4797651860900790}
   - component: {fileID: 198103514842770696}
   - component: {fileID: 199445386629882510}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Streaks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4764,7 +4764,7 @@ GameObject:
   - component: {fileID: 4301971573834440}
   - component: {fileID: 198763882716928616}
   - component: {fileID: 199462925942737768}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Mist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9609,7 +9609,7 @@ GameObject:
   - component: {fileID: 4410024737340290}
   - component: {fileID: 198646725254718190}
   - component: {fileID: 199156021678073710}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Decal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14517,7 +14517,7 @@ GameObject:
   - component: {fileID: 4503933766848526}
   - component: {fileID: 198680025581574516}
   - component: {fileID: 199878951576611986}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HitEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
