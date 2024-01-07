@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     private InputManager _input;
     private Transform _cameraTransform;
     private Animator _weaponAnimator;
+    private AudioManager _audio;
+    private UIManager _ui;
 
     private bool _isSit;
     private bool _isADS;
@@ -69,6 +71,8 @@ public class PlayerController : MonoBehaviour
         _cameraTransform = Camera.main.transform;
         _weaponAnimator = _cameraTransform.GetComponentInChildren<Animator>();
         _cinemachineContainer = transform.Find("Cinemachine");
+        _audio = AudioManager.Instance;
+        _ui = UIManager.Instance; 
     }
 
     public void Move()
@@ -86,6 +90,16 @@ public class PlayerController : MonoBehaviour
         movement.Normalize();
         _controller.Move(MoveSpeedValue * Time.deltaTime * movement);
         _weaponAnimator.SetFloat(AnimatorHash_MoveVelocity, movement.magnitude);
+
+        // 플레이어 움직임 사운드
+        if (movement.sqrMagnitude > 0f)
+        {
+            _audio.MovementSound();
+        }
+        else if (_audio.Source.isPlaying)
+        {
+            _audio.Source.Pause();
+        }
     }
 
     public void Sit(bool active)
@@ -99,6 +113,15 @@ public class PlayerController : MonoBehaviour
         _coSitAndStandHeightChange = StartCoroutine(CoSitAndStandHeightChange(fromHeigh, toHeight, sitStandDuration));
 
         _isSit = active;
+
+        //if (active)
+        //{
+        //    _ui.SceneUI.GetComponent<UISceneTraining>().UpdateIdle(2);
+        //}
+        //else
+        //{
+        //    _ui.SceneUI.GetComponent<UISceneTraining>().UpdateIdle(0);
+        //}
     }
 
     public void ChangeADS()
@@ -120,6 +143,11 @@ public class PlayerController : MonoBehaviour
         {
             _isADS = false;
             CinemachineManager.Instance.ADSFOVChange(_isADS, 0.1f, false);
+            _ui.SceneUI.GetComponent<UISceneTraining>().UpdateIdle(1); // UI 스탠딩 이미지 변경
+        }
+        else
+        {
+            _ui.SceneUI.GetComponent<UISceneTraining>().UpdateIdle(0);
         }
     }
 

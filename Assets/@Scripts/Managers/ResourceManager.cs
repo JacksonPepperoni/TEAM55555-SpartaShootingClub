@@ -40,7 +40,12 @@ public class ResourceManager : Singleton<ResourceManager>
 
             @"Prefabs/Effect/SmallExplosion",
             @"Prefabs/Effect/Metal",
-            @"Prefabs/Projectile/Bomb"
+            @"Prefabs/Projectile/Bomb",
+
+            // 사운드
+            @"Audios/AudioMixer",
+            @"Audios/SFX/Movement/S_CH_Loop_Walking",
+            @"Audios/SFX/Movement/S_CH_Loop_Running",
         };
 
         int loadCount = 0;

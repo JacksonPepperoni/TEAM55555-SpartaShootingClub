@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gun_MachineGun
   m_EditorClassIdentifier: 
   itemName: "\uAE30\uAD00\uCD1D"
-  itemSprite: {fileID: -1461613945, guid: 319d69ec9f758c3408d419d20fde2787, type: 3}
+  itemSprite: {fileID: -1008357622, guid: facf8aa618c1c7441843b097a4ace3a1, type: 3}
   itemType: 1
   _damage: 4
   _magazineCapacity: 50
@@ -25,4 +25,20 @@ MonoBehaviour:
   _range: 20
   _shotAtOnce: 1
   _spread: 0.01
+  _baseMOA: 0
+  _walkMOAModifier: 0
+  _runMOAModifier: 0
+  _sitMOAModifier: 0
+  _minVerticalRecoil: 0
+  _maxVerticalRecoil: 0
+  _minHorizontalRecoil: 0
+  _maxHorizontalRecoil: 0
+  _recoilDuration: 0
+  _sitRecoilModifer: 0
+  _recoilCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _muzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}

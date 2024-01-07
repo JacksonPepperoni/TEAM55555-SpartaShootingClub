@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponEquipManager : MonoBehaviour
+public class WeaponEquipManager : Singleton<WeaponEquipManager>
 {
-    public static WeaponEquipManager Instance;
     [SerializeField] private GameObject testWeaponPreFab;
     [SerializeField] private Transform weaponCameraTF;
     [SerializeField] private WeaponData_Gun firstWeaponData;
@@ -13,23 +10,20 @@ public class WeaponEquipManager : MonoBehaviour
 
     public Weapon_Gun CurrentWeapon => _currentWeapon;
 
-    private void Awake()
+    public override bool Initialize()
     {
-        if(Instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
+        if (!base.Initialize()) return false;
 
-        SetWeapon(0, firstWeaponData);
+        return true;
     }
 
-    public void SetWeapon(int index, WeaponData_Gun weaponData_Gun)
+    public void InitWeapon()
     {
-        // TODO => 두 매개 변수 중 하나는 필요없음!!
+        SetWeapon(firstWeaponData);
+    }
+
+    public void SetWeapon(WeaponData_Gun weaponData_Gun)
+    {
         if(_currentWeapon != null)
         {
             Destroy(_currentWeapon.gameObject);
@@ -37,7 +31,9 @@ public class WeaponEquipManager : MonoBehaviour
 
         _currentWeapon = Instantiate(testWeaponPreFab, weaponCameraTF).GetComponent<Weapon_Gun>();
         _currentWeapon.GetWeaponData(weaponData_Gun);
+
+        // UI 세팅
+        UISceneTraining scene = UIManager.Instance.SceneUI.GetComponent<UISceneTraining>();
+        scene.UpdateWeapon(weaponData_Gun);
     }
-
-
 }
