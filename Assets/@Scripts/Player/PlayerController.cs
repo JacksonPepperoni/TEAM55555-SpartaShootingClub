@@ -35,7 +35,13 @@ public class PlayerController : MonoBehaviour
     public float horizontalRecoil = 10f;
     public float recoilDuration = 0.1f;
 
-    public bool IsADS { get => _isADS; set => _isADS = value; }
+    public bool IsADS => _isADS;
+    public bool IsSit => _isSit;
+    public bool IsMove => _velocity.magnitude > 0.01f;
+    public bool IsWalk => IsMove && _input.WalkPress;
+    public bool IsRun => IsMove && !_input.WalkPress && !_input.FastRunPress;
+    public bool IsFastRun => IsMove && _input.FastRunPress;
+
 
     public float MoveSpeedValue
     {

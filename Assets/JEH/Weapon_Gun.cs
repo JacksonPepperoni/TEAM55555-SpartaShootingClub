@@ -8,6 +8,8 @@ public class Weapon_Gun : Weapon
     private Coroutine _shootCoroutine;
     private ParticleSystem _muzzleParticle;
 
+    public WeaponData_Gun Data => _data;
+
     private void OnEnable() // TODO 플레이어가 무기들때 init 실행
     {
         // Initialize();
@@ -98,6 +100,8 @@ public class Weapon_Gun : Weapon
         if (_muzzleParticle != null)
             _muzzleParticle.Play();
 
+        //TODO: 반동데이터 받아와서 적용
+        CinemachineManager.Instance.ProvideFirearmRecoil(_data);
 
         lastFireTime = Time.time;
         _currentAmmo--;
@@ -107,10 +111,12 @@ public class Weapon_Gun : Weapon
             Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
             RaycastHit hit;
 
-            float x = Random.Range(-_data.Spread * 0.5f, _data.Spread * 0.5f);
-            float y = Random.Range(-_data.Spread * 0.5f, _data.Spread * 0.5f);
+            float x = Random.Range(-_data.ShotMOA * 0.5f, _data.ShotMOA * 0.5f);
+            float y = Random.Range(-_data.ShotMOA * 0.5f, _data.ShotMOA * 0.5f);
             Vector3 dir = new Vector3(x, y, 0);
 
+
+            // TODO: 계산식 오류있음.
             if (Physics.Raycast(ray.origin, (ray.direction + dir).normalized, out hit, _data.Range, _layerMask))
             {
 
@@ -159,7 +165,7 @@ public class Weapon_Gun : Weapon
         _reloadCoroutine = null;
     }
 
-    private void ReloadStop() // 장전중에 무기바꾸면 리로딩 취소
+    public void ReloadStop() // 장전중에 무기바꾸면 리로딩 취소
     {
         if (_reloadCoroutine != null)
         {
