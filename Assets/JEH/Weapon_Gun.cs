@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-
 public class Weapon_Gun : Weapon
 {
     [SerializeField] private WeaponData_Gun _data;
@@ -33,28 +32,9 @@ public class Weapon_Gun : Weapon
         _layerMask = 0b1;
     }
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _isFirePress = true;
-            ShotStart();
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            _isFirePress = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
-        }
-    }
-
-
     #region 발사
 
-    private void ShotStart()
+    public void ShotStart()
     {
         if (_isReloading)
             return;
@@ -153,14 +133,14 @@ public class Weapon_Gun : Weapon
     #region 재장전
 
 
-    private void Reload() //BOOL로 만들어서 재장전 성공, 취소 판단할것
+    public bool Reload() //BOOL로 만들어서 재장전 성공, 취소 판단할것
     {
         if (_isReloading || _currentAmmo >= _data.MagazineCapacity || _shootCoroutine != null)
-            return;
+            return false;
 
         _isReloading = true;
         _reloadCoroutine ??= StartCoroutine(ReloadCoroutine());
-
+        return true;
     }
 
     private IEnumerator ReloadCoroutine()
@@ -197,7 +177,4 @@ public class Weapon_Gun : Weapon
         _data = weaponData_Gun;
         Initialize();
     }
-
 }
-
-
