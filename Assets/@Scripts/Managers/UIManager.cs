@@ -53,6 +53,7 @@ public class UIManager : Singleton<UIManager>
     {
         GameObject scene = Instantiate(sceneObject, UIRoot.transform);
         T sceneUI = Util.GetOrAddComponent<T>(scene);
+        SceneUI = sceneUI;
         return sceneUI;
     }
 

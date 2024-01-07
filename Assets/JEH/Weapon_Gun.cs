@@ -9,6 +9,8 @@ public class Weapon_Gun : Weapon
     private ParticleSystem _muzzleParticle;
     private Transform _muzzlePoint;
 
+    private UISceneTraining _scene;
+
     public WeaponData_Gun Data => _data;
 
     private void OnEnable() // TODO 플레이어가 무기들때 init 실행
@@ -34,6 +36,8 @@ public class Weapon_Gun : Weapon
         _shootCoroutine = null;
         _currentAmmo = _data.MagazineCapacity;
         _layerMask = 0b1;
+
+        _scene = UIManager.Instance.SceneUI.GetComponent<UISceneTraining>();
     }
 
     #region 발사
@@ -107,6 +111,7 @@ public class Weapon_Gun : Weapon
 
         lastFireTime = Time.time;
         _currentAmmo--;
+        _scene.UpdateMagazine(_currentAmmo); // UI 세팅
 
         for (int i = 0; i < _data.ShotAtOnce; i++)
         {
@@ -160,6 +165,10 @@ public class Weapon_Gun : Weapon
 
         // 소지탄창수--;
         _currentAmmo = _data.MagazineCapacity;
+
+        // UI 세팅
+        _scene.UpdateMagazine(_currentAmmo);
+
 
         Debug.Log("리로드 완료");
 

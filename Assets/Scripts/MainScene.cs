@@ -13,11 +13,9 @@ public class MainScene : Singleton<MainScene>
         // 1. 리소스 로드
         ResourceLoad((key, count, total) =>
         {
-            Debug.Log($"{key}, {count}, {total}");
             if (count == total)
             {
                 // 2. 객체 생성, 초기화
-                Debug.Log("리소스 로드 완료. 객체 생성, 초기화 시작");
 
                 var ground = ResourceManager.Instance.GetCache<GameObject>("Ground");
                 Instantiate(ground);
@@ -26,21 +24,16 @@ public class MainScene : Singleton<MainScene>
                 // var weapon = ResourceManager.Instance.GetCache<GameObject>("Weapon");
                 // Instantiate(weapon, Camera.main.transform.GetChild(0));
 
-                InputManager.Instance.Initialize();
-
-                // 3. UI 초기화, 생성
-                SettingsManager.Instance.Initialize();
+                // 3. UI 생성
                 UIManager.Instance.Initialize();
-                CinemachineManager.Instance.Initialize();
-
                 var trainingScene = ResourceManager.Instance.GetCache<GameObject>("UI_Training_Scene");
                 UIManager.Instance.ShowScene<UIScene>(trainingScene);
 
-                // 풀매니저 추가했습니다
-                PoolManager.Instance.Initialize();
-
+                SettingsManager.Instance.Initialize();
+                CinemachineManager.Instance.Initialize();
+                InputManager.Instance.Initialize();
+                PoolManager.Instance.Initialize();AudioManager.Instance.Initialize();
                 WeaponEquipManager.Instance.Initialize();
-
             }
         });
     }

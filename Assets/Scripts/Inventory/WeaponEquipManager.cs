@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponEquipManager : Singleton<WeaponEquipManager>
@@ -36,7 +34,9 @@ public class WeaponEquipManager : Singleton<WeaponEquipManager>
         }
 
         currentWeapon = Instantiate(weaponList[index] , weaponCameraTF).GetComponent<Weapon_Gun>();
+        
+        // UI 세팅
+        UISceneTraining scene = UIManager.Instance.SceneUI.GetComponent<UISceneTraining>();
+        scene.UpdateWeapon(weaponData_Gun);
     }
-
-
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7606988064291110625}
   - component: {fileID: 4799718380734277794}
   m_Layer: 5
-  m_Name: Text_Magazine_Sub
+  m_Name: Text_Magazine_Max
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -570,7 +570,7 @@ GameObject:
   - component: {fileID: 3054906136297885658}
   - component: {fileID: 7070765292059901156}
   m_Layer: 5
-  m_Name: Image_Gun
+  m_Name: Image_Player_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1173,7 +1173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 101.68
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
@@ -1212,6 +1212,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e73dfc126022f144782d620ade8c801b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  standings:
+  - {fileID: -1616252258, guid: facf8aa618c1c7441843b097a4ace3a1, type: 3}
+  - {fileID: -1980406765, guid: facf8aa618c1c7441843b097a4ace3a1, type: 3}
+  - {fileID: -141025607, guid: facf8aa618c1c7441843b097a4ace3a1, type: 3}
+  waepons:
+  - {fileID: -341164271, guid: facf8aa618c1c7441843b097a4ace3a1, type: 3}
+  - {fileID: 781699028, guid: facf8aa618c1c7441843b097a4ace3a1, type: 3}
+  - {fileID: 1133311888, guid: facf8aa618c1c7441843b097a4ace3a1, type: 3}
+  - {fileID: -470463987, guid: facf8aa618c1c7441843b097a4ace3a1, type: 3}
 --- !u!1 &8746088729936682914
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,7 +1233,7 @@ GameObject:
   - component: {fileID: 7841011762237443536}
   - component: {fileID: 6477742017035155658}
   m_Layer: 5
-  m_Name: Image_Soldier_Idle
+  m_Name: Image_Player_Idle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
