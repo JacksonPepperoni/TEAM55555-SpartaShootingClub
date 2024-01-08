@@ -22,6 +22,7 @@ public class UIPopupGunManage : UIPopup
         SetButtons();
         SetEvents();
         SetToggles();
+        ChooseGunToggle();
     }
 
     private void SetToggles()
@@ -69,6 +70,19 @@ public class UIPopupGunManage : UIPopup
     private void CloseGunManagePopup(PointerEventData eventData)
     {
         UI.ClosePopup(this);
+    }
+
+    private void ChooseGunToggle()
+    {
+        for(int i=0; i < GunToggles.Count; i++)
+        {
+            ItemData itemData = GunToggles[i].GetComponent<UIGunItem>().GunData;
+            if(itemData == WeaponEquipManager.Instance.CurrentWeapon.Data)
+            {
+                GunToggles[i].isOn = true;
+                break;
+            }
+        }
     }
 
     private void EquipWeapon(PointerEventData eventData)
