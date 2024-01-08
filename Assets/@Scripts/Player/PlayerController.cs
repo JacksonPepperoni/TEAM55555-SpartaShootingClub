@@ -3,14 +3,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // TODO: Data에서 받아올 것
-    [SerializeField] private float moveSpeedBase = 2f;
-    [SerializeField] private float moveSpeedModifierSit = 0.5f;
-    [SerializeField] private float moveSpeedModifierFastRun = 2f;
-    [SerializeField] private float moveSpeedModifierWalk = 0.5f;
-    [SerializeField] private float sitHeight = 0.5f;
-    [SerializeField] private float sitStandDuration = 0.1f;
-    [SerializeField] private Vector3 defaultHeight = new Vector3(0, 1.5f, 0);
+    [SerializeField] private CharacterData _data;
     //[SerializeField] private float jumpHeight = 1f;
     //[SerializeField] private float gravity = Physics.gravity.y;
 
@@ -45,14 +38,14 @@ public class PlayerController : MonoBehaviour
         {
             float modifiers = 1f;
             if (_input.WalkPress)
-                modifiers *= moveSpeedModifierWalk;
+                modifiers *= _data.MoveSpeedModifierWalk;
             else if (_input.FastRunPress)
-                modifiers *= moveSpeedModifierFastRun;
+                modifiers *= _data.MoveSpeedModifierFastRun;
 
             if (_isSit)
-                modifiers *= moveSpeedModifierSit;
+                modifiers *= _data.MoveSpeedModifierSit;
 
-            return modifiers * moveSpeedBase;
+            return modifiers * _data.MoveSpeedBase;
         }
     }
 
@@ -102,9 +95,9 @@ public class PlayerController : MonoBehaviour
             StopCoroutine(_coSitAndStandHeightChange);
 
         var fromHeigh = _cinemachineContainer.localPosition;
-        var toHeight = active ? defaultHeight + Vector3.down * sitHeight : defaultHeight + Vector3.up * sitHeight;
+        var toHeight = active ? _data.DefaultHeight + Vector3.down * _data.SitHeight : _data.DefaultHeight + Vector3.up * _data.SitHeight;
 
-        _coSitAndStandHeightChange = StartCoroutine(CoSitAndStandHeightChange(fromHeigh, toHeight, sitStandDuration));
+        _coSitAndStandHeightChange = StartCoroutine(CoSitAndStandHeightChange(fromHeigh, toHeight, _data.SitStandDuration));
 
         _isSit = active;
     }
