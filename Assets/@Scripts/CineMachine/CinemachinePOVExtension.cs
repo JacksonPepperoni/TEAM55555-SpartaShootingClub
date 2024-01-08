@@ -25,19 +25,19 @@ public class CinemachinePOVExtension : CinemachineExtension
     }
 
     // 총기 반동 적용
-    public void ReceiveFirearmRecoil(WeaponData_Gun data)
+    public void ReceiveFirearmRecoil(WeaponData_Gun data, float recoilModifier)
     {
         if (_coRecoilVelocityCalculate != null)
             StopCoroutine(_coRecoilVelocityCalculate);
 
-        StartCoroutine(CoRecoilVelocityCalculate(data));
+        StartCoroutine(CoRecoilVelocityCalculate(data, recoilModifier));
     }
 
-    IEnumerator CoRecoilVelocityCalculate(WeaponData_Gun data)
+    IEnumerator CoRecoilVelocityCalculate(WeaponData_Gun data , float recoilModifier)
     {
         for (float t = 0f; t < data.RecoilDuration; t += Time.deltaTime)
         {
-            _recoilVelocity = data.RecoilCurve.Evaluate(t / data.RecoilDuration) * new Vector3(data.HorizontalRecoilForce, data.VerticalRecoilForce);
+            _recoilVelocity = data.RecoilCurve.Evaluate(t / data.RecoilDuration) * new Vector3(data.HorizontalRecoilForce * recoilModifier, data.VerticalRecoilForce * recoilModifier);
             yield return null;
         }
         _recoilVelocity = Vector3.zero;

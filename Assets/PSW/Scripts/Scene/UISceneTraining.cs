@@ -89,11 +89,11 @@ public class UISceneTraining : UIScene
 
     #region Update UI
 
-    public void UpdateWeapon(WeaponData_Gun weaponData)
+    public void UpdateWeapon(WeaponData_Gun weaponData, float magazineModifier)
     {
         weaponImage.sprite = weaponData.ItemSprite;
-        magazineText.text = weaponData.MagazineCapacity.ToString();
-        maxMagazineText.text = weaponData.MagazineCapacity.ToString();
+        magazineText.text = (weaponData.MagazineCapacity+magazineModifier).ToString();
+        maxMagazineText.text = (weaponData.MagazineCapacity+magazineModifier).ToString();
     }
 
     public void UpdateIdle(int index)

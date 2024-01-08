@@ -41,14 +41,14 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
-    public void PlayOneShot(AudioClip clip)
+    public void PlayOneShot(AudioClip clip, float SoundModifier = 1)
     {
         if (clip == null) return;
 
         var newSourceObject = new GameObject($"Audio Source -> {clip.name}");
         var newAudioSource = newSourceObject.AddComponent<AudioSource>();
 
-        newAudioSource.volume = Source.volume;
+        newAudioSource.volume = Source.volume * SoundModifier;
         newAudioSource.PlayOneShot(clip);
 
         StartCoroutine(nameof(DestroySourceWhenFinished), newAudioSource);

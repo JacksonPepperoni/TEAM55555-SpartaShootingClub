@@ -111,5 +111,5 @@ public class CinemachineManager : Singleton<CinemachineManager>
         _coADSChange = null;
     }
 
-    public void ProvideFirearmRecoil(WeaponData_Gun data) => PovExtension.ReceiveFirearmRecoil(data);
+    public void ProvideFirearmRecoil(WeaponData_Gun data, float recoilModifier) => PovExtension.ReceiveFirearmRecoil(data, recoilModifier);
 }

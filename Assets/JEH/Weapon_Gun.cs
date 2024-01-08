@@ -8,6 +8,7 @@ public class Weapon_Gun : Weapon
     private Coroutine _shootCoroutine;
     private ParticleSystem _muzzleParticle;
     private Transform _muzzlePoint;
+    private AccModifier _accModifier;
 
     private UISceneTraining _scene;
     private AudioManager _audio;
@@ -37,13 +38,23 @@ public class Weapon_Gun : Weapon
             _muzzleParticle?.Stop();
 
         _shootCoroutine = null;
-        _currentAmmo = _data.MagazineCapacity;
         _layerMask = 0b1;
 
         _scene = UIManager.Instance.SceneUI.GetComponent<UISceneTraining>();
         _audio = AudioManager.Instance;
         _cameraManager = CinemachineManager.Instance;
         _cameraTransform = _cameraManager.WeaponCam.transform;
+    }
+
+    public void SetAccessory(AccModifier accMod)
+    {
+        _accModifier = accMod;
+
+        float aimValue = _accModifier.AimModifier;
+        float defaultVal = WeaponEquipManager.Instance.DefaultAdsFOV;
+        _cameraManager.ADSFOV = defaultVal * aimValue;
+
+        _currentAmmo = _data.MagazineCapacity + _accModifier.MagazineModifier;
     }
 
     #region 발사
@@ -69,6 +80,7 @@ public class Weapon_Gun : Weapon
             if (_currentAmmo <= 0)
             {
                 CartridgeEmpty();
+                _shootCoroutine = null;
                 yield break;
             }
 
@@ -111,12 +123,12 @@ public class Weapon_Gun : Weapon
         if (_muzzleParticle != null)
             _muzzleParticle.Play();
 
-        _cameraManager.ProvideFirearmRecoil(_data);
+        _cameraManager.ProvideFirearmRecoil(_data, _accModifier.RecoilModifier);
 
         lastFireTime = Time.time;
         _currentAmmo--;
         _scene.UpdateMagazine(_currentAmmo); // UI 세팅
-        _audio.PlayOneShot(_data.FireSound); // 발사 사운드
+        _audio.PlayOneShot(_data.FireSound, _accModifier.SoundModifier); // 발사 사운드
 
         for (int i = 0; i < _data.ShotAtOnce; i++)
         {
