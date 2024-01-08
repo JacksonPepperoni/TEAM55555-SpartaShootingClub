@@ -78,8 +78,6 @@ public class PlayerController : MonoBehaviour
         _controller.Move(MoveSpeedValue * Time.deltaTime * _velocity);
         _weaponAnimator.SetFloat(AnimatorHash_MoveVelocity, _velocity.magnitude);
 
-        Debug.Log(WeaponEquipManager.Instance.CurrentWeapon.Data.CurrentMOA);
-
         // 플레이어 움직임 사운드
         if (_velocity.sqrMagnitude > 0f)
         {
