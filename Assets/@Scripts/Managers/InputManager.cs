@@ -22,6 +22,7 @@ public class InputManager : Singleton<InputManager>
 
     private GameObject _optionsUI;
     private GameObject _gunManageUI;
+    private bool _isUsingUI;
 
     public Vector2 MouseDelta => _aimAction.ReadValue<Vector2>();
     public Vector2 PlayerMovement => _moveAction.ReadValue<Vector2>();
@@ -84,27 +85,34 @@ public class InputManager : Singleton<InputManager>
     public void OnOpenUI()
     {
         SwitchActionMap("UI");
+        _isUsingUI = true;
         RefreshCursor();
     }
 
     public void OnCloseUI()
     {
         SwitchActionMap("Player");
+        _isUsingUI = false;
         RefreshCursor();
     }
 
     private void RefreshCursor()
     {
-        if (_playerInput.currentActionMap.name.Equals("Player"))
+        if (!_isUsingUI)
             Cursor.visible = false;
         else
             Cursor.visible = true;
-        Mouse.current.WarpCursorPosition(new(Screen.width / 2, Screen.height / 2));
     }
 
     private void OnApplicationFocus(bool focus)
     {
         if (focus)
             RefreshCursor();
+    }
+
+    private void Update()
+    {
+        if (!_isUsingUI)
+            Mouse.current.WarpCursorPosition(new(Screen.width / 2, Screen.height / 2));
     }
 }

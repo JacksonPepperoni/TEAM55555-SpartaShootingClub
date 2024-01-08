@@ -87,6 +87,9 @@ public class UIPopupGunManage : UIPopup
 
     private void EquipWeapon(PointerEventData eventData)
     {
+        if (MainScene.Instance.Player.IsADS)
+            MainScene.Instance.Player.ChangeADS();
+
         int gunType = -1;
         for(int i=0; i < GunToggles.Count; i++)
         {
