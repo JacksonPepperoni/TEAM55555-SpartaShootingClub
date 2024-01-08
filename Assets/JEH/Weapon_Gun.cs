@@ -16,6 +16,7 @@ public class Weapon_Gun : Weapon
     private Transform _cameraTransform;
 
     public WeaponData_Gun Data => _data;
+    public AccModifier AccModifier => _accModifier;
 
     private Animator _weaponAnimator;
     private readonly int AnimatorHash_Reload = Animator.StringToHash("Reload");
@@ -172,7 +173,7 @@ public class Weapon_Gun : Weapon
 
     public bool Reload() //BOOL로 만들어서 재장전 성공, 취소 판단할것
     {
-        if (_isReloading || _currentAmmo >= _data.MagazineCapacity || _shootCoroutine != null)
+        if (_isReloading || _currentAmmo >= _data.MagazineCapacity + _accModifier.MagazineModifier || _shootCoroutine != null)
             return false;
 
         _isReloading = true;
@@ -195,7 +196,7 @@ public class Weapon_Gun : Weapon
         _audio.PlayOneShot(_data.ReloadSound);
         yield return new WaitForSeconds(_data.ReloadTime);
 
-        _currentAmmo = _data.MagazineCapacity; // 소지탄창수--;
+        _currentAmmo = _data.MagazineCapacity + _accModifier.MagazineModifier; // 소지탄창수--;
         _scene.UpdateMagazine(_currentAmmo); // UI 탄창 업데이트
 
         _isReloading = false;
