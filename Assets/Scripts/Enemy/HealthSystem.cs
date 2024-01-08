@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
-    private int maxHealth = 10;
+    [SerializeField] private int maxHealth = 10;
     private bool isDie;
     public float currentHealth { get; private set; }
 
@@ -23,7 +23,7 @@ public class HealthSystem : MonoBehaviour
         isDie = false;
     }
 
-    public void HitDamage(float damage)
+    public virtual void HitDamage(float damage)
     {
         if(damage <=0 || isDie)
         {
@@ -41,11 +41,16 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
-    private void CallDeath()
+    protected virtual void CallDeath()
     {
         Debug.Log("죽었음");
+        SetDeath();
+        GetComponent<EnemyController>().Die();
+    }
+
+    protected void SetDeath()
+    {
         isDie = true;
         OnDeath?.Invoke();
-        GetComponent<EnemyController>().Die();
     }
 }
