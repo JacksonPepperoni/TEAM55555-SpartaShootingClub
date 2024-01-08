@@ -135,8 +135,6 @@ public class Weapon_Gun : Weapon
 
         lastFireTime = Time.time;
         _currentAmmo--;
-        _scene.UpdateMagazine(_currentAmmo); // UI 세팅
-        _audio.PlayOneShot(_data.FireSound, _accModifier.SoundModifier); // 발사 사운드
 
         for (int i = 0; i < _data.ShotAtOnce; i++)
         {
@@ -159,7 +157,11 @@ public class Weapon_Gun : Weapon
                 // Debug.Log(DamageCalculation(hit.point, _data.Damage, _data.Range)); //데미지 계산
             }
 
-            Debug.DrawRay(ray.origin, (ray.direction + dir).normalized * _data.Range, Color.red, 1);
+            //Debug.DrawRay(ray.origin, (ray.direction + dir).normalized * _data.Range, Color.red, 1);
+
+            _scene.UpdateCrosshair(_data.ShotMOA);
+            _scene.UpdateMagazine(_currentAmmo); // UI 세팅
+            _audio.PlayOneShot(_data.FireSound, _accModifier.SoundModifier); // 발사 사운드
         }
     }
 
