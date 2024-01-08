@@ -16,9 +16,8 @@ public class MainScene : Singleton<MainScene>
             if (count == total)
             {
                 // 2. 객체 생성, 초기화
+                InitializeRoom();
 
-                var ground = ResourceManager.Instance.GetCache<GameObject>("Ground");
-                Instantiate(ground);
                 var player = ResourceManager.Instance.GetCache<GameObject>("PlayerCharacter");
                 _player = Instantiate(player).GetComponent<PlayerController>();
 
@@ -34,11 +33,42 @@ public class MainScene : Singleton<MainScene>
                 AudioManager.Instance.Initialize();
                 WeaponEquipManager.Instance.Initialize();
                 JsonManager.Instance.Initialize();
-
-
-
             }
         });
+    }
+
+    private void InitializeRoom()
+    {
+        var entryRoom = ResourceManager.Instance.GetCache<GameObject>("EntryRoom");
+        entryRoom = Instantiate(entryRoom);
+        var room1 = ResourceManager.Instance.GetCache<GameObject>("Ground");
+        room1 = Instantiate(room1, new(0, 20, 0), Quaternion.identity);
+        var room2 = ResourceManager.Instance.GetCache<GameObject>("ONE_LINE");
+        room2 = Instantiate(room2, new(0, 40, 0), Quaternion.identity);
+        var room3 = ResourceManager.Instance.GetCache<GameObject>("Wave_LINE");
+        room3 = Instantiate(room3, new(0, 60, 0), Quaternion.identity);
+
+        var portals = entryRoom.GetComponentsInChildren<RoomPortal>();
+        portals[0].SetTargetRoom(room1);
+        portals[1].SetTargetRoom(room2);
+        portals[2].SetTargetRoom(room3);
+
+        portals = room1.GetComponentsInChildren<RoomPortal>();
+        portals[0].SetTargetRoom(entryRoom);
+        portals = room2.GetComponentsInChildren<RoomPortal>();
+        portals[0].SetTargetRoom(entryRoom);
+        portals = room3.GetComponentsInChildren<RoomPortal>();
+        portals[0].SetTargetRoom(entryRoom);
+    }
+
+    public void EnterRoom(GameObject room)
+    {
+        var enterPosition = room.transform.Find("PlayerEnterPosition").position;
+        Debug.Log(enterPosition);
+        Player.enabled = false;
+        Player.transform.position = enterPosition;
+        Player.transform.forward = Vector3.forward;
+        Player.enabled = true;
     }
 
     private void ResourceLoad(Action<string, int, int> callback = null)

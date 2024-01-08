@@ -22542,6 +22542,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.0000029, y: 3.000002, z: 0.02}
   m_Center: {x: -1.5000005, y: -1.5000007, z: 0.00000013113421}
+--- !u!1 &2362671037192524646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5816086878890704307}
+  m_Layer: 0
+  m_Name: PlayerEnterPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5816086878890704307
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2362671037192524646}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1189318404906165803}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2366174094290607009
 GameObject:
   m_ObjectHideFlags: 0
@@ -50388,6 +50419,7 @@ Transform:
   m_Children:
   - {fileID: 6416584173426482788}
   - {fileID: 3946556993548464142}
+  - {fileID: 5816086878890704307}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50642,6 +50674,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4207581165693950473}
   - component: {fileID: 7239041598014394685}
+  - component: {fileID: 247295719441832862}
   m_Layer: 0
   m_Name: step (2)
   m_TagString: Untagged
@@ -50688,6 +50721,18 @@ CapsuleCollider:
   m_Height: 8.48
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &247295719441832862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5137784238044182129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24ea786efd4239a47a0e28dfbede5254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5183788389105423685
 GameObject:
   m_ObjectHideFlags: 0
@@ -50762,6 +50807,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4308367335601250145}
   - component: {fileID: 112764251844068712}
+  - component: {fileID: 2518483455388487185}
   m_Layer: 0
   m_Name: step (1)
   m_TagString: Untagged
@@ -50808,6 +50854,18 @@ CapsuleCollider:
   m_Height: 8.48
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2518483455388487185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5366666630429644645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24ea786efd4239a47a0e28dfbede5254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5400024647872914641
 GameObject:
   m_ObjectHideFlags: 0
@@ -56398,6 +56456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5662480655124628623}
   - component: {fileID: 515544921061040765}
+  - component: {fileID: 5914446141571691899}
   m_Layer: 0
   m_Name: step
   m_TagString: Untagged
@@ -56444,6 +56503,18 @@ CapsuleCollider:
   m_Height: 8.48
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5914446141571691899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5826835550657690008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24ea786efd4239a47a0e28dfbede5254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5884876895825632281
 GameObject:
   m_ObjectHideFlags: 0

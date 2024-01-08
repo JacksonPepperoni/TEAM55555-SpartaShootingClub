@@ -27,7 +27,10 @@ public class ResourceManager : Singleton<ResourceManager>
         string[] preloadKeys = new string[]
         {
             // 게임 시작 전 캐싱할 Object의 Resources 주소 입력
-            @"Prefabs/Ground",
+            @"Prefabs/Map/EntryRoom",
+            @"Prefabs/Map/Ground",
+            @"Prefabs/Map/ONE_LINE",
+            @"Prefabs/Map/Wave_LINE",
             @"Prefabs/AudioSource",
             @"Prefabs/PlayerCharacter",
             @"PlayerInputActions",
