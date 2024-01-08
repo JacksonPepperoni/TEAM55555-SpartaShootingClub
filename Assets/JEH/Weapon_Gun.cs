@@ -19,6 +19,7 @@ public class Weapon_Gun : Weapon
 
     private Animator _weaponAnimator;
     private readonly int AnimatorHash_Reload = Animator.StringToHash("Reload");
+    private readonly int AnimatorHash_ADSTrigger = Animator.StringToHash("ADSTrigger");
 
 
     private void OnEnable() // TODO 플레이어가 무기들때 init 실행
@@ -106,7 +107,7 @@ public class Weapon_Gun : Weapon
             }
             else
             {
-                if (!_isFirePress)
+                if (!InputManager.Instance.FirePress)
                 {
                     ShootStop();
                     yield break;
@@ -180,6 +181,12 @@ public class Weapon_Gun : Weapon
     private IEnumerator ReloadCoroutine()
     {
         _weaponAnimator.SetBool(AnimatorHash_Reload, true);
+
+        if (MainScene.Instance.Player.IsADS)
+        {
+            MainScene.Instance.Player.ChangeADS();
+            _weaponAnimator.ResetTrigger(AnimatorHash_ADSTrigger);
+        }
 
         _isReloading = true;
 

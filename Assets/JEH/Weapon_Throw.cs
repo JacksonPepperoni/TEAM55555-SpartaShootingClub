@@ -12,20 +12,20 @@ public class Weapon_Throw : Weapon
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _isFirePress = true;
-            Shoot();
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            _isFirePress = false;
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    _isFirePress = true;
+        //    Shoot();
+        //}
+        //else if (Input.GetMouseButtonUp(0))
+        //{
+        //    _isFirePress = false;
+        //}
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
-        }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    Reload();
+        //}
     }
 
 
