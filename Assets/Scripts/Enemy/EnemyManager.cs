@@ -31,13 +31,25 @@ public class EnemyManager : MonoBehaviour
 
     private void Init()
     {
+        if(enemyList!=null)
+        {
+            while (enemyList.Count > 0)
+            {
+                Destroy(enemyList[0].gameObject);
+                enemyList.RemoveAt(0);
+            }
+        }
+
+
         enemyList = new List<GameObject>();
         EnemyspawnPositions = new List<Transform>();
-        AttackEnemyspawnPositions = new List<Transform>();  
-
+        AttackEnemyspawnPositions = new List<Transform>();
+        CancelInvoke("OneLIneMapEnemySpawn");
         currentSpawnCount = 0;
         switch(level)
         {
+            case 0:
+                break;
             case 1:
                 for (int i = 0; i < LineMapEnemyspawnPositionsRoot.childCount; i++)
                 {
@@ -67,6 +79,8 @@ public class EnemyManager : MonoBehaviour
         Init();
         switch(level)
         {
+            case 0:
+                break;
             case 1:
                 for (int i = 0; i < EnemyspawnPositions.Count; i++)
                 {
@@ -100,6 +114,8 @@ public class EnemyManager : MonoBehaviour
     {
         switch(level)
         {
+            case 0:
+                break;
             case 1:
                 break;
             case 2:
@@ -115,6 +131,8 @@ public class EnemyManager : MonoBehaviour
     {
         switch(level)
         {
+            case 0:
+                break;
             case 1:
                 InvokeRepeating("OneLIneMapEnemySpawn", 0f, 3f);
                 break;

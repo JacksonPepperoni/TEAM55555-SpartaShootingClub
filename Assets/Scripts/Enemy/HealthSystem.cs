@@ -29,10 +29,7 @@ public class HealthSystem : MonoBehaviour
         {
             return;
         }
-
-        Debug.Log("맞기 전 데미지" + currentHealth);
         currentHealth -= damage;
-        Debug.Log("맞은 후 데미지" + currentHealth);
         currentHealth = currentHealth < 0 ? 0 : currentHealth;
 
         if (currentHealth <= 0f)
@@ -43,7 +40,6 @@ public class HealthSystem : MonoBehaviour
 
     protected virtual void CallDeath()
     {
-        Debug.Log("죽었음");
         SetDeath();
         GetComponent<EnemyController>().Die();
     }
