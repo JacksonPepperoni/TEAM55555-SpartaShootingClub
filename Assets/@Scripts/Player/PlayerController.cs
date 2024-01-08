@@ -31,12 +31,6 @@ public class PlayerController : MonoBehaviour
     private readonly int AnimatorHash_MoveVelocity = Animator.StringToHash("MoveVelocity");
     private readonly int AnimatorHash_FastRun = Animator.StringToHash("FastRun");
 
-    // TEST CODE
-    // TODO: 총기반동 Data에서 받아올 것
-    public float verticalRecoil = 10f;
-    public float horizontalRecoil = 10f;
-    public float recoilDuration = 0.1f;
-
     public bool IsADS => _isADS;
     public bool IsSit => _isSit;
     public bool IsMove => _velocity.magnitude > 0.01f;
