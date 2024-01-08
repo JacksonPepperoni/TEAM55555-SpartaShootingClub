@@ -8,8 +8,13 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public bool isActive = false;
     private float speed = 100f;
+    private EnemyShooting shootController;
+
+    private void Awake()
+    {
+        shootController = GetComponent<EnemyShooting>();
+    }
 
     IEnumerator SetActive()
     {
@@ -17,7 +22,8 @@ public class EnemyController : MonoBehaviour
         {
             if (transform.rotation.x >= 0.0f)
             {
-                isActive = true;
+                if(shootController!=null)
+                    shootController.isActive = true;
                 break;
             }
 
@@ -30,9 +36,11 @@ public class EnemyController : MonoBehaviour
     {
         while (true)
         {
-            if (transform.rotation.x <=-0.7f)
+            Debug.Log(transform.rotation.x);
+            if (transform.rotation.x <=-0.5f)
             {
-                isActive = false;
+                if (shootController != null)
+                    shootController.isActive = false;
                 break;
             }
 

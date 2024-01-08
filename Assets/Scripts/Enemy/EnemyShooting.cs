@@ -40,6 +40,13 @@ public class EnemyShooting : MonoBehaviour
         if (_stats.currentStats.attackSO==null)
             return;
 
+        else if (isActive == false)
+        {
+            _animController.SetAnimationActive(false);
+            return;
+        }
+
+  
         HandleReload();
         
         if (_timeSinceLastAttack <= _stats.currentStats.attackSO.delay)
@@ -47,7 +54,7 @@ public class EnemyShooting : MonoBehaviour
             _timeSinceLastAttack += Time.deltaTime;
   
         }
-        if (isActive && isAttacking && _timeSinceLastAttack > _stats.currentStats.attackSO.delay)
+        if (isAttacking && _timeSinceLastAttack > _stats.currentStats.attackSO.delay)
         {
             _timeSinceLastAttack = 0;
             OnShoot();
