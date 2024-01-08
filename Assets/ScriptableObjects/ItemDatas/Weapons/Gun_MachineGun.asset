@@ -25,19 +25,37 @@ MonoBehaviour:
   _range: 20
   _shotAtOnce: 1
   _spread: 0.01
-  _baseMOA: 0
-  _walkMOAModifier: 0
-  _runMOAModifier: 0
-  _sitMOAModifier: 0
-  _minVerticalRecoil: 0
-  _maxVerticalRecoil: 0
-  _minHorizontalRecoil: 0
-  _maxHorizontalRecoil: 0
-  _recoilDuration: 0
-  _sitRecoilModifer: 0
+  _baseMOA: 0.1
+  _walkMOAModifier: 1.2
+  _runMOAModifier: 1.5
+  _sitMOAModifier: 0.7
+  _minVerticalRecoil: 0.05
+  _maxVerticalRecoil: 0.15
+  _minHorizontalRecoil: 0.01
+  _maxHorizontalRecoil: 0.02
+  _recoilDuration: 0.1
+  _sitRecoilModifer: 0.7
   _recoilCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -2.4501085
+      outSlope: -2.4501085
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.039839387
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
