@@ -120,8 +120,8 @@ public class PlayerController : MonoBehaviour
         //TODO: 총기 줌 속도와 동일한 duration 제공
         CinemachineManager.Instance.ADSFOVChange(_isADS, 0.1f);
 
-        if (!_isADS) _ui.SceneUI.GetComponent<UISceneTraining>().ShowCrossHair();
-        else _ui.SceneUI.GetComponent<UISceneTraining>().HideCrossHair();
+        if (!_isADS) _ui.SceneUI.GetComponent<UISceneTraining>().ShowCrosshair();
+        else _ui.SceneUI.GetComponent<UISceneTraining>().HideCrosshair();
     }
 
     public void SetFastRun(bool active)
@@ -133,7 +133,7 @@ public class PlayerController : MonoBehaviour
             if (IsADS)
                 ChangeADS();
             _ui.SceneUI.GetComponent<UISceneTraining>().UpdateIdle(1); // UI 스탠딩 이미지 변경
-            _ui.SceneUI.GetComponent<UISceneTraining>().ShowCrossHair();
+            _ui.SceneUI.GetComponent<UISceneTraining>().ShowCrosshair();
         }
         else
         {

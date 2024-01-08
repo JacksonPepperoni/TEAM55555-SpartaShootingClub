@@ -9,6 +9,12 @@ public class UISceneTraining : UIScene
 
     [SerializeField] private Sprite[] standings;
 
+    [Header("Crosshair")]
+    [SerializeField] private float moaValue;
+    [SerializeField] private float margin;
+    [SerializeField] private float speed;
+    [SerializeField] private RectTransform[] crosshairLines;
+
     #endregion
 
     #region Fields
@@ -56,13 +62,42 @@ public class UISceneTraining : UIScene
 
     #endregion
 
+    #region Unity
+
+    private void Update()
+    {
+        float topValue, bottomValue, LeftValue, RightValue;
+
+        topValue = Mathf.Lerp(crosshairLines[0].position.y, crosshair.position.y + margin + moaValue, speed * Time.deltaTime);
+        bottomValue = Mathf.Lerp(crosshairLines[1].position.y, crosshair.position.y - margin - moaValue, speed * Time.deltaTime);
+        LeftValue = Mathf.Lerp(crosshairLines[2].position.x, crosshair.position.x - margin - moaValue, speed * Time.deltaTime);
+        RightValue = Mathf.Lerp(crosshairLines[3].position.x, crosshair.position.x + margin + moaValue, speed * Time.deltaTime);
+
+        crosshairLines[0].position = new Vector2(crosshairLines[0].position.x, topValue);
+        crosshairLines[1].position = new Vector2(crosshairLines[1].position.x, bottomValue);
+        crosshairLines[2].position = new Vector2(LeftValue, crosshairLines[2].position.y);
+        crosshairLines[3].position = new Vector2(RightValue, crosshairLines[3].position.y);
+
+        if (moaValue > 50)
+        {
+            moaValue = 50;
+        }
+
+        if (moaValue > 0)
+        {
+            moaValue = Mathf.Lerp(moaValue, 0, 3f * Time.deltaTime);
+        }
+    }
+
+    #endregion
+
     #region Update UI
 
     public void UpdateWeapon(WeaponData_Gun weaponData, float magazineModifier)
     {
         weaponImage.sprite = weaponData.ItemSprite;
-        magazineText.text = (weaponData.MagazineCapacity+magazineModifier).ToString();
-        maxMagazineText.text = (weaponData.MagazineCapacity+magazineModifier).ToString();
+        magazineText.text = (weaponData.MagazineCapacity + magazineModifier).ToString();
+        maxMagazineText.text = (weaponData.MagazineCapacity + magazineModifier).ToString();
     }
 
     public void UpdateIdle(int index)
@@ -75,7 +110,7 @@ public class UISceneTraining : UIScene
         magazineText.text = magazine.ToString();
     }
 
-    public void ShowCrossHair()
+    public void ShowCrosshair()
     {
         for (var i = 0; i < crosshair.childCount; i++)
         {
@@ -87,18 +122,23 @@ public class UISceneTraining : UIScene
             .SetEase(Ease.InOutQuad);
     }
 
-    public void HideCrossHair()
+    public void HideCrosshair()
     {
         crosshair
             .DOScale(Vector3.zero, 0.2f)
             .SetEase(Ease.InOutQuad)
-            .OnComplete(() => 
+            .OnComplete(() =>
             {
                 for (var i = 0; i < crosshair.childCount; i++)
                 {
                     crosshair.GetChild(i).gameObject.SetActive(false);
                 }
             });
+    }
+
+    public void UpdateCrosshair(float moa)
+    {
+        moaValue += moa * 100;
     }
 
     #endregion

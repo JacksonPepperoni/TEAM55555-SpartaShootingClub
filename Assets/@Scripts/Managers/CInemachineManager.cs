@@ -94,10 +94,7 @@ public class CinemachineManager : Singleton<CinemachineManager>
         else
         {
             if (_coADSChange == null)
-            {
                 _coADSChange = StartCoroutine(CoADSChange(_vcam.m_Lens.FieldOfView, toFOV, duration));
-                //_scene.ShowCrossHair();
-            }
         }
     }
 

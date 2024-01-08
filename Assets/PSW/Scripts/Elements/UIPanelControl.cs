@@ -7,10 +7,7 @@ public class UIPanelControl : UIElement
     #region Fields
 
     private Slider normalSenseSlider;
-    private Slider aimSenseSlider;
-
     private TextMeshProUGUI normalSenseText;
-    private TextMeshProUGUI aimSenseText;
 
     #endregion
 
@@ -28,27 +25,21 @@ public class UIPanelControl : UIElement
     {
         SetUI<Slider>();
         normalSenseSlider = GetUI<Slider>("Slider_Sensitivity_Normal");
-        aimSenseSlider = GetUI<Slider>("Slider_Sensitivity_Aim");
     }
 
     private void SetText()
     {
         SetUI<TextMeshProUGUI>();
         normalSenseText = GetUI<TextMeshProUGUI>("Text_Sensitivity_Normal");
-        aimSenseText = GetUI<TextMeshProUGUI>("Text_Sensitivity_Aim");
     }
 
     private void SetEvents()
     {
         Util.SetSliderUI(normalSenseSlider, normalSenseText, SettingsManager.Instance.MouseSensitivity);
-        Util.SetSliderUI(aimSenseSlider, aimSenseText, 50);
 
         normalSenseSlider.gameObject.SetEvent(UIEventType.Click, ChangedNormalSense);
         normalSenseSlider.gameObject.SetEvent(UIEventType.Drag, ChangedNormalSense);
         normalSenseSlider.gameObject.SetEvent(UIEventType.PointerUp, UpdateNormalSense);
-
-        aimSenseSlider.gameObject.SetEvent(UIEventType.Click, ChangedAimSense);
-        aimSenseSlider.gameObject.SetEvent(UIEventType.Drag, ChangedAimSense);
     }
 
     #endregion
@@ -58,11 +49,6 @@ public class UIPanelControl : UIElement
     private void ChangedNormalSense(PointerEventData eventData)
     {
         Util.SliderValueChanged(normalSenseSlider, normalSenseText);
-    }
-
-    private void ChangedAimSense(PointerEventData eventData)
-    {
-        Util.SliderValueChanged(aimSenseSlider, aimSenseText);
     }
 
     private void UpdateNormalSense(PointerEventData eventData)
