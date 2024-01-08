@@ -16,6 +16,10 @@ public class Weapon_Gun : Weapon
 
     public WeaponData_Gun Data => _data;
 
+    private Animator _weaponAnimator;
+    private readonly int AnimatorHash_Reload = Animator.StringToHash("Reload");
+
+
     private void OnEnable() // TODO 플레이어가 무기들때 init 실행
     {
         Initialize();
@@ -24,6 +28,8 @@ public class Weapon_Gun : Weapon
     protected override void Initialize()
     {
         base.Initialize();
+
+        _weaponAnimator = GetComponent<Animator>();
 
         _muzzlePoint = transform.GetChild(0).Find("MuzzlePoint");
 
@@ -136,7 +142,7 @@ public class Weapon_Gun : Weapon
 
 
                 hit.transform.gameObject.GetComponent<HealthSystem>()?.HitDamage(DamageCalculation(hit.point, _data.Damage, _data.Range));
-               // Debug.Log(DamageCalculation(hit.point, _data.Damage, _data.Range)); //데미지 계산
+                // Debug.Log(DamageCalculation(hit.point, _data.Damage, _data.Range)); //데미지 계산
             }
 
             Debug.DrawRay(ray.origin, (ray.direction + dir).normalized * _data.Range, Color.red, 1);
@@ -161,6 +167,8 @@ public class Weapon_Gun : Weapon
 
     private IEnumerator ReloadCoroutine()
     {
+        _weaponAnimator.SetBool(AnimatorHash_Reload, true);
+
         _isReloading = true;
 
         _audio.PlayOneShot(_data.ReloadSound);
@@ -171,6 +179,8 @@ public class Weapon_Gun : Weapon
 
         _isReloading = false;
         _reloadCoroutine = null;
+
+        _weaponAnimator.SetBool(AnimatorHash_Reload, false);
     }
 
     public void ReloadStop() // 장전중에 무기바꾸면 리로딩 취소
@@ -181,6 +191,7 @@ public class Weapon_Gun : Weapon
             _reloadCoroutine = null;
         }
 
+        _weaponAnimator.SetBool(AnimatorHash_Reload, false);
         _isReloading = false;
     }
 
