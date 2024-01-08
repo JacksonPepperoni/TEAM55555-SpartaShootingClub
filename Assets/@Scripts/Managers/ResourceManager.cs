@@ -52,7 +52,10 @@ public class ResourceManager : Singleton<ResourceManager>
             @"Prefabs/Weapon/Gun_Handgun",
             @"Prefabs/Weapon/Gun_MachineGun",
             @"Prefabs/Weapon/Gun_Shotgun",
-            @"Prefabs/Weapon/Gun_SniperRifle"
+            @"Prefabs/Weapon/Gun_SniperRifle",
+
+            // 사격장 타겟
+            @"Prefabs/Enemy/Target"
         };
 
         int loadCount = 0;
