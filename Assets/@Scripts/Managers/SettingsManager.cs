@@ -57,7 +57,7 @@ public class SettingsManager : Singleton<SettingsManager>
         if (_audioManager == null) return false;
 
         _audioManager.Source.volume = volume * 0.01f;
-
+        _masterVolume = volume;
         JsonManager.Instance.userData.masterVolume = volume;
         JsonManager.Instance.SaveUserDataToJson();
         //    PlayerPrefs.SetFloat("Settings_MasterVolume", volume);
