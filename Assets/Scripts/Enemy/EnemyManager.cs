@@ -10,7 +10,6 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private GameObject[] enemyPrefabs;
 
     [SerializeField] private Transform LineMapEnemyspawnPositionsRoot;
-    [SerializeField] private Transform WaveMapEnemyspawnPositionsRoot;
     [SerializeField] private Transform GroundMapBaseEnemyspawnPositionsRoot;
     [SerializeField] private Transform GroundMapAttackEnemyspawnPositionsRoot;
 
@@ -52,7 +51,6 @@ public class EnemyManager : MonoBehaviour
                 waveSpawnCount = 3;
                 break;
             case 2:
-                //waveSpaawnCount = 3;
                 break;
             case 3:
                 for (int i = 0; i < GroundMapBaseEnemyspawnPositionsRoot.childCount; i++)
@@ -110,8 +108,6 @@ public class EnemyManager : MonoBehaviour
             case 1:
                 break;
             case 2:
-                Invoke("SpawnEnemy", 3f);
-                currentSpawnCount--;
                 break;
             case 3:
                 Invoke("SpawnEnemy", 3f);
