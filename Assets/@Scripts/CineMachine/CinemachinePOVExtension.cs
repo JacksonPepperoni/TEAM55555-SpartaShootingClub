@@ -28,7 +28,7 @@ public class CinemachinePOVExtension : CinemachineExtension
         if (_coRecoilVelocityCalculate != null)
             StopCoroutine(_coRecoilVelocityCalculate);
 
-        StartCoroutine(CoRecoilVelocityCalculate(data, recoilModifier));
+        _coRecoilVelocityCalculate = StartCoroutine(CoRecoilVelocityCalculate(data, recoilModifier));
     }
 
     IEnumerator CoRecoilVelocityCalculate(WeaponData_Gun data , float recoilModifier)

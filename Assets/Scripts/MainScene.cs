@@ -6,9 +6,6 @@ public class MainScene : Singleton<MainScene>
     private PlayerController _player;
     public PlayerController Player => _player;
 
-    private int _currentLevel;
-
-
     protected override void Start()
     {
         base.Start();
