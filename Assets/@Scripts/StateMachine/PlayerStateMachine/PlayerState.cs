@@ -29,7 +29,7 @@ public class PlayerGroundState : PlayerStateBase
     public override void OnStateStay()
     {
         _controller.Move();
-        Debug.Log(_controller.IsMove + " " + _controller.IsFastRun);
+        //Debug.Log(_controller.IsMove + " " + _controller.IsFastRun);
         _controller.SetFastRun(_controller.IsFastRun);
         if (_input.ADSTrigger && !WeaponEquipManager.Instance.CurrentWeapon.IsReloading)
             _controller.ChangeADS();
