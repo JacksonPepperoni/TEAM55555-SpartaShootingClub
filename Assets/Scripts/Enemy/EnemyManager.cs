@@ -21,17 +21,12 @@ public class EnemyManager : MonoBehaviour
 
     private List<GameObject> enemyList;
 
-    private int level = 3;
+    public int level = 0;
 
 
     private void Awake()
     {
         instance = this;
-    }
-
-    private void Start()
-    {
-        SetEnemy();
     }
 
     private void Init()
@@ -67,7 +62,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    private void SetEnemy()
+    public void SetEnemy()
     {
         Init();
         switch(level)
