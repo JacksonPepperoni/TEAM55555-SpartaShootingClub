@@ -1,7 +1,7 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class UISceneTraining : UIScene
 {
@@ -13,17 +13,11 @@ public class UISceneTraining : UIScene
 
     #region Fields
 
-    private GameObject options;
-    private GameObject gunManage;
-
+    private Transform crosshair;
     private Image idleImage;
     private Image weaponImage;
-
     private TextMeshProUGUI magazineText;
     private TextMeshProUGUI maxMagazineText;
-
-    private Button optionsBtn;
-    private Button gunManageBtn;
 
     #endregion
 
@@ -33,15 +27,17 @@ public class UISceneTraining : UIScene
     {
         base.Init();
 
-        options = ResourceManager.Instance.GetCache<GameObject>("UI_Popup_Options");
-        gunManage = ResourceManager.Instance.GetCache<GameObject>("UI_Popup_GunManage");
-
+        SetObjects();
         SetImages();
         SetTexts();
-        SetButtons();
-        SetEvents();
 
         WeaponEquipManager.Instance.InitWeapon();
+    }
+
+    private void SetObjects()
+    {
+        SetUI<Transform>();
+        crosshair = GetUI<Transform>("Crosshair");
     }
 
     private void SetImages()
@@ -56,33 +52,6 @@ public class UISceneTraining : UIScene
         SetUI<TextMeshProUGUI>();
         magazineText = GetUI<TextMeshProUGUI>("Text_Magazine_Main");
         maxMagazineText = GetUI<TextMeshProUGUI>("Text_Magazine_Max");
-    }
-
-    private void SetButtons()
-    {
-        SetUI<Button>();
-        optionsBtn = GetUI<Button>("Btn_Options");
-        gunManageBtn = GetUI<Button>("Btn_GunManage");
-    }
-
-    private void SetEvents()
-    {
-        optionsBtn.gameObject.SetEvent(UIEventType.Click, OpenOptionsPopop);
-        gunManageBtn.gameObject.SetEvent(UIEventType.Click, OpenGunManagePopup);
-    }
-
-    #endregion
-
-    #region Button Event
-
-    private void OpenOptionsPopop(PointerEventData eventData)
-    {
-        UI.ShowPopup<UIPopupOptions>(options);
-    }
-
-    private void OpenGunManagePopup(PointerEventData eventData)
-    {
-        UI.ShowPopup<UIPopupGunManage>(gunManage);
     }
 
     #endregion
@@ -104,6 +73,32 @@ public class UISceneTraining : UIScene
     public void UpdateMagazine(int magazine)
     {
         magazineText.text = magazine.ToString();
+    }
+
+    public void ShowCrossHair()
+    {
+        for (var i = 0; i < crosshair.childCount; i++)
+        {
+            crosshair.GetChild(i).gameObject.SetActive(true);
+        }
+
+        crosshair
+            .DOScale(Vector3.one, 0.2f)
+            .SetEase(Ease.InOutQuad);
+    }
+
+    public void HideCrossHair()
+    {
+        crosshair
+            .DOScale(Vector3.zero, 0.2f)
+            .SetEase(Ease.InOutQuad)
+            .OnComplete(() => 
+            {
+                for (var i = 0; i < crosshair.childCount; i++)
+                {
+                    crosshair.GetChild(i).gameObject.SetActive(false);
+                }
+            });
     }
 
     #endregion
