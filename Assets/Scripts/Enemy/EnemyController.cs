@@ -36,7 +36,6 @@ public class EnemyController : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log(transform.rotation.x);
             if (transform.rotation.x <=-0.5f)
             {
                 if (shootController != null)

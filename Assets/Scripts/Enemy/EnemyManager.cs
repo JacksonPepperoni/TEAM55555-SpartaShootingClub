@@ -83,7 +83,6 @@ public class EnemyManager : MonoBehaviour
         switch(level)
         {
             case 1:
-                currentSpawnCount--;
                 break;
             case 2:
                 Invoke("Sp awnEnemy", 3f);
