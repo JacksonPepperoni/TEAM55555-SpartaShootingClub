@@ -375,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1058227377
 Transform:
   m_ObjectHideFlags: 0
@@ -408,7 +408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1110093210
 Transform:
   m_ObjectHideFlags: 0
@@ -444,7 +444,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1232904984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -845,7 +845,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2122932629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -858,10 +858,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa79f58b4efc6e418e594cb26c780ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs: []
+  enemyPrefabs:
+  - {fileID: 4026247223844087373, guid: e208f6ea3e31c874aaa1d9bb9ffc69a8, type: 3}
+  - {fileID: 583885969945307385, guid: 91af1ce0891277248b566a39ca455700, type: 3}
   currentSpawnCount: 0
-  BaseEnemyspawnPositionsRoot: {fileID: 0}
-  AttackEnemyspawnPositionsRoot: {fileID: 0}
+  BaseEnemyspawnPositionsRoot: {fileID: 1110093210}
+  AttackEnemyspawnPositionsRoot: {fileID: 1058227377}
 --- !u!4 &2122932630
 Transform:
   m_ObjectHideFlags: 0
