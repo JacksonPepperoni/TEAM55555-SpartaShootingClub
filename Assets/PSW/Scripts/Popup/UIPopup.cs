@@ -4,5 +4,11 @@ public class UIPopup : UIBase
     {
         base.Init();
         UI.SetCanvas(gameObject);
+        InputManager.Instance.OnOpenUI();
+    }
+
+    protected virtual void OnDisable()
+    {
+        InputManager.Instance.OnCloseUI();
     }
 }

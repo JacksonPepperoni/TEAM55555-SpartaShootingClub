@@ -11,6 +11,8 @@ public class Weapon_Gun : Weapon
 
     private UISceneTraining _scene;
     private AudioManager _audio;
+    private CinemachineManager _cameraManager;
+    private Transform _cameraTransform;
 
     public WeaponData_Gun Data => _data;
 
@@ -40,6 +42,8 @@ public class Weapon_Gun : Weapon
 
         _scene = UIManager.Instance.SceneUI.GetComponent<UISceneTraining>();
         _audio = AudioManager.Instance;
+        _cameraManager = CinemachineManager.Instance;
+        _cameraTransform = _cameraManager.WeaponCam.transform;
     }
 
     #region 발사
@@ -104,12 +108,10 @@ public class Weapon_Gun : Weapon
 
     protected override void Shoot()
     {
-
         if (_muzzleParticle != null)
             _muzzleParticle.Play();
 
-        //TODO: 반동데이터 받아와서 적용
-        CinemachineManager.Instance.ProvideFirearmRecoil(_data);
+        _cameraManager.ProvideFirearmRecoil(_data);
 
         lastFireTime = Time.time;
         _currentAmmo--;
@@ -123,10 +125,8 @@ public class Weapon_Gun : Weapon
 
             float x = Random.Range(-_data.ShotMOA * 0.5f, _data.ShotMOA * 0.5f);
             float y = Random.Range(-_data.ShotMOA * 0.5f, _data.ShotMOA * 0.5f);
-            Vector3 dir = new Vector3(x, y, 0);
+            Vector3 dir = _cameraTransform.rotation * new Vector3(x, y, 0);
 
-
-            // TODO: 계산식 오류있음.
             if (Physics.Raycast(ray.origin, (ray.direction + dir).normalized, out hit, _data.Range, _layerMask))
             {
 
