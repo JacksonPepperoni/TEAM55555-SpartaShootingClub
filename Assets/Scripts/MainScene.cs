@@ -7,12 +7,11 @@ public class MainScene : Singleton<MainScene>
     public PlayerController Player => _player;
 
     private int _currentLevel;
-    public int CurrentLevel => _currentLevel;
+
 
     protected override void Start()
     {
         base.Start();
-
         // 1. 리소스 로드
         ResourceLoad((key, count, total) =>
         {
@@ -44,11 +43,11 @@ public class MainScene : Singleton<MainScene>
     {
         var entryRoom = ResourceManager.Instance.GetCache<GameObject>("EntryRoom");
         entryRoom = Instantiate(entryRoom);
-        var room1 = ResourceManager.Instance.GetCache<GameObject>("Ground");
+        var room1 = ResourceManager.Instance.GetCache<GameObject>("ONE_LINE");
         room1 = Instantiate(room1, new(0, 20, 0), Quaternion.identity);
-        var room2 = ResourceManager.Instance.GetCache<GameObject>("ONE_LINE");
+        var room2 = ResourceManager.Instance.GetCache<GameObject>("Wave_LINE");
         room2 = Instantiate(room2, new(0, 40, 0), Quaternion.identity);
-        var room3 = ResourceManager.Instance.GetCache<GameObject>("Wave_LINE");
+        var room3 = ResourceManager.Instance.GetCache<GameObject>("Ground");
         room3 = Instantiate(room3, new(0, 60, 0), Quaternion.identity);
 
         var portals = entryRoom.GetComponentsInChildren<RoomPortal>();
@@ -71,7 +70,7 @@ public class MainScene : Singleton<MainScene>
         Player.transform.position = enterPosition;
         Camera.main.transform.forward = Vector3.forward;
         Player.gameObject.SetActive(true);
-        _currentLevel = level;
+        EnemyManager.instance.level = level;
         EnemyManager.instance.SetEnemy();
     }
 
