@@ -33,6 +33,10 @@ public class MainScene : Singleton<MainScene>
                 PoolManager.Instance.Initialize();
                 AudioManager.Instance.Initialize();
                 WeaponEquipManager.Instance.Initialize();
+                JsonManager.Instance.Initialize();
+
+
+
             }
         });
     }
