@@ -102,21 +102,22 @@ public class EnemyManager : MonoBehaviour
                 InvokeRepeating("OneLIneEnemySpawn", 0f, 3f);
                 break;
             case 2:
+                //for (int i = currentSpawnCount; i < waveSpaawnCount;)
+                //{
+                //    int spawnIdx = Random.Range(0, enemyList.Count);
+                //    애니메이션 컴포넌트 켜주고 => rigidbody도 켜주고
+                //    if (!enemyList[spawnIdx].TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
+                //    {
+                //        enemyList[spawnIdx].GetComponent<EnemyController>().Respawn();
+                //        currentSpawnCount++;
+                //        i++;
+                //    }
+                //}
                 break;
             case 3:
                 break;
         }
-        //for (int i = currentSpawnCount; i < waveSpaawnCount;)
-        //{
-        //    int spawnIdx = Random.Range(0, enemyList.Count);
-        //    //애니메이션 컴포넌트 켜주고 => rigidbody도 켜주고
-        //    if (!enemyList[spawnIdx].TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
-        //    {
-        //        enemyList[spawnIdx].GetComponent<EnemyController>().Respawn();
-        //        currentSpawnCount++;
-        //        i++;
-        //    }
-        //}
+
     }
     private void OneLIneEnemySpawn()
     {
