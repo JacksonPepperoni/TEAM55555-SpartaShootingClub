@@ -64,11 +64,10 @@ public class MainScene : Singleton<MainScene>
     public void EnterRoom(GameObject room)
     {
         var enterPosition = room.transform.Find("PlayerEnterPosition").position;
-        Debug.Log(enterPosition);
-        Player.enabled = false;
+        Player.gameObject.SetActive(false);
         Player.transform.position = enterPosition;
-        Player.transform.forward = Vector3.forward;
-        Player.enabled = true;
+        Camera.main.transform.forward = Vector3.forward;
+        Player.gameObject.SetActive(true);
     }
 
     private void ResourceLoad(Action<string, int, int> callback = null)
