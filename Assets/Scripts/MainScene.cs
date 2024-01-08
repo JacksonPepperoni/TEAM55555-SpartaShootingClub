@@ -6,6 +6,9 @@ public class MainScene : Singleton<MainScene>
     private PlayerController _player;
     public PlayerController Player => _player;
 
+    private int _currentLevel;
+    public int CurrentLevel => _currentLevel;
+
     protected override void Start()
     {
         base.Start();
@@ -49,25 +52,27 @@ public class MainScene : Singleton<MainScene>
         room3 = Instantiate(room3, new(0, 60, 0), Quaternion.identity);
 
         var portals = entryRoom.GetComponentsInChildren<RoomPortal>();
-        portals[0].SetTargetRoom(room1);
-        portals[1].SetTargetRoom(room2);
-        portals[2].SetTargetRoom(room3);
+        portals[0].SetTargetRoom(room1, 1);
+        portals[1].SetTargetRoom(room2, 2);
+        portals[2].SetTargetRoom(room3, 3);
 
         portals = room1.GetComponentsInChildren<RoomPortal>();
-        portals[0].SetTargetRoom(entryRoom);
+        portals[0].SetTargetRoom(entryRoom, 0);
         portals = room2.GetComponentsInChildren<RoomPortal>();
-        portals[0].SetTargetRoom(entryRoom);
+        portals[0].SetTargetRoom(entryRoom, 0);
         portals = room3.GetComponentsInChildren<RoomPortal>();
-        portals[0].SetTargetRoom(entryRoom);
+        portals[0].SetTargetRoom(entryRoom, 0);
     }
 
-    public void EnterRoom(GameObject room)
+    public void EnterRoom(GameObject room, int level)
     {
         var enterPosition = room.transform.Find("PlayerEnterPosition").position;
         Player.gameObject.SetActive(false);
         Player.transform.position = enterPosition;
         Camera.main.transform.forward = Vector3.forward;
         Player.gameObject.SetActive(true);
+        _currentLevel = level;
+        EnemyManager.instance.SetEnemy();
     }
 
     private void ResourceLoad(Action<string, int, int> callback = null)
