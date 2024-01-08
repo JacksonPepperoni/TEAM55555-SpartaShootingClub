@@ -1,4 +1,6 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class SettingsManager : Singleton<SettingsManager>
 {
@@ -22,10 +24,18 @@ public class SettingsManager : Singleton<SettingsManager>
 
         // TODO: JSON이나 PlayerPrefs에서 저장된 값 불러오기
 
-        _masterVolume = PlayerPrefs.GetFloat("Settings_MasterVolume", 100);
-        _mouseReverse = PlayerPrefs.GetInt("Settings_Inversion", 0) == 1;
-        _fov = PlayerPrefs.GetFloat("Settings_Fov", 90);
-        _sensitivity = PlayerPrefs.GetFloat("Settings_Sensitivity", 50);
+
+
+        _masterVolume = JsonManager.Instance.userData.masterVolume;
+        _mouseReverse = JsonManager.Instance.userData.mouseReverse;
+        _fov = JsonManager.Instance.userData.fov;
+        _sensitivity = JsonManager.Instance.userData.sensitivity;
+        JsonManager.Instance.SaveUserDataToJson();
+
+        //_masterVolume = PlayerPrefs.GetFloat("Settings_MasterVolume", 100);
+        //_mouseReverse = PlayerPrefs.GetInt("Settings_Inversion", 0) == 1;
+        //_fov = PlayerPrefs.GetFloat("Settings_Fov", 90);
+        //_sensitivity = PlayerPrefs.GetFloat("Settings_Sensitivity", 50);
 
         SetMasterVolume(_masterVolume);
         SetFOV(_fov);
@@ -47,7 +57,10 @@ public class SettingsManager : Singleton<SettingsManager>
         if (_audioManager == null) return false;
 
         _audioManager.Source.volume = volume * 0.01f;
-        PlayerPrefs.SetFloat("Settings_MasterVolume", volume);
+
+        JsonManager.Instance.userData.masterVolume = volume;
+        JsonManager.Instance.SaveUserDataToJson();
+        //    PlayerPrefs.SetFloat("Settings_MasterVolume", volume);
 
         return true;
     }
@@ -82,8 +95,10 @@ public class SettingsManager : Singleton<SettingsManager>
         _mouseReverse = reverse;
         _camManager.PovExtension.MouseInversion = reverse;
 
-        // 임시 PlayerPrefs 저장
-        PlayerPrefs.SetInt("Settings_Inversion", _mouseReverse ? 1 : 0);
+
+        JsonManager.Instance.userData.mouseReverse = reverse;
+        JsonManager.Instance.SaveUserDataToJson();
+        // PlayerPrefs.SetInt("Settings_Inversion", _mouseReverse ? 1 : 0);
 
         return true;
     }
@@ -96,8 +111,9 @@ public class SettingsManager : Singleton<SettingsManager>
         _fov = fov;
         _camManager.DefaultFOV = fov;
 
-        // 임시 PlayerPrefs 저장
-        PlayerPrefs.SetFloat("Settings_Fov", fov);
+        JsonManager.Instance.userData.fov = fov;
+        JsonManager.Instance.SaveUserDataToJson();
+        // PlayerPrefs.SetFloat("Settings_Fov", fov);
 
         return true;
     }
@@ -110,8 +126,9 @@ public class SettingsManager : Singleton<SettingsManager>
         _sensitivity = sensitivity;
         _camManager.PovExtension.MouseSensitivity = sensitivity;
 
-        // 임시 PlayerPrefs 저장
-        PlayerPrefs.SetFloat("Settings_Sensitivity", sensitivity);
+        JsonManager.Instance.userData.sensitivity = sensitivity;
+        JsonManager.Instance.SaveUserDataToJson();
+        // PlayerPrefs.SetFloat("Settings_Sensitivity", sensitivity);
 
         return true;
     }

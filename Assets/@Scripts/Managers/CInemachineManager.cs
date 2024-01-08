@@ -8,6 +8,7 @@ public class CinemachineManager : Singleton<CinemachineManager>
     private Camera _weaponCam;
     private CinemachinePOVExtension _povExtension;
     private PlayerController _player;
+    private UISceneTraining _scene;
 
     private float _defaultFOV;
     private float _adsFOV = 70f;
@@ -76,6 +77,7 @@ public class CinemachineManager : Singleton<CinemachineManager>
         if (!base.Initialize()) return false;
 
         _player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        _scene = UIManager.Instance.SceneUI.GetComponent<UISceneTraining>();
 
         return true;
     }
@@ -92,7 +94,10 @@ public class CinemachineManager : Singleton<CinemachineManager>
         else
         {
             if (_coADSChange == null)
+            {
                 _coADSChange = StartCoroutine(CoADSChange(_vcam.m_Lens.FieldOfView, toFOV, duration));
+                //_scene.ShowCrossHair();
+            }
         }
     }
 
@@ -111,5 +116,5 @@ public class CinemachineManager : Singleton<CinemachineManager>
         _coADSChange = null;
     }
 
-    public void ProvideFirearmRecoil(WeaponData_Gun data) => PovExtension.ReceiveFirearmRecoil(data);
+    public void ProvideFirearmRecoil(WeaponData_Gun data, float recoilModifier) => PovExtension.ReceiveFirearmRecoil(data, recoilModifier);
 }

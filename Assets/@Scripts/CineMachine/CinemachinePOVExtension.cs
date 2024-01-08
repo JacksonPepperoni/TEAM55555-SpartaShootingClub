@@ -8,14 +8,12 @@ public class CinemachinePOVExtension : CinemachineExtension
     private Vector3 _startingRotation;
     private Vector3 _recoilVelocity;
     private Coroutine _coRecoilVelocityCalculate;
+    private float _mouseSensitivity = 10f;
+    private float _clampAngle = 70f;
+    private bool _mouseInversion = false;
 
-    // TODO: 마우스 감도 설정값에서 받아올 것
-    [SerializeField] private float mouseSensitivity = 10f;
-    [SerializeField] private float clampAngle = 70f;
-    [SerializeField] private bool mouseInversion = false;
-
-    public float MouseSensitivity { get => mouseSensitivity; set => mouseSensitivity = value; }
-    public bool MouseInversion { get => mouseInversion; set => mouseInversion = value; }
+    public float MouseSensitivity { get => _mouseSensitivity; set => _mouseSensitivity = value; }
+    public bool MouseInversion { get => _mouseInversion; set => _mouseInversion = value; }
 
     protected override void Awake()
     {
@@ -25,19 +23,19 @@ public class CinemachinePOVExtension : CinemachineExtension
     }
 
     // 총기 반동 적용
-    public void ReceiveFirearmRecoil(WeaponData_Gun data)
+    public void ReceiveFirearmRecoil(WeaponData_Gun data, float recoilModifier)
     {
         if (_coRecoilVelocityCalculate != null)
             StopCoroutine(_coRecoilVelocityCalculate);
 
-        StartCoroutine(CoRecoilVelocityCalculate(data));
+        StartCoroutine(CoRecoilVelocityCalculate(data, recoilModifier));
     }
 
-    IEnumerator CoRecoilVelocityCalculate(WeaponData_Gun data)
+    IEnumerator CoRecoilVelocityCalculate(WeaponData_Gun data , float recoilModifier)
     {
         for (float t = 0f; t < data.RecoilDuration; t += Time.deltaTime)
         {
-            _recoilVelocity = data.RecoilCurve.Evaluate(t / data.RecoilDuration) * new Vector3(data.HorizontalRecoilForce, data.VerticalRecoilForce);
+            _recoilVelocity = data.RecoilCurve.Evaluate(t / data.RecoilDuration) * new Vector3(data.HorizontalRecoilForce * recoilModifier, data.VerticalRecoilForce * recoilModifier);
             yield return null;
         }
         _recoilVelocity = Vector3.zero;
@@ -55,10 +53,10 @@ public class CinemachinePOVExtension : CinemachineExtension
                 _startingRotation = transform.localRotation.eulerAngles;
 
             Vector2 deltaInput = _input.MouseDelta;
-            _startingRotation.x += deltaInput.x * Time.deltaTime * mouseSensitivity;
-            _startingRotation.y += deltaInput.y * Time.deltaTime * mouseSensitivity;
-            _startingRotation.y = Mathf.Clamp(_startingRotation.y, -clampAngle, clampAngle);
-            _startingRotation.y *= mouseInversion ? -1f : 1f;
+            _startingRotation.x += deltaInput.x * Time.deltaTime * _mouseSensitivity;
+            _startingRotation.y += deltaInput.y * Time.deltaTime * _mouseSensitivity;
+            _startingRotation.y = Mathf.Clamp(_startingRotation.y, -_clampAngle, _clampAngle);
+            _startingRotation.y *= _mouseInversion ? -1f : 1f;
 
             _startingRotation += _recoilVelocity;
 

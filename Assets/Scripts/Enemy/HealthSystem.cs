@@ -7,10 +7,10 @@ using UnityEngine;
 public class HealthSystem : MonoBehaviour
 {
     private int maxHealth = 10;
+    private int maxHealth = 100;
+    private bool isDie;
     public float currentHealth { get; private set; }
 
-    private float timeSinceLastChange;
-    private float hitDamageDelay;
 
     public event Action OnDeath;
     private void Start()
@@ -18,26 +18,18 @@ public class HealthSystem : MonoBehaviour
         InitHealthSystem();
     }
 
-    private void Update()
-    {
-        if(timeSinceLastChange < hitDamageDelay)
-            timeSinceLastChange += Time.deltaTime;
-    }
-
     public void InitHealthSystem()
     {
         currentHealth = maxHealth;
-        timeSinceLastChange = float.MaxValue;
-        hitDamageDelay = 0.5f;
+        isDie = false;
     }
 
     public void HitDamage(float damage)
     {
-        if(damage <=0 || timeSinceLastChange < hitDamageDelay)
+        if(damage <=0 || isDie)
         {
             return;
         }
-        timeSinceLastChange = 0f;
 
         Debug.Log("맞기 전 데미지" + currentHealth);
         currentHealth -= damage;
@@ -53,6 +45,7 @@ public class HealthSystem : MonoBehaviour
     private void CallDeath()
     {
         Debug.Log("죽었음");
+        isDie = true;
         OnDeath?.Invoke();
         GetComponent<EnemyController>().Die();
     }

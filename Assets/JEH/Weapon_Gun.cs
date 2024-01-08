@@ -8,11 +8,19 @@ public class Weapon_Gun : Weapon
     private Coroutine _shootCoroutine;
     private ParticleSystem _muzzleParticle;
     private Transform _muzzlePoint;
+    private AccModifier _accModifier;
 
     private UISceneTraining _scene;
     private AudioManager _audio;
+    private CinemachineManager _cameraManager;
+    private Transform _cameraTransform;
 
     public WeaponData_Gun Data => _data;
+
+    private Animator _weaponAnimator;
+    private readonly int AnimatorHash_Reload = Animator.StringToHash("Reload");
+    private readonly int AnimatorHash_ADSTrigger = Animator.StringToHash("ADSTrigger");
+
 
     private void OnEnable() // TODO 플레이어가 무기들때 init 실행
     {
@@ -22,6 +30,8 @@ public class Weapon_Gun : Weapon
     protected override void Initialize()
     {
         base.Initialize();
+
+        _weaponAnimator = GetComponent<Animator>();
 
         _muzzlePoint = transform.GetChild(0).Find("MuzzlePoint");
 
@@ -35,11 +45,23 @@ public class Weapon_Gun : Weapon
             _muzzleParticle?.Stop();
 
         _shootCoroutine = null;
-        _currentAmmo = _data.MagazineCapacity;
         _layerMask = 0b1;
 
         _scene = UIManager.Instance.SceneUI.GetComponent<UISceneTraining>();
         _audio = AudioManager.Instance;
+        _cameraManager = CinemachineManager.Instance;
+        _cameraTransform = _cameraManager.WeaponCam.transform;
+    }
+
+    public void SetAccessory(AccModifier accMod)
+    {
+        _accModifier = accMod;
+
+        float aimValue = _accModifier.AimModifier;
+        float defaultVal = WeaponEquipManager.Instance.DefaultAdsFOV;
+        _cameraManager.ADSFOV = defaultVal * aimValue;
+
+        _currentAmmo = _data.MagazineCapacity + _accModifier.MagazineModifier;
     }
 
     #region 발사
@@ -65,6 +87,7 @@ public class Weapon_Gun : Weapon
             if (_currentAmmo <= 0)
             {
                 CartridgeEmpty();
+                _shootCoroutine = null;
                 yield break;
             }
 
@@ -84,7 +107,7 @@ public class Weapon_Gun : Weapon
             }
             else
             {
-                if (!_isFirePress)
+                if (!InputManager.Instance.FirePress)
                 {
                     ShootStop();
                     yield break;
@@ -104,17 +127,15 @@ public class Weapon_Gun : Weapon
 
     protected override void Shoot()
     {
-
         if (_muzzleParticle != null)
             _muzzleParticle.Play();
 
-        //TODO: 반동데이터 받아와서 적용
-        CinemachineManager.Instance.ProvideFirearmRecoil(_data);
+        _cameraManager.ProvideFirearmRecoil(_data, _accModifier.RecoilModifier);
 
         lastFireTime = Time.time;
         _currentAmmo--;
         _scene.UpdateMagazine(_currentAmmo); // UI 세팅
-        _audio.PlayOneShot(_data.FireSound); // 발사 사운드
+        _audio.PlayOneShot(_data.FireSound, _accModifier.SoundModifier); // 발사 사운드
 
         for (int i = 0; i < _data.ShotAtOnce; i++)
         {
@@ -123,10 +144,8 @@ public class Weapon_Gun : Weapon
 
             float x = Random.Range(-_data.ShotMOA * 0.5f, _data.ShotMOA * 0.5f);
             float y = Random.Range(-_data.ShotMOA * 0.5f, _data.ShotMOA * 0.5f);
-            Vector3 dir = new Vector3(x, y, 0);
+            Vector3 dir = _cameraTransform.rotation * new Vector3(x, y, 0);
 
-
-            // TODO: 계산식 오류있음.
             if (Physics.Raycast(ray.origin, (ray.direction + dir).normalized, out hit, _data.Range, _layerMask))
             {
 
@@ -136,7 +155,7 @@ public class Weapon_Gun : Weapon
 
 
                 hit.transform.gameObject.GetComponent<HealthSystem>()?.HitDamage(DamageCalculation(hit.point, _data.Damage, _data.Range));
-               // Debug.Log(DamageCalculation(hit.point, _data.Damage, _data.Range)); //데미지 계산
+                // Debug.Log(DamageCalculation(hit.point, _data.Damage, _data.Range)); //데미지 계산
             }
 
             Debug.DrawRay(ray.origin, (ray.direction + dir).normalized * _data.Range, Color.red, 1);
@@ -161,6 +180,14 @@ public class Weapon_Gun : Weapon
 
     private IEnumerator ReloadCoroutine()
     {
+        _weaponAnimator.SetBool(AnimatorHash_Reload, true);
+
+        if (MainScene.Instance.Player.IsADS)
+        {
+            MainScene.Instance.Player.ChangeADS();
+            _weaponAnimator.ResetTrigger(AnimatorHash_ADSTrigger);
+        }
+
         _isReloading = true;
 
         _audio.PlayOneShot(_data.ReloadSound);
@@ -171,6 +198,8 @@ public class Weapon_Gun : Weapon
 
         _isReloading = false;
         _reloadCoroutine = null;
+
+        _weaponAnimator.SetBool(AnimatorHash_Reload, false);
     }
 
     public void ReloadStop() // 장전중에 무기바꾸면 리로딩 취소
@@ -181,6 +210,7 @@ public class Weapon_Gun : Weapon
             _reloadCoroutine = null;
         }
 
+        _weaponAnimator.SetBool(AnimatorHash_Reload, false);
         _isReloading = false;
     }
 

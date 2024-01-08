@@ -21,8 +21,6 @@ public class MainScene : Singleton<MainScene>
                 Instantiate(ground);
                 var player = ResourceManager.Instance.GetCache<GameObject>("PlayerCharacter");
                 _player = Instantiate(player).GetComponent<PlayerController>();
-                // var weapon = ResourceManager.Instance.GetCache<GameObject>("Weapon");
-                // Instantiate(weapon, Camera.main.transform.GetChild(0));
 
                 // 3. UI 생성
                 UIManager.Instance.Initialize();
@@ -32,8 +30,13 @@ public class MainScene : Singleton<MainScene>
                 SettingsManager.Instance.Initialize();
                 CinemachineManager.Instance.Initialize();
                 InputManager.Instance.Initialize();
-                PoolManager.Instance.Initialize();AudioManager.Instance.Initialize();
+                PoolManager.Instance.Initialize();
+                AudioManager.Instance.Initialize();
                 WeaponEquipManager.Instance.Initialize();
+                JsonManager.Instance.Initialize();
+
+
+
             }
         });
     }

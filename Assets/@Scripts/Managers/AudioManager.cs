@@ -41,15 +41,14 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
-    public void PlayOneShot(AudioClip clip)
+    public void PlayOneShot(AudioClip clip, float SoundModifier = 1)
     {
         if (clip == null) return;
 
-        var newSourceObject = new GameObject($"Audio Source -> {clip.name}");
-        var newAudioSource = newSourceObject.AddComponent<AudioSource>();
-
-        newAudioSource.volume = Source.volume;
-        newAudioSource.PlayOneShot(clip);
+        AudioSource newAudioSource = ResourceManager.Instance.InstantiatePrefab("AudioSource").GetComponent<AudioSource>();
+        newAudioSource.volume = Source.volume * SoundModifier;
+        newAudioSource.clip = clip;
+        newAudioSource.Play();
 
         StartCoroutine(nameof(DestroySourceWhenFinished), newAudioSource);
     }
@@ -57,6 +56,7 @@ public class AudioManager : Singleton<AudioManager>
     private IEnumerator DestroySourceWhenFinished(AudioSource source)
     {
         yield return new WaitWhile(() => source.isPlaying);
-        Destroy(source.gameObject);
+
+        ResourceManager.Instance.Destroy(source.gameObject);
     }
 }

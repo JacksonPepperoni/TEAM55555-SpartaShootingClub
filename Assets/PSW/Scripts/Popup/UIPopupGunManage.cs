@@ -22,6 +22,7 @@ public class UIPopupGunManage : UIPopup
         SetButtons();
         SetEvents();
         SetToggles();
+        ChooseGunToggle();
     }
 
     private void SetToggles()
@@ -71,8 +72,24 @@ public class UIPopupGunManage : UIPopup
         UI.ClosePopup(this);
     }
 
+    private void ChooseGunToggle()
+    {
+        for(int i=0; i < GunToggles.Count; i++)
+        {
+            ItemData itemData = GunToggles[i].GetComponent<UIGunItem>().GunData;
+            if(itemData == WeaponEquipManager.Instance.CurrentWeapon.Data)
+            {
+                GunToggles[i].isOn = true;
+                break;
+            }
+        }
+    }
+
     private void EquipWeapon(PointerEventData eventData)
     {
+        if (MainScene.Instance.Player.IsADS)
+            MainScene.Instance.Player.ChangeADS();
+
         int gunType = -1;
         for(int i=0; i < GunToggles.Count; i++)
         {
@@ -82,44 +99,59 @@ public class UIPopupGunManage : UIPopup
                 break;
             }
         }
+        AccModifier accMod = new AccModifier();
 
-        for(int i=0; i < accessoryToggles.Count ; i++)
+        if(gunType == 1)
+        {
+            accMod.ChangeAim(0.7f);
+        }
+
+        for(int i=0; i < accessoryToggles.Count; i++)
         {
             if(accessoryToggles[i].isOn == true)
             {
-                switch(i)
+                // Sight, Muzzle, Grip, Magazine
+                switch (i)
                 {
-                    // Sight, Muzzle, Grip, Magazine
                     case 0:
+                    if(gunType == 1)
                     {
-                        float defaultVal = WeaponEquipManager.Instance.DefaultAdsFOV;
-                        CinemachineManager.Instance.ADSFOV = defaultVal * 0.5f;
+                        accMod.ChangeAim(0.3f);
+                    }
+                    else
+                    {
+                        accMod.ChangeAim(0.5f);
                     }
                     break;
-                    case 1: break; // change gunSound
-                    case 2: break; // change grip
-                    case 3: break; // change Magazine;
-                }
-            }
-            else
-            {
-                switch(i)
-                {
-                    // Sight, Muzzle, Grip, Magazine
-                    case 0:
+                    case 1:
                     {
-                        float defaultVal = WeaponEquipManager.Instance.DefaultAdsFOV;
-                        CinemachineManager.Instance.ADSFOV = defaultVal * 1f;
+                        accMod.ChangeSound(0.3f);
                     }
                     break;
-                    case 1: break; // change gunSound
-                    case 2: break; // change recoil TODO => SO var to Class var
-                    case 3: break; // change Magazine TODO => SO var to Class var
+                    case 2:
+                    {
+                        accMod.ChangeRecoil(0.5f);
+                    }
+                    break;
+                    case 3:
+                    {
+                        if(gunType == 3)
+                        {
+                            accMod.ChangeMagazine(30);
+                        }
+                        else
+                        {
+                            accMod.ChangeMagazine(5);
+                        }
+                    }
+                    break;
                 }
             }
         }
 
-        WeaponEquipManager.Instance.SetWeapon(gunType);
+        WeaponEquipManager.Instance.SetWeapon(gunType, accMod);
+
+
         UI.ClosePopup(this);
     }
 }

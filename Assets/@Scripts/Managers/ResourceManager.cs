@@ -28,6 +28,7 @@ public class ResourceManager : Singleton<ResourceManager>
         {
             // 게임 시작 전 캐싱할 Object의 Resources 주소 입력
             @"Prefabs/Ground",
+            @"Prefabs/AudioSource",
             @"Prefabs/PlayerCharacter",
             @"PlayerInputActions",
             @"Prefabs/Weapon",

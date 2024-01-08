@@ -9,6 +9,7 @@ public class UIGunItem : UIBase
     [SerializeField] private Transform tooltipPanel;
     [SerializeField] private ItemData gunData;
     [SerializeField] private GameObject tooltip;
+    public ItemData GunData => gunData;
 
     private Toggle toggle;
 

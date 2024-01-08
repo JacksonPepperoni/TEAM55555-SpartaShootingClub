@@ -28,10 +28,10 @@ public class WeaponEquipManager : Singleton<WeaponEquipManager>
 
     public void InitWeapon()
     {
-        SetWeapon(0);
+        SetWeapon(0, new AccModifier());
     }
 
-    public void SetWeapon(int index)
+    public void SetWeapon(int index, AccModifier accMod)
     {
         if(currentWeapon != null)
         {
@@ -39,9 +39,45 @@ public class WeaponEquipManager : Singleton<WeaponEquipManager>
         }
 
         currentWeapon = Instantiate(weaponList[index], weaponCameraTF).GetComponent<Weapon_Gun>();
+        currentWeapon.SetAccessory(accMod);
         
         // UI 세팅
         UISceneTraining scene = UIManager.Instance.SceneUI.GetComponent<UISceneTraining>();
-        scene.UpdateWeapon(currentWeapon.Data);
+        scene.UpdateWeapon(currentWeapon.Data, accMod.MagazineModifier);
+    }
+}
+
+public class AccModifier
+{
+    public float AimModifier {get; private set;}
+    public float SoundModifier {get; private set;}
+    public float RecoilModifier {get; private set;}
+    public int MagazineModifier {get; private set;}
+    public AccModifier()
+    {
+        AimModifier = 1;
+        SoundModifier = 1;
+        RecoilModifier = 1;
+        MagazineModifier = 0;
+    }
+
+    public void ChangeAim(float value)
+    {
+        AimModifier = value;
+    }
+
+    public void ChangeSound(float value)
+    {
+        SoundModifier = value;
+    }
+
+    public void ChangeRecoil(float value)
+    {
+        RecoilModifier = value;
+    }
+
+    public void ChangeMagazine(int value)
+    {
+        MagazineModifier = value;
     }
 }

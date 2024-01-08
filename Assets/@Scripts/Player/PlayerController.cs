@@ -31,12 +31,6 @@ public class PlayerController : MonoBehaviour
     private readonly int AnimatorHash_MoveVelocity = Animator.StringToHash("MoveVelocity");
     private readonly int AnimatorHash_FastRun = Animator.StringToHash("FastRun");
 
-    // TEST CODE
-    // TODO: 총기반동 Data에서 받아올 것
-    public float verticalRecoil = 10f;
-    public float horizontalRecoil = 10f;
-    public float recoilDuration = 0.1f;
-
     public bool IsADS => _isADS;
     public bool IsSit => _isSit;
     public bool IsMove => _velocity.magnitude > 0.01f;
@@ -83,16 +77,16 @@ public class PlayerController : MonoBehaviour
         if (IsGround && _velocity.y < 0)
             _velocity.y = 0f;
 
-        Vector3 movement = _input.PlayerMovement;
-        movement = new Vector3(movement.x, 0f, movement.y);
-        movement = _cameraTransform.forward * movement.z + _cameraTransform.right * movement.x;
-        movement.y = 0f;
-        movement.Normalize();
-        _controller.Move(MoveSpeedValue * Time.deltaTime * movement);
-        _weaponAnimator.SetFloat(AnimatorHash_MoveVelocity, movement.magnitude);
+        _velocity = _input.PlayerMovement;
+        _velocity = new Vector3(_velocity.x, 0f, _velocity.y);
+        _velocity = _cameraTransform.forward * _velocity.z + _cameraTransform.right * _velocity.x;
+        _velocity.y = 0f;
+        _velocity.Normalize();
+        _controller.Move(MoveSpeedValue * Time.deltaTime * _velocity);
+        _weaponAnimator.SetFloat(AnimatorHash_MoveVelocity, _velocity.magnitude);
 
         // 플레이어 움직임 사운드
-        if (movement.sqrMagnitude > 0f)
+        if (_velocity.sqrMagnitude > 0f)
         {
             _audio.MovementSound();
         }
@@ -125,6 +119,9 @@ public class PlayerController : MonoBehaviour
 
         //TODO: 총기 줌 속도와 동일한 duration 제공
         CinemachineManager.Instance.ADSFOVChange(_isADS, 0.1f);
+
+        if (!_isADS) _ui.SceneUI.GetComponent<UISceneTraining>().ShowCrossHair();
+        else _ui.SceneUI.GetComponent<UISceneTraining>().HideCrossHair();
     }
 
     public void SetFastRun(bool active)
@@ -133,9 +130,10 @@ public class PlayerController : MonoBehaviour
         
         if (active)
         {
-            _isADS = false;
-            CinemachineManager.Instance.ADSFOVChange(_isADS, 0.1f, false);
+            if (IsADS)
+                ChangeADS();
             _ui.SceneUI.GetComponent<UISceneTraining>().UpdateIdle(1); // UI 스탠딩 이미지 변경
+            _ui.SceneUI.GetComponent<UISceneTraining>().ShowCrossHair();
         }
         else
         {
