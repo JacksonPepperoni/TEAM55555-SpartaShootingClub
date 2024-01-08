@@ -22,7 +22,7 @@ public class UIPopupGunManage : UIPopup
         SetButtons();
         SetEvents();
         SetToggles();
-        ChooseGunToggle();
+        ChooseToggles();
     }
 
     private void SetToggles()
@@ -72,15 +72,49 @@ public class UIPopupGunManage : UIPopup
         UI.ClosePopup(this);
     }
 
-    private void ChooseGunToggle()
+    private void ChooseToggles()
     {
+        int gunType = -1;
         for(int i=0; i < GunToggles.Count; i++)
         {
             ItemData itemData = GunToggles[i].GetComponent<UIGunItem>().GunData;
             if(itemData == WeaponEquipManager.Instance.CurrentWeapon.Data)
             {
                 GunToggles[i].isOn = true;
+                gunType = i;
                 break;
+            }
+        }
+
+        AccModifier accMod = new AccModifier(); // Defalut Value
+        AccModifier curMod = WeaponEquipManager.Instance.CurrentWeapon.AccModifier;
+
+        // Sight, Muzzle, Grip, Magazine
+        if(!(accMod.AimModifier == curMod.AimModifier))
+        {
+            accessoryToggles[0].isOn = true;
+        }
+
+        if(!(accMod.SoundModifier == curMod.SoundModifier))
+        {
+            accessoryToggles[1].isOn = true;
+        }
+
+        if(!(accMod.RecoilModifier == curMod.RecoilModifier))
+        {
+            accessoryToggles[2].isOn = true;
+        }
+
+        if(!(accMod.MagazineModifier == curMod.MagazineModifier))
+        {
+            accessoryToggles[3].isOn = true;
+        }
+
+        if(gunType == 1)
+        {
+            if(curMod.AimModifier == 0.7f) // 저격총 기본 배율
+            {
+                accessoryToggles[0].isOn = false;
             }
         }
     }
