@@ -9,17 +9,20 @@ public class EnemyManager : MonoBehaviour
 
     [SerializeField] private GameObject[] enemyPrefabs;
 
+    [SerializeField] private Transform LineMapEnemyspawnPositionsRoot;
+    [SerializeField] private Transform WaveMapEnemyspawnPositionsRoot;
+    [SerializeField] private Transform GroundMapBaseEnemyspawnPositionsRoot;
+    [SerializeField] private Transform GroundMapAttackEnemyspawnPositionsRoot;
 
-    [SerializeField] private int currentSpawnCount;
-    private int waveSpaawnCount;
+    private List<Transform> EnemyspawnPositions;
+    private List<Transform> AttackEnemyspawnPositions;
 
-    [SerializeField] private Transform BaseEnemyspawnPositionsRoot;
-    [SerializeField] private Transform AttackEnemyspawnPositionsRoot;
-    private List<Transform> BaseEnemyspawnPositions = new List<Transform>();
-    //private List<Transform> AttackEnemyspawnPositions = new List<Transform>();
-    private List<GameObject> enemyList = new List<GameObject>();
+    private int currentSpawnCount;
+    private int waveSpawnCount;
 
-    private int level = 1;
+    private List<GameObject> enemyList;
+
+    private int level = 3;
 
 
     private void Awake()
@@ -29,52 +32,74 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        Init();
+        SetEnemy();
     }
 
     private void Init()
     {
-        for (int i = 0; i < BaseEnemyspawnPositionsRoot.childCount; i++)
-        {
-            BaseEnemyspawnPositions.Add(BaseEnemyspawnPositionsRoot.GetChild(i));
-        }
+        enemyList = new List<GameObject>();
+        EnemyspawnPositions = new List<Transform>();
+        AttackEnemyspawnPositions = new List<Transform>();  
 
-        //for(int i=0; i<AttackEnemyspawnPositionsRoot.childCount;i++)
-        //{
-        //    AttackEnemyspawnPositions.Add(AttackEnemyspawnPositionsRoot.GetChild(i));
-        //}
         currentSpawnCount = 0;
-        waveSpaawnCount = 3;
+        switch(level)
+        {
+            case 1:
+                for (int i = 0; i < LineMapEnemyspawnPositionsRoot.childCount; i++)
+                {
+                    EnemyspawnPositions.Add(LineMapEnemyspawnPositionsRoot.GetChild(i));
+                }
+                waveSpawnCount = 3;
+                break;
+            case 2:
+                //waveSpaawnCount = 3;
+                break;
+            case 3:
+                for (int i = 0; i < GroundMapBaseEnemyspawnPositionsRoot.childCount; i++)
+                {
+                    EnemyspawnPositions.Add(GroundMapBaseEnemyspawnPositionsRoot.GetChild(i));
+                }
 
-        SetEnemy();
+                for (int i = 0; i < GroundMapAttackEnemyspawnPositionsRoot.childCount; i++)
+                {
+                    AttackEnemyspawnPositions.Add(GroundMapAttackEnemyspawnPositionsRoot.GetChild(i));
+                }
+                waveSpawnCount = EnemyspawnPositions.Count;
+                break;
+        }
     }
 
     private void SetEnemy()
     {
-        for (int i = 0; i < BaseEnemyspawnPositions.Count; i++)
+        Init();
+        switch(level)
         {
-            //TODO : int prefabIdx = Random.Range(0, enemyPrefabs.Count);
-            if (i % 2 == 0)
-            {
-                GameObject enemy = Instantiate(enemyPrefabs[0], BaseEnemyspawnPositions[i].position, Quaternion.Euler(-90, 90 , 0));
-                enemy.GetComponent<HealthSystem>().OnDeath += OnEnemyDeath;
-                enemyList.Add(enemy);
-            }
-            else
-            {
-                GameObject enemy = Instantiate(enemyPrefabs[0], BaseEnemyspawnPositions[i].position, Quaternion.Euler(-90, -90, 0));
-                enemy.GetComponent<HealthSystem>().OnDeath += OnEnemyDeath;
-                enemyList.Add(enemy);
-            }
-
+            case 1:
+                for (int i = 0; i < EnemyspawnPositions.Count; i++)
+                {
+                    GameObject enemy = Instantiate(enemyPrefabs[0], EnemyspawnPositions[i].position, Quaternion.Euler(-90, 90 + (-180 * (i % 2)), 0));
+                    enemy.GetComponent<HealthSystem>().OnDeath += OnEnemyDeath;
+                    enemyList.Add(enemy);
+                }
+                break;
+            case 2:
+                break;
+            case 3:
+                for (int i = 0; i < EnemyspawnPositions.Count; i++)
+                {
+                    GameObject enemy = Instantiate(enemyPrefabs[0], EnemyspawnPositions[i].position, Quaternion.Euler(-90, 0 , 0));
+                    enemy.GetComponent<HealthSystem>().OnDeath += OnEnemyDeath;
+                    enemyList.Add(enemy);
+                }
+                for(int i=0; i<AttackEnemyspawnPositions.Count; i++)
+                {
+                    GameObject enemy = Instantiate(enemyPrefabs[1], AttackEnemyspawnPositions[i].position, Quaternion.Euler(-90, -90, 0));
+                    enemy.GetComponent<HealthSystem>().OnDeath += OnEnemyDeath;
+                    enemyList.Add(enemy);
+                }
+                break;
         }
 
-        //for(int i=0; i<AttackEnemyspawnPositions.Count; i++)
-        //{
-        //    GameObject enemy = Instantiate(enemyPrefabs[1], AttackEnemyspawnPositions[i].position, Quaternion.Euler(-90, -90, 0));
-        //    enemy.GetComponent<HealthSystem>().OnDeath += OnEnemyDeath;
-        //    enemyList.Add(enemy);
-        //}
         SpawnEnemy();
     }
 
@@ -85,10 +110,12 @@ public class EnemyManager : MonoBehaviour
             case 1:
                 break;
             case 2:
-                Invoke("Sp awnEnemy", 3f);
-                currentSpawnCount--; 
+                Invoke("SpawnEnemy", 3f);
+                currentSpawnCount--;
                 break;
             case 3:
+                Invoke("SpawnEnemy", 3f);
+                currentSpawnCount--;
                 break; ;
         }
 
@@ -98,35 +125,38 @@ public class EnemyManager : MonoBehaviour
         switch(level)
         {
             case 1:
-                InvokeRepeating("OneLIneEnemySpawn", 0f, 3f);
+                InvokeRepeating("OneLIneMapEnemySpawn", 0f, 3f);
                 break;
             case 2:
-                //for (int i = currentSpawnCount; i < waveSpaawnCount;)
-                //{
-                //    int spawnIdx = Random.Range(0, enemyList.Count);
-                //    애니메이션 컴포넌트 켜주고 => rigidbody도 켜주고
-                //    if (!enemyList[spawnIdx].TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
-                //    {
-                //        enemyList[spawnIdx].GetComponent<EnemyController>().Respawn();
-                //        currentSpawnCount++;
-                //        i++;
-                //    }
-                //}
                 break;
             case 3:
+                GroundMapEnemySpawn();
                 break;
         }
 
     }
-    private void OneLIneEnemySpawn()
+    private void GroundMapEnemySpawn()
     {
-        if(currentSpawnCount == BaseEnemyspawnPositions.Count / 2)
+        for (int i = currentSpawnCount; i < waveSpawnCount;)
+        {
+            int spawnIdx = Random.Range(0, enemyList.Count);
+
+            if (!enemyList[spawnIdx].TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
+            {
+                enemyList[spawnIdx].GetComponent<EnemyController>().Respawn();
+                currentSpawnCount++;
+                i++;
+            }
+        }
+    }
+    private void OneLIneMapEnemySpawn()
+    {
+        if(currentSpawnCount == EnemyspawnPositions.Count / 2)
         {
             CancelInvoke("OneLIneEnemySpawn");
             return;
         }
         int randomPosition = currentSpawnCount*2 + Random.Range(0, 2);
-        Debug.Log(randomPosition);
         enemyList[randomPosition].GetComponent<EnemyController>().Respawn();
         currentSpawnCount++;
     }
