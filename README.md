@@ -1,6 +1,6 @@
 ## 🖥️ 스파르타슈팅클럽
 
-+ [플레이 영상](https://youtu.be/cc5jiGRsd6Y)
++ [플레이 영상](https://youtu.be/zvw7GnX3Qrk)
 + 스파르타 3D FPS 연습장
 + 이동 [W, A, S, D] / 달리기 [LShift] / 걷기 [LCtrl] / 앉기 [C]
 + 발사 [LMB] / 조준 [RMB] / 재장전 [R]
