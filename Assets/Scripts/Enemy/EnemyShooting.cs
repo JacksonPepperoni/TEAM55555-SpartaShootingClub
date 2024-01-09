@@ -25,7 +25,7 @@ public class EnemyShooting : MonoBehaviour
     private void Start()
     {
         _animController = GetComponent<EnemyAnimationController>();
-        _projectileManager = ProjectileManager.instance;
+        _projectileManager = ProjectileManager.Instance;
         _stats = GetComponent<EnemyStatsHandler>();
         _attackSO = _stats.currentStats.attackSO;
     }

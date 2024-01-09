@@ -15,21 +15,31 @@ public class ObjectPool : MonoBehaviour
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
-    private void Awake()
+    public void AddPool(Pool pool)
+    {
+        if (pools == null)
+            pools = new List<Pool>();
+
+        pools.Add(pool);
+    }
+
+    public void SetInfo()
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
         foreach (var pool in pools)
         {
             Queue<GameObject> objectPool = new Queue<GameObject>();
+            var root = new GameObject($"[Pool_Root] {pool.prefab.name}").transform;
             for (int i = 0; i < pool.size; i++)
             {
-                GameObject obj = Instantiate(pool.prefab);
+                GameObject obj = Instantiate(pool.prefab, root);
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
             }
             poolDictionary.Add(pool.tag, objectPool);
         }
     }
+
     public GameObject SpawnFromPool(string tag)
     {
         if (!poolDictionary.ContainsKey(tag))

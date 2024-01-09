@@ -2,18 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileManager : MonoBehaviour
+public class ProjectileManager : Singleton<ProjectileManager>
 {
-    public static ProjectileManager instance;
     private ObjectPool objectPool;
-    private void Awake()
+
+    public override bool Initialize()
     {
-        instance = this;
+        if (!base.Initialize()) return false;
+
+        objectPool = gameObject.AddComponent<ObjectPool>();
+        GameObject bulletPrefab = ResourceManager.Instance.GetCache<GameObject>("Bullet");
+        ObjectPool.Pool bulletPool = new()
+        {
+            prefab = bulletPrefab,
+            size = 20,
+            tag = "Bullet",
+        };
+        objectPool.AddPool(bulletPool);
+        objectPool.SetInfo();
+
+        return true;
     }
-    private void Start()
-    {
-        objectPool = GetComponent<ObjectPool>();
-    }
+
     public void ShootBullet(Vector3 startPosition, Vector3 direction, RangedAttackData attackData)
     {
         GameObject obj = objectPool.SpawnFromPool(attackData.bulletNameTag);

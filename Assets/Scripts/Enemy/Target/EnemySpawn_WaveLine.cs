@@ -42,9 +42,11 @@ public class EnemySpawn_WaveLine : MonoBehaviour
     private void InitTargets()
     {
         _targets = new List<TargetController>();
+        Transform root = EnemyManager.Instance.Root;
         for(int i=0; i < _waveSpawnCount ; i++)
         {
-            GameObject target = Instantiate(_targetPrefab, _targetSpawnPositions[i].position, Quaternion.Euler(0, 0, -90) );
+            GameObject target = Instantiate(_targetPrefab, _targetSpawnPositions[i].position, Quaternion.Euler(0, 0, -90));
+            target.transform.parent = root;
             _targets.Add(target.GetComponent<TargetController>());
             target.GetComponent<HealthSystem_Target>().OnDeath += OnEnemyDeath;
         }

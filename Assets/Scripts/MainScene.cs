@@ -32,6 +32,7 @@ public class MainScene : Singleton<MainScene>
                 AudioManager.Instance.Initialize();
                 WeaponEquipManager.Instance.Initialize();
                 JsonManager.Instance.Initialize();
+                EnemyManager.Instance.Initialize();
             }
         });
     }
@@ -67,8 +68,8 @@ public class MainScene : Singleton<MainScene>
         Player.transform.position = enterPosition;
         Camera.main.transform.forward = Vector3.forward;
         Player.gameObject.SetActive(true);
-        EnemyManager.instance.level = level;
-        EnemyManager.instance.SetEnemy();
+        EnemyManager.Instance.level = level;
+        EnemyManager.Instance.SetEnemy();
     }
 
     private void ResourceLoad(Action<string, int, int> callback = null)

@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : Singleton<EnemyManager>
 {
-    static public EnemyManager instance;
-
     [SerializeField] private GameObject[] enemyPrefabs;
 
     [SerializeField] private Transform LineMapEnemyspawnPositionsRoot;
@@ -23,30 +21,99 @@ public class EnemyManager : MonoBehaviour
 
     public int level = 0;
 
+    private Transform root;
 
-    private void Awake()
+    public Transform Root
     {
-        instance = this;
+        get
+        {
+            if (root == null)
+                root = new GameObject("Enemy Root").transform;
+            return root;
+        }
     }
 
-    private void Init()
+
+    public override bool Initialize()
     {
-        if(enemyList!=null)
+        if (!base.Initialize()) return false;
+
+        enemyPrefabs = new GameObject[3];
+        enemyPrefabs[0] = ResourceManager.Instance.GetCache<GameObject>("BaseTarget");
+        enemyPrefabs[1] = ResourceManager.Instance.GetCache<GameObject>("AttackTarget");
+        enemyPrefabs[2] = ResourceManager.Instance.GetCache<GameObject>("Target");
+
+        LineMapEnemyspawnPositionsRoot = ResourceManager.Instance.GetCache<GameObject>("LineMapEnemySpawnPositionsRoot").transform;
+        GroundMapBaseEnemyspawnPositionsRoot = ResourceManager.Instance.GetCache<GameObject>("GroundMapEnemySpawnPositions").transform.GetChild(0);
+        GroundMapAttackEnemyspawnPositionsRoot = ResourceManager.Instance.GetCache<GameObject>("GroundMapEnemySpawnPositions").transform.GetChild(1);
+
+
+        return true;
+    }
+
+    public void SetEnemy()
+    {
+        DespawnEnemy();
+
+        SetSpawnPosition();
+
+        switch (level)
+        {
+            case 0:
+                break;
+            case 1:
+                for (int i = 0; i < EnemyspawnPositions.Count; i++)
+                {
+                    GameObject enemy = Instantiate(enemyPrefabs[0], EnemyspawnPositions[i].position, Quaternion.Euler(-90, 90 + (-180 * (i % 2)), 0));
+                    enemy.transform.parent = root;
+                    enemy.GetComponent<HealthSystem>().OnDeath += OnEnemyDeath;
+                    enemyList.Add(enemy);
+                }
+                break;
+            case 2:
+                break;
+            case 3:
+                for (int i = 0; i < EnemyspawnPositions.Count; i++)
+                {
+                    GameObject enemy = Instantiate(enemyPrefabs[0], EnemyspawnPositions[i].position, Quaternion.Euler(-90, 0 , 0));
+                    enemy.transform.parent = root;
+                    enemy.GetComponent<HealthSystem>().OnDeath += OnEnemyDeath;
+                    enemyList.Add(enemy);
+                }
+                for(int i=0; i<AttackEnemyspawnPositions.Count; i++)
+                {
+                    GameObject enemy = Instantiate(enemyPrefabs[1], AttackEnemyspawnPositions[i].position, Quaternion.Euler(-90, -90, 0));
+                    enemy.transform.parent = root;
+                    enemy.GetComponent<HealthSystem>().OnDeath += OnEnemyDeath;
+                    enemyList.Add(enemy);
+                }
+                break;
+        }
+
+        SpawnEnemy();
+    }
+
+    private void DespawnEnemy()
+    {
+        if (enemyList != null)
         {
             while (enemyList.Count > 0)
             {
-                Destroy(enemyList[0].gameObject);
+                Destroy(enemyList[0]);
                 enemyList.RemoveAt(0);
             }
         }
 
-
         enemyList = new List<GameObject>();
+    }
+
+    private void SetSpawnPosition()
+    {
         EnemyspawnPositions = new List<Transform>();
         AttackEnemyspawnPositions = new List<Transform>();
         CancelInvoke("OneLIneMapEnemySpawn");
         currentSpawnCount = 0;
-        switch(level)
+        switch (level)
         {
             case 0:
                 break;
@@ -72,42 +139,6 @@ public class EnemyManager : MonoBehaviour
                 waveSpawnCount = EnemyspawnPositions.Count;
                 break;
         }
-    }
-
-    public void SetEnemy()
-    {
-        Init();
-        switch(level)
-        {
-            case 0:
-                break;
-            case 1:
-                for (int i = 0; i < EnemyspawnPositions.Count; i++)
-                {
-                    GameObject enemy = Instantiate(enemyPrefabs[0], EnemyspawnPositions[i].position, Quaternion.Euler(-90, 90 + (-180 * (i % 2)), 0));
-                    enemy.GetComponent<HealthSystem>().OnDeath += OnEnemyDeath;
-                    enemyList.Add(enemy);
-                }
-                break;
-            case 2:
-                break;
-            case 3:
-                for (int i = 0; i < EnemyspawnPositions.Count; i++)
-                {
-                    GameObject enemy = Instantiate(enemyPrefabs[0], EnemyspawnPositions[i].position, Quaternion.Euler(-90, 0 , 0));
-                    enemy.GetComponent<HealthSystem>().OnDeath += OnEnemyDeath;
-                    enemyList.Add(enemy);
-                }
-                for(int i=0; i<AttackEnemyspawnPositions.Count; i++)
-                {
-                    GameObject enemy = Instantiate(enemyPrefabs[1], AttackEnemyspawnPositions[i].position, Quaternion.Euler(-90, -90, 0));
-                    enemy.GetComponent<HealthSystem>().OnDeath += OnEnemyDeath;
-                    enemyList.Add(enemy);
-                }
-                break;
-        }
-
-        SpawnEnemy();
     }
 
     private void OnEnemyDeath()

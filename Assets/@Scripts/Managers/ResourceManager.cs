@@ -58,7 +58,12 @@ public class ResourceManager : Singleton<ResourceManager>
             @"Prefabs/Weapon/Gun_SniperRifle",
 
             // 사격장 타겟
-            @"Prefabs/Enemy/Target"
+            @"Prefabs/Enemy/Target",
+            @"Prefabs/Enemy/BaseTarget",
+            @"Prefabs/Enemy/AttackTarget",
+            @"Prefabs/Enemy/GroundMapEnemySpawnPositions",
+            @"Prefabs/Enemy/LineMapEnemySpawnPositionsRoot",
+            @"Prefabs/Enemy/Bullet",
         };
 
         int loadCount = 0;
