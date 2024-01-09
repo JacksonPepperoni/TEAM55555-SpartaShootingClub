@@ -10,7 +10,6 @@ public class EnemyAnimationController: MonoBehaviour
     private static readonly int isActive = Animator.StringToHash("isActive");
     private static readonly int isReload = Animator.StringToHash("isReload");
 
-
     private void Awake()
     {
         animator=GetComponent<Animator>();
