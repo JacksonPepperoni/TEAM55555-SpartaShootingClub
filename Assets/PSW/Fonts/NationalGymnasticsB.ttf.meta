@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: eaccc5f2df6d6a744932e9e8fbe025d6
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - 210 Kookminchejo
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 46b788dba1d1d364ebc9ee9b85b9a75a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
