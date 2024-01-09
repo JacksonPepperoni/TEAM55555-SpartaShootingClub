@@ -62,3 +62,4 @@ MonoBehaviour:
   _muzzleFlash: {fileID: 1743301284569550, guid: ad2ab49d0a2a17148bd51c93d977bdbc, type: 3}
   _fireSound: {fileID: 8300000, guid: d9fab8f80b0304a41995bcf8c137b026, type: 3}
   _ReloadSound: {fileID: 8300000, guid: 125edb9e36f963249bc792cca38492b1, type: 3}
+  _empty: {fileID: 8300000, guid: 0c187ee2790c74c4e9985aa1ee1a12d5, type: 3}
